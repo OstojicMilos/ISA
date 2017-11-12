@@ -17,4 +17,10 @@ angular.module("isaProject")
 		controller: "LoginController",
 		controllerAs: "LoginCtrl"
 	})
+	
+	.when("/fanZona", {
+		templateUrl: "pages/fanZone.html",
+		controller: "FanZoneController",
+		controllerAs: "FanZoneCtrl"
+	})
 });
