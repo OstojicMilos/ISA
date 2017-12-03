@@ -4,7 +4,13 @@ angular.module("isaProject")
 	
 	var self = this;
 	
-	console.log("povezan kontroler...");
-	console.log(FanZone.test());
+}])
+
+.controller("NewPropController", ["FanZone", function(FanZone){
 	
+	var self = this;
+	
+	self.createNewAd = function(name, description, price, image){
+
+	}
 }]);

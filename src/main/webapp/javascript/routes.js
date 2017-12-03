@@ -19,8 +19,14 @@ angular.module("isaProject")
 	})
 	
 	.when("/fanZona", {
-		templateUrl: "pages/fanZone.html",
+		templateUrl: "pages/fanZone/index.html",
 		controller: "FanZoneController",
 		controllerAs: "FanZoneCtrl"
+	})
+	
+	.when("/fanZona/noviOglas", {
+		templateUrl: "pages/fanZone/newProp.html",
+		controller: "NewPropController",
+		controllerAs: "NewPropCtrl"
 	})
 });

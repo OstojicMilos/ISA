@@ -2,6 +2,10 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+
 public class Visitor extends User {
 
 	private List<UsedProp> propsForSale;

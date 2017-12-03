@@ -2,6 +2,7 @@ package model;
 
 import enums.EstablishmentType;
 
+
 public class Establishment {
 
 	private int id;
