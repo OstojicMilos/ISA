@@ -11,7 +11,7 @@ angular.module("isaProject")
 		controller: "SysAdminController",
 		controllerAs: "SysAdminCtrl"
 	})
-	
+
 	.when("/novoPozoriste", {
 		templateUrl: "pages/sysAdmin/newTheatre.html",
 		controller: "NewTheatreController",
@@ -28,6 +28,36 @@ angular.module("isaProject")
 		templateUrl: "pages/sysAdmin/newAdmin.html",
 		controller: "NewAdminController",
 		controllerAs: "NewAdminCtrl"
+	})
+
+	.when("/adminFanZone", {
+		templateUrl: "pages/fanZoneAdmin/index.html",
+		controller: "FanZoneAdminController",
+		controllerAs: "FanZoneAdminCtrl"
+	})
+
+	.when("/noviTematskiRekvizit", {
+		templateUrl: "pages/fanZoneAdmin/newProp.html",
+		controller: "FanZoneAdminNewPropController",
+		controllerAs: "FanZoneAdminNewPropCtrl"
+	})
+
+	.when("/zvanicniRekviziti", {
+		templateUrl: "pages/fanZoneAdmin/officialProps.html",
+		controller: "FanZoneAdminOfficialPropsController",
+		controllerAs: "FanZoneAdminOfficialPropsCtrl"
+	})
+
+	.when("/objavePonuda", {
+		templateUrl: "pages/fanZoneAdmin/usedPropsForSale.html",
+		controller: "FanZoneAdminUsedPropsController",
+		controllerAs: "FanZoneAdminUsedPropsCtrl"
+	})
+
+	.when("/izmenaLicnihPodataka", {
+		templateUrl: "pages/fanZoneAdmin/updatePersonalData.html",
+		controller: "FanZoneAdminUpdateDataController",
+		controllerAs: "FanZoneAdminUpdateDataCtrl"
 	})
 
 	.when("/registracija", {

@@ -1,5 +1,5 @@
 package enums;
 
 public enum EstablishmentType {
-	THEATER, CINEMA
+	THEATRE, CINEMA
 }
