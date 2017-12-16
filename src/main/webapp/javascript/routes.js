@@ -6,6 +6,30 @@ angular.module("isaProject")
 		
 	})
 	
+	.when("/adminSistema", {
+		templateUrl: "pages/sysAdmin/index.html",
+		controller: "SysAdminController",
+		controllerAs: "SysAdminCtrl"
+	})
+	
+	.when("/novoPozoriste", {
+		templateUrl: "pages/sysAdmin/newTheatre.html",
+		controller: "NewTheatreController",
+		controllerAs: "NewTheatreCtrl"
+	})
+
+	.when("/noviBioskop", {
+		templateUrl: "pages/sysAdmin/newCinema.html",
+		controller: "NewCinemaController",
+		controllerAs: "NewCinemaCtrl"
+	})
+
+	.when("/noviAdmin", {
+		templateUrl: "pages/sysAdmin/newAdmin.html",
+		controller: "NewAdminController",
+		controllerAs: "NewAdminCtrl"
+	})
+
 	.when("/registracija", {
 		templateUrl: "pages/register.html",
 		controller: "RegistrationController",

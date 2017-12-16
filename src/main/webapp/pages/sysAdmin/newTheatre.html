@@ -1,0 +1,27 @@
+<div>
+    <h3 align="center">Registracija novog pozorišta</h3>
+	<form class="form-horizontal">
+		<div>
+			<label class="control-label">Naziv pozorišta:</label> 
+			<input type="text" class="form-control"
+				ng-model="NewTheatreCtrl.theatre.name">
+		</div>
+		<div>
+			<label class="control-label">Grad:</label>
+			<input name="name" class="form-control" ng-model="NewTheatreCtrl.theatre.city">
+		</div>
+		<div>
+			<label class="control-label">Adresa:</label> 
+			<input name="lastname" class="form-control" ng-model="NewTheatreCtrl.theatre.address">
+		</div>
+		<div>
+			<label class="control-label">Administratori pozorišta:</label>
+			<select class="form-control">
+
+			</select>
+		</div> 
+		<div>
+			<button class="btn btn-default" name="register" ng-click="NewTheatreCtrl.register(NewTheatreCtrl.theatre)">Registracija</button>
+		</div>
+	</form>
+</div>
