@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import model.Prop;
 import model.UsedProp;
+import model.User;
 import repository.PropRepository;
 import repository.UsedPropRepository;
 
@@ -33,5 +34,6 @@ public class FanZoneService {
 	public void addNewProp(Prop prop) {
 		propRepository.save(prop);
 	}
+
 	
 }

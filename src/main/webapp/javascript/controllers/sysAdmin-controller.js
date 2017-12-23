@@ -10,8 +10,15 @@ angular.module("isaProject")
 
     self = this;
 
-    self.register = function(theatre){
+    self.admins = {};
+    SysAdmin.getEstablishmentAdmins().then(function(data){
+        self.admins = data.data;
+    })
 
+    self.register = function(theatre){
+        var newTheatre = theatre;
+        newTheatre.establishmentType = "THEATRE";
+        SysAdmin.newTheatre(newTheatre).then(function(){});
     }
 }])
 
@@ -19,8 +26,15 @@ angular.module("isaProject")
 
     self = this;
 
-    self.register = function(cinema){
+    self.admins = {};
+    SysAdmin.getEstablishmentAdmins().then(function(data){
+        self.admins = data.data;
+    })
 
+    self.register = function(cinema){
+        var newCinema = cinema;
+        newCinema.establishmentType = "CINEMA";
+        SysAdmin.newCinema(newCinema).then(function(){});
     }
 }])
 
@@ -29,7 +43,14 @@ angular.module("isaProject")
     self = this;
 
     self.register = function(admin){
-        console.log(admin);
+        if(admin.role == "Administrator sistema"){
+            admin.role = "SYS_ADMIN";
+        }else if(admin.role == "Administrator fan zone"){
+            admin.role = "FAN_ZONE_ADMIN";
+        }else{
+            admin.role = "ESTABLISHMENT_ADMIN";
+        }
+        SysAdmin.newAdmin(admin).then(function(){});
     }
 
 }]);

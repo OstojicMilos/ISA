@@ -9,7 +9,7 @@ angular.module("isaProject")
 .controller("NewPropController", ["FanZone", function(FanZone){
 	
 	var self = this;
-	
+
 	self.createNewAd = function(name, description, price, image){
 
 	}

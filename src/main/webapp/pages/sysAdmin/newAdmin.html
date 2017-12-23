@@ -1,40 +1,38 @@
 <div>
-    <h3 align="center">Registracija novog administratora</h3>
+	<h3 align="center">Registracija novog administratora</h3>
 	<form class="form-horizontal">
 		<div>
-			<label class="control-label">Korisnicko ime:</label> 
-			<input type="text" name="username" class="form-control"
-				ng-model="NewAdminCtrl.admin.username">
+			<label class="control-label">Email:</label>
+			<input name="email" class="form-control" ng-model="NewAdminCtrl.admin.email">
 		</div>
 		<div>
-			<label  class="control-label">Lozinka:</label>
-			<input type="text" name="password" class="form-control" 
-				ng-model="NewAdminCtrl.admin.password">
+			<label class="control-label">Lozinka:</label>
+			<input type="text" name="password" class="form-control" ng-model="NewAdminCtrl.admin.password">
 		</div>
 		<div>
 			<label class="control-label">Ime:</label>
 			<input name="name" class="form-control" ng-model="NewAdminCtrl.admin.name">
 		</div>
 		<div>
-			<label class="control-label">Prezime:</label> 
-			<input name="lastname" class="form-control" ng-model="NewAdminCtrl.admin.lastname">
+			<label class="control-label">Prezime:</label>
+			<input name="lastname" class="form-control" ng-model="NewAdminCtrl.admin.surname">
 		</div>
 		<div>
-			<label class="control-label">Telefon:</label> 
-			<input name="phone" class="form-control" ng-model="NewAdminCtrl.admin.phone">
-		</div>
+				<label class="control-label">Grad:</label>
+				<input name="city" class="form-control" ng-model="NewAdminCtrl.admin.city">
+			</div>
 		<div>
-			<label class="control-label">Email:</label>
-			<input name="email" class="form-control" ng-model="NewAdminCtrl.admin.email">
+			<label class="control-label">Telefon:</label>
+			<input name="phone" class="form-control" ng-model="NewAdminCtrl.admin.phoneNumber">
 		</div>
 		<div>
 			<label class="control-label">Uloga administratora:</label>
 			<select class="form-control" ng-model="NewAdminCtrl.admin.role">
 				<option>Administrator sistema</option>
-			    <option>Administrator fan zone</option>
-			    <option>Administrator bioskopa/pozorišta</option>
+				<option>Administrator fan zone</option>
+				<option>Administrator bioskopa/pozorišta</option>
 			</select>
-		</div> 
+		</div>
 		<div>
 			<button class="btn btn-default" name="register" ng-click="NewAdminCtrl.register(NewAdminCtrl.admin)">Registracija</button>
 		</div>

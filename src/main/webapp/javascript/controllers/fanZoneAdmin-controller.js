@@ -6,9 +6,20 @@ angular.module("isaProject")
 
 }])
 
-.controller("FanZoneAdminNewPropController", [function(){
+.controller("FanZoneAdminNewPropController", ["FanZoneAdmin", function(FanZoneAdmin){
 
     self = this;
+
+    self.establishments = {};
+    FanZoneAdmin.getEstablishments().then(function(data){
+        self.establishments = data.data;
+    })
+
+    self.createNewProp = function(newProp){
+        var prop = newProp;
+        prop.available = true;
+        FanZoneAdmin.newProp(prop).then(function(){});
+    }
 }])
 
 .controller("FanZoneAdminOfficialPropsController", [function(){
@@ -21,7 +32,11 @@ angular.module("isaProject")
     self = this;
 }])
 
-.controller("FanZoneAdminUpdateDataController", [function(){
+.controller("FanZoneAdminUpdateDataController", ["FanZoneAdmin", function(FanZoneAdmin){
 
     self = this;
+
+    self.update = function(admin){
+        FanZoneAdmin.update(admin).then(function(){});
+    }
 }]);

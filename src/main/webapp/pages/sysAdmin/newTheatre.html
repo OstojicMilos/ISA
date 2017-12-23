@@ -16,12 +16,12 @@
 		</div>
 		<div>
 			<label class="control-label">Administratori pozorišta:</label>
-			<select class="form-control">
-
-			</select>
+			<select class="form-control"
+					ng-options="admin as admin.email for admin in NewTheatreCtrl.admins track by admin.id"
+					ng-model="NewTheatreCtrl.theatre.admin"/>
 		</div> 
 		<div>
-			<button class="btn btn-default" name="register" ng-click="NewTheatreCtrl.register(NewTheatreCtrl.theatre)">Registracija</button>
+			<button class="btn btn-default" name="register" ng-click="NewTheatreCtrl.register(NewTheatreCtrl.theatre)">Kreiraj</button>
 		</div>
 	</form>
 </div>
