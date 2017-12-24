@@ -23,13 +23,7 @@ public class Establishment {
 	private EstablishmentType type;
 	@OneToOne
 	private User admin;
-	@OneToMany
-	private List<OfficialProp> props;
-	
-	public Establishment() {
-		props = new ArrayList<>();
-	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -67,13 +61,4 @@ public class Establishment {
 		this.admin = admin;
 	}
 
-	public List<OfficialProp> getProps() {
-		return props;
-	}
-
-	public void setProps(List<OfficialProp> props) {
-		this.props = props;
-	}
-	
-	
 }

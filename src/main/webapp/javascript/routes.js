@@ -42,6 +42,12 @@ angular.module("isaProject")
 		controllerAs: "FanZoneAdminCtrl"
 	})
 
+	.when("/izmenaTematskogRekvizita", {
+		templateUrl: "pages/fanZoneAdmin/updateProp.html",
+		controller: "FanZoneAdminUpdatePropController",
+		controllerAs: "FanZoneAdminUpdatePropCtrl"
+	})
+
 	.when("/noviTematskiRekvizit", {
 		templateUrl: "pages/fanZoneAdmin/newProp.html",
 		controller: "FanZoneAdminNewPropController",

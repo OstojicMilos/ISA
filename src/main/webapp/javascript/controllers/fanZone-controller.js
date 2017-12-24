@@ -4,6 +4,15 @@ angular.module("isaProject")
 	
 	var self = this;
 	
+	self.officialProps = {};
+	FanZone.getOfficialProps().then(function(data){
+		self.officialProps = data.data;
+	})
+
+	self.reserveProp = function(prop){
+		
+	}
+
 }])
 
 .controller("NewPropController", ["FanZone", function(FanZone){

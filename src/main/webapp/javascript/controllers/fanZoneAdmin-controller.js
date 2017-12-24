@@ -22,9 +22,42 @@ angular.module("isaProject")
     }
 }])
 
-.controller("FanZoneAdminOfficialPropsController", [function(){
+.controller("FanZoneAdminOfficialPropsController", ["$location", "FanZoneAdmin", function($location, FanZoneAdmin){
 
     self = this;
+
+    self.officialProps = {};
+    FanZoneAdmin.getOfficialProps().then(function(data){
+        self.officialProps = data.data;
+    })
+
+    self.deleteProp = function(prop){
+        console.log(prop);
+        FanZoneAdmin.deleteOfficialProp(prop.id).then(function(){
+            FanZoneAdmin.getOfficialProps().then(function(data){
+                self.officialProps = data.data;
+            })
+        })
+    }
+
+    self.updateProp = function(prop){
+        FanZoneAdmin.setPropForUpdate(prop);
+        $location.path("/izmenaTematskogRekvizita");
+    }
+}])
+
+.controller("FanZoneAdminUpdatePropController", ["FanZoneAdmin", function(FanZoneAdmin){
+
+    self = this;
+
+    self.prop = FanZoneAdmin.getPropForUpdate();
+    console.log(self.prop);   
+    
+    self.updateProp = function(prop){
+        FanZoneAdmin.updateOfficialProp(prop).then(function(){
+
+        })
+    }
 }])
 
 .controller("FanZoneAdminUsedPropsController", [function(){

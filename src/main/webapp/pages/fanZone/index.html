@@ -15,5 +15,32 @@
 				</span>
 			</span>
 		</div>
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Naziv</th>
+						<th>Opis</th>
+						<th>Cena</th>
+						<th>Objekat</th>
+						<th>Slika</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="prop in FanZoneCtrl.officialProps">
+						<td>{{prop.name}}</td>
+						<td>{{prop.description}}</td>
+						<td>{{prop.price}}</td>
+						<td>{{prop.establishment.name}}</td>
+						<td>
+							<img ng-src="{{prop.imagePath}}" />
+						</td>
+						<td>
+							<button type="button" ng-click="FanZoneCtrl.reserveProp(prop)">Rezerviši</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

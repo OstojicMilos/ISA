@@ -2,8 +2,12 @@ package rest;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +35,34 @@ public class FanZoneAdminController {
 		}
 	}
 	
+	@GetMapping("/officialProps")
+	public List<OfficialProp> getAvailableProps(){
+		try {
+			return fanZoneAdminService.getAvailableProps();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@DeleteMapping("/officialProps/{propId}")
+	public void deleteOfficialProp(@PathVariable int propId) {
+		try {
+			fanZoneAdminService.deleteOfficialProp(propId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@PutMapping("/officialProps/{propId}")
+	public void updateOfficialProp(@PathVariable int propId, @RequestBody OfficialProp officialProp) {
+		try {
+			fanZoneAdminService.updateOfficialProp(propId, officialProp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@PutMapping("/update")
 	public void updatePersonalData(@RequestBody User admin) {
 		try {
@@ -49,4 +81,5 @@ public class FanZoneAdminController {
 			return null;
 		}
 	}
+	
 }
