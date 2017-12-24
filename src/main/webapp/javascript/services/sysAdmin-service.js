@@ -32,6 +32,21 @@ angular.module("isaProject")
 				method: 'GET',
 				url: 'http://localhost:8080/sysAdmin/users/establishmentAdmins'
 			})
+		},
+
+		newCategory: function(newCategory){
+			return $http({
+				method: 'POST',
+				url: 'http://localhost:8080/sysAdmin/privilegedUserCategories',
+				data: newCategory
+			})
+		},
+
+		getCategories: function(){
+			return $http({
+				method: 'GET',
+				url: 'http://localhost:8080/sysAdmin/privilegedUserCategories'
+			})
 		}
 	}
 });

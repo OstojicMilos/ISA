@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import enums.Role;
 import model.Establishment;
+import model.PrivilegedUserCategory;
 import model.User;
 import service.SysAdminService;
 
@@ -59,6 +60,25 @@ public class SysAdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	@GetMapping("/privilegedUserCategories")
+	public List<PrivilegedUserCategory> getPrivilegedUserCategories(){
+		try {
+			return sysAdminService.getPrivilegedUserCategories();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@PostMapping("/privilegedUserCategories")
+	public void addNewUserCategory(@RequestBody PrivilegedUserCategory privilegedUserCategory) {
+		try {
+			sysAdminService.addNewPrivilegedUserCategory(privilegedUserCategory);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

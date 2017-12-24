@@ -6,6 +6,12 @@ angular.module("isaProject")
 		
 	})
 	
+	.when("/bodovnaSkala", {
+		templateUrl: "pages/sysAdmin/pointScale.html",
+		controller: "PointScaleController",
+		controllerAs: "PointScaleCtrl"
+	})
+
 	.when("/adminSistema", {
 		templateUrl: "pages/sysAdmin/index.html",
 		controller: "SysAdminController",

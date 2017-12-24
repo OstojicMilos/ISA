@@ -53,4 +53,26 @@ angular.module("isaProject")
         SysAdmin.newAdmin(admin).then(function(){});
     }
 
+}])
+
+.controller("PointScaleController", ["SysAdmin", function(SysAdmin){
+
+    self = this;
+
+    self.showNewCategoryForm = false;
+    self.categories = {};
+    SysAdmin.getCategories().then(function(data){
+        self.categories = data.data;
+    });
+
+    self.newCategory = function(newCategory){
+        SysAdmin.newCategory(newCategory).then(function(){
+            SysAdmin.getCategories().then(function(data){
+                self.categories = data.data;
+                self.showNewCategoryForm = false;
+                self.category.name = "";
+                self.category.pointRequired = "";
+            });
+        });
+    }
 }]);
