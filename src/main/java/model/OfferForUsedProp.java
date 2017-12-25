@@ -5,19 +5,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import enums.OfferStatus;
+
 @Entity
 public class OfferForUsedProp {
 
 	@Id @GeneratedValue
 	private int id;
 	@ManyToOne
-	private User user;
+	private Visitor user;
 	private int offeredSum;
+	private OfferStatus offerStatus;
 	
-	public User getUser() {
+	public Visitor getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(Visitor user) {
 		this.user = user;
 	}
 	public int getOfferedSum() {
@@ -25,6 +28,18 @@ public class OfferForUsedProp {
 	}
 	public void setOfferedSum(int offeredSum) {
 		this.offeredSum = offeredSum;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public OfferStatus getOfferStatus() {
+		return offerStatus;
+	}
+	public void setOfferStatus(OfferStatus offerStatus) {
+		this.offerStatus = offerStatus;
 	}
 	
 }

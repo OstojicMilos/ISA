@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import enums.AdStatus;
 import model.Establishment;
 import model.OfficialProp;
 import model.User;
+import model.UserAd;
 import repository.EstablishmentRepository;
 import repository.OfficialPropRepository;
+import repository.UserAdRepository;
 
 @Service
 public class FanZoneAdminService {
@@ -18,6 +21,8 @@ public class FanZoneAdminService {
 	private EstablishmentRepository establishmentRepository;
 	@Autowired
 	private OfficialPropRepository officialPropRepository;
+	@Autowired
+	private UserAdRepository userAdRepository;
 	
 	public void updatePersonalData(User admin) {
 			
@@ -48,5 +53,17 @@ public class FanZoneAdminService {
 	
 	public List<OfficialProp> getAvailableProps(){
 		return officialPropRepository.findByAvailable(true);
+	}
+	
+	public List<UserAd> getPendingUserAds(){
+		return userAdRepository.findByAdStatus(AdStatus.PENDING);
+	}
+	
+	public void updateUserAdStatus(UserAd userAd) {
+		UserAd toBeUpdated = userAdRepository.findOne(userAd.getId());
+		if(toBeUpdated.getAdStatus() == AdStatus.PENDING) {
+			toBeUpdated.setAdStatus(userAd.getAdStatus());
+			userAdRepository.save(toBeUpdated);
+		}
 	}
 }

@@ -1,0 +1,24 @@
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Opis</th>
+                <th>Cena</th>
+                <th>Slika</th>
+                <th>Ime korisnika</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="userAd in FanZoneAdminUsedPropsCtrl.pendingUserAds">
+                <td>{{userAd.usedProp.name}}</td>
+                <td>{{userAd.usedProp.description}}</td>
+                <td>{{userAd.usedProp.price}}</td>
+                <td><img ng-src="{{userAd.usedProp.imagePath}}" /></td>
+                <td>{{userAd.owner.name}}</td>
+                <td><button type="button" ng-click="FanZoneAdminUsedPropsCtrl.updateUserAdStatus(userAd, 'ACCEPTED')">Odobri</button></td>
+                <td><button type="button" ng-click="FanZoneAdminUsedPropsCtrl.updateUserAdStatus(userAd, 'REJECTED')">Odbij</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

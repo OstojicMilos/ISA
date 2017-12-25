@@ -3,7 +3,7 @@ angular.module("isaProject")
 	$routeProvider
 	
 	.when("/", {
-		
+	
 	})
 	
 	.when("/bodovnaSkala", {
@@ -91,8 +91,8 @@ angular.module("isaProject")
 	})
 	
 	.when("/fanZona/noviOglas", {
-		templateUrl: "pages/fanZone/newProp.html",
-		controller: "NewPropController",
-		controllerAs: "NewPropCtrl"
+		templateUrl: "pages/fanZone/newUserAd.html",
+		controller: "NewUserAdController",
+		controllerAs: "NewUserAdCtrl"
 	})
 });

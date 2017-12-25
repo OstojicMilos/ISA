@@ -56,6 +56,21 @@ angular.module("isaProject")
 				url: 'http://localhost:8080/fanZoneAdmin/officialProps/'+prop.id,
 				data: prop
 			})
+		},
+
+		getPendingUserAds: function(){
+			return $http({
+				method: 'GET',
+				url: 'http://localhost:8080/fanZoneAdmin/userAds'
+			})
+		},
+
+		updateUserAdStatus: function(userAd){
+			return $http({
+				method: 'PUT',
+				url: 'http://localhost:8080/fanZoneAdmin/userAds/' + userAd.id,
+				data: userAd
+			})
 		}
 	}
 });

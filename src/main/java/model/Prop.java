@@ -48,6 +48,11 @@ public abstract class Prop {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	@Override
+	public String toString() {
+		return "Prop [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
+				+ ", imagePath=" + imagePath + "]";
+	}
 	
 	
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import model.Establishment;
 import model.OfficialProp;
 import model.User;
+import model.UserAd;
 import service.FanZoneAdminService;
 
 @RestController
@@ -82,4 +83,22 @@ public class FanZoneAdminController {
 		}
 	}
 	
+	@GetMapping("/userAds")
+	public List<UserAd> getPendingUserAds(){
+		try {
+			return fanZoneAdminService.getPendingUserAds();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@PutMapping("/userAds/{adId}")
+	public void updateAdStatus(@RequestBody UserAd userAd, @PathVariable int adId) {
+		try {
+			fanZoneAdminService.updateUserAdStatus(userAd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

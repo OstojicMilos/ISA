@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import model.Prop;
 import model.UsedProp;
+import model.UserAd;
 import service.FanZoneService;
 
 @RestController
@@ -20,21 +21,49 @@ public class FanZoneController {
 	
 	@GetMapping
 	public List<Prop> getAllProps() {
-		return fanZoneService.getAllProps();
+		try {
+			return fanZoneService.getAllProps();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}		
 	}
 	
 	@GetMapping("/usedProps")
 	public List<UsedProp> getAllUsedProps(){
-		return fanZoneService.getAllUsedProps();
+		try {
+			return fanZoneService.getAllUsedProps();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	@PostMapping
-	public void AddNewProp(Prop prop) {
-		fanZoneService.addNewProp(prop);
+	public void addNewProp(Prop prop) {
+		try {
+			fanZoneService.addNewProp(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	@PostMapping("/usedProps")
-	public void AddUsedProp(UsedProp usedProp) {
-		fanZoneService.addUsedProp(usedProp);
+	@PostMapping("/userAds")
+	public void addNewUserAd(@RequestBody UserAd userAd) {
+		try {
+			fanZoneService.addNewUserAd(userAd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@GetMapping("/userAds")
+	public List<UserAd> getActiveUserAds(){
+		try {
+			return fanZoneService.getActiveUserAds();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

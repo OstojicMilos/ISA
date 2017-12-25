@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -24,6 +25,8 @@ public class UserAd {
 	private boolean sold;
 	@OneToMany
 	private List<OfferForUsedProp> offers;
+	@ManyToOne
+	private Visitor owner;
 	
 	public UserAd() {
 		offers = new ArrayList<OfferForUsedProp>();
@@ -75,6 +78,20 @@ public class UserAd {
 
 	public void setOffers(List<OfferForUsedProp> offers) {
 		this.offers = offers;
+	}
+
+	public Visitor getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Visitor owner) {
+		this.owner = owner;
+	}
+
+	@Override
+	public String toString() {
+		return "UserAd [id=" + id + ", usedProp=" + usedProp + ", adStatus=" + adStatus + ", availableUntil="
+				+ availableUntil + ", sold=" + sold + ", offers=" + offers + ", owner=" + owner + "]";
 	}
 	
 	

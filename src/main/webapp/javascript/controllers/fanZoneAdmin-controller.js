@@ -6,7 +6,7 @@ angular.module("isaProject")
 
 }])
 
-.controller("FanZoneAdminNewPropController", ["FanZoneAdmin", function(FanZoneAdmin){
+.controller("FanZoneAdminNewPropController", ["ImageUpload", "FanZoneAdmin", function(ImageUpload, FanZoneAdmin){
 
     self = this;
 
@@ -60,9 +60,27 @@ angular.module("isaProject")
     }
 }])
 
-.controller("FanZoneAdminUsedPropsController", [function(){
+.controller("FanZoneAdminUsedPropsController", ["FanZoneAdmin", function(FanZoneAdmin){
 
     self = this;
+
+    self.pendingUserAds = {};
+    FanZoneAdmin.getPendingUserAds().then(function(data){
+        self.pendingUserAds = data.data;
+        console.log(self.pendingUserAds);
+    })
+
+    self.updateUserAdStatus = function(userAd, status){
+        var updatedUserAd = userAd;
+        updatedUserAd.adStatus = status;
+        FanZoneAdmin.updateUserAdStatus(updatedUserAd).then(function(){
+            FanZoneAdmin.getPendingUserAds().then(function(data){
+                self.pendingUserAds = data.data;
+            })
+        })
+    }
+
+
 }])
 
 .controller("FanZoneAdminUpdateDataController", ["FanZoneAdmin", function(FanZoneAdmin){
