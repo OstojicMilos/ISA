@@ -12,12 +12,12 @@ angular.module("isaProject")
 		controllerAs: "RegistrationCtrl"
 	})
 	
-	.when("/logovanje", {
+	/*.when("/logovanje", {
 		templateUrl: "pages/login.html",
 		controller: "LoginController",
 		controllerAs: "LoginCtrl"
 	})
-	
+	*/
 	.when("/fanZona", {
 		templateUrl: "pages/fanZone/index.html",
 		controller: "FanZoneController",

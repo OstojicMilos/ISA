@@ -6,7 +6,9 @@ import javax.persistence.Id;
 
 import enums.Role;
 
+@Entity
 public class User {
+	@Id
 	private int id;
 	private String name;
 	private String surname;
@@ -15,6 +17,7 @@ public class User {
 	private String phoneNumber;
 	private String password;
 	private Role role;
+	private Boolean activated;
 	
 	public int getId() {
 		return id;
@@ -63,6 +66,12 @@ public class User {
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	public Boolean getActivated() {
+		return activated;
+	}
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
 	}
 	
 	
