@@ -2,10 +2,6 @@ angular.module("isaProject")
 
 .factory("FanZone", function($http){
 	return{
-		test: function(){
-			return "radi service";
-		},
-
 		getOfficialProps: function(){
 			return $http({
 				method: 'GET',
@@ -26,6 +22,15 @@ angular.module("isaProject")
 				method: 'GET',
 				url: 'http://localhost:8080/fanZone/userAds'
 			})
+		},
+
+		reserveNewProp: function(propId){
+			return $http({
+				method: 'POST',
+				url: 'http://localhost:8080/fanZone/newProps/'+propId
+			})
 		}
+
+
 	}
 });

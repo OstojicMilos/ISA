@@ -43,7 +43,33 @@
 			</table>
 		</div>
 		<div ng-hide="FanZoneCtrl.showOfficialProps">
-			Now This
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Naziv</th>
+						<th>Opis</th>
+						<th>Cena</th>
+						<th>Aktivan do</th>
+						<th>Slika</th>
+						<th>Vlasnik</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="userAd in FanZoneCtrl.userAds">
+						<td>{{userAd.usedProp.name}}</td>
+						<td>{{userAd.usedProp.description}}</td>
+						<td>{{userAd.usedProp.price}}</td>
+						<td>{{userAd.availableUntil}}</td>
+						<td>
+							<img ng-src="{{userAd.usedProp.imagePath}}" />
+						</td>
+						<td>{{userAd.owner.email}}</td>
+						<td>
+							<button type="button" ng-click="FanZoneCtrl.userAdDetails(userAd)">Detalji</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

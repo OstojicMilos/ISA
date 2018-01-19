@@ -10,19 +10,19 @@ import javax.persistence.OneToMany;
 @Entity
 public class Visitor extends User {
 
-	@ManyToMany
-	private List<OfficialProp> purchasedProps;
+	@OneToMany
+	private List<NewPropOrder> purchasedProps;
 	private int points;
 	
 	public Visitor() {
-		purchasedProps = new ArrayList<OfficialProp>();
+		purchasedProps = new ArrayList<NewPropOrder>();
 	}
 
-	public List<OfficialProp> getPurchasedProps() {
+	public List<NewPropOrder> getPurchasedProps() {
 		return purchasedProps;
 	}
 	
-	public void setPurchasedProps(List<OfficialProp> purchasedProps) {
+	public void setPurchasedProps(List<NewPropOrder> purchasedProps) {
 		this.purchasedProps = purchasedProps;
 	}
 

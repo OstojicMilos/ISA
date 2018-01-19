@@ -19,7 +19,7 @@ public class FanZoneController {
 	@Autowired
 	private FanZoneService fanZoneService;
 	
-	@GetMapping
+	@GetMapping("/newProps")
 	public List<Prop> getAllProps() {
 		try {
 			return fanZoneService.getAllProps();
@@ -39,10 +39,19 @@ public class FanZoneController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping("/newProps")
 	public void addNewProp(Prop prop) {
 		try {
 			fanZoneService.addNewProp(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@PostMapping("/newProps/{propId}")
+	public void reserveNewProp(@PathVariable int propId) {
+		try {
+			fanZoneService.reserveNewProp(propId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

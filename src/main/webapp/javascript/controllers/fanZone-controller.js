@@ -19,7 +19,9 @@ angular.module("isaProject")
 	}
 
 	self.reserveProp = function(prop){
-		
+		FanZone.reserveNewProp(prop.id).then(function(){
+			
+		})
 	}
 
 	self.openActiveUserAds = function(){
@@ -28,6 +30,10 @@ angular.module("isaProject")
 			self.showOfficialProps = false;
 			console.log(self.userAds);
 		})
+	}
+
+	self.userAdDetails = function(userAd){
+		
 	}
 
 }])

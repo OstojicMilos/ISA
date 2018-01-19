@@ -46,5 +46,10 @@ public class FanZoneService {
 		return userAdRepository.findActiveAds();
 	}
 
+	public void reserveNewProp(int propId) {
+		
+		
+	}
+
 	
 }
