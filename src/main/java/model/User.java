@@ -6,23 +6,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Transient;
 
 import enums.Role;
 
 @Entity
 public class User implements Serializable{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NotEmpty(message = "Please provide your name")
 	private String name;
+	
+	@NotEmpty(message = "Please provide your surname")
 	private String surname;
+	
+	@NotBlank
 	private String city;
+	
+	@Email(message = "Please provide a valid e-mail")
+	@NotEmpty(message = "Please provide an e-mail")
 	private String email;
+	
+	@NotBlank
 	private String phoneNumber;
+	
+	@NotBlank
+	@Transient
 	private String password;
+	
 	private Role role;
+	
 	private Boolean activated;
+	
+	private String confirmationToken;
 	
 	public int getId() {
 		return id;
@@ -77,6 +100,12 @@ public class User implements Serializable{
 	}
 	public void setActivated(Boolean activated) {
 		this.activated = activated;
+	}
+	public String getConfirmationToken() {
+		return confirmationToken;
+	}
+	public void setConfirmationToken(String confirmationToken) {
+		this.confirmationToken = confirmationToken;
 	}
 	
 	

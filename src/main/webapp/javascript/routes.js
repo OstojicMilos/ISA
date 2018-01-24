@@ -3,7 +3,7 @@ angular.module("isaProject")
 	$routeProvider
 	
 	.when("/", {
-		
+	
 	})
 	
 	.when("/registracija", {
@@ -12,19 +12,31 @@ angular.module("isaProject")
 		controllerAs: "RegistrationCtrl"
 	})
 	
-	/*.when("/logovanje", {
+	.when("/aktivacija/:tokenId", {
+		templateUrl: "pages/activateAccount.html",
+		controller: "ActivationController",
+		controllerAs: "ActivationCtrl"
+	})
+	
+	.when("/logovanje", {
 		templateUrl: "pages/login.html",
 		controller: "LoginController",
 		controllerAs: "LoginCtrl"
 	})
-	*/
-	.when("/fanZona", {
+	
+	.when("/account", {
+		templateUrl: "pages/user/index.html",
+		controller: "AccountController",
+		controllerAs: "AccountCtrl"
+	})
+	
+	.when("/account/fanZona", {
 		templateUrl: "pages/fanZone/index.html",
 		controller: "FanZoneController",
 		controllerAs: "FanZoneCtrl"
 	})
 	
-	.when("/fanZona/noviOglas", {
+	.when("/account/fanZona/noviOglas", {
 		templateUrl: "pages/fanZone/newProp.html",
 		controller: "NewPropController",
 		controllerAs: "NewPropCtrl"

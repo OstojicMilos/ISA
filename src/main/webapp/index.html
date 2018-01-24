@@ -21,17 +21,28 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-				<li><a href="#!">Početna</a></li>
+				<li ng-if="loggedIn"><a href="#!account">Početna</a></li>
 				<li><a href="#!pozorista">Pozorišta</a></li>
 				<li><a href="#!bioskopi">Bioskopi</a></li>
-				<li><a href="#!prijatelji">Prijatelji</a></li>
-				<li><a href="#!rezervacije">Rezervacije</a></li>
-				<li><a href="#!podesavanja">Podešavanja</a></li>
-				<li><a href="#!fanZona">Fan Zona</a></li>
-				<li><a href="#!registracija">Registracija</a></li>
-				<li><a href="#!logovanje">Logovanje</a></li>
+				<li ng-if="loggedIn"><a href="#!prijatelji">Prijatelji</a></li>
+				<li ng-if="loggedIn"><a href="#!rezervacije">Rezervacije</a></li>
+				<li ng-if="loggedIn"><a href="#!podesavanja">Podešavanja</a></li>
+				<li ng-if="loggedIn"><a href="#!account/fanZona">Fan Zona</a></li>
+				
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			  	<li ng-if="!loggedIn"><a href="#!registracija">Registracija</a></li>
+				<li ng-if="!loggedIn"><a href="#!logovanje">Logovanje</a></li>
+			  	
+			  </ul>
+			
+			<form ng-controller="LoginController" class="navbar-form navbar-right" ng-if="loggedIn">
+				<label style="color:darkgrey; padding-right: 10px">Prijavljen kao: <b>{{ user.email }}</b></label>
+				<button class ="btn" ng-click="logOut()">Izloguj se</button>
+			</form>
+			
 		</div>
+		
 	</nav>
 
 	<div class='container' ng-view></div>
@@ -56,5 +67,7 @@
 	<!-- CONTROLLERS -->
 	<script src="javascript/controllers/fanZone-controller.js"></script>
 	<script src="javascript/controllers/RegistrationController.js"></script>
+	<script src="javascript/controllers/LoginController.js"></script>
+	<script src="javascript/controllers/AccountController.js"></script>
 </body>
 </html>
