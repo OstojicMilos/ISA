@@ -13,14 +13,14 @@ public class OfferForUsedProp {
 	@Id @GeneratedValue
 	private int id;
 	@ManyToOne
-	private Visitor user;
+	private User user;
 	private int offeredSum;
 	private OfferStatus offerStatus;
 	
-	public Visitor getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(Visitor user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	public int getOfferedSum() {

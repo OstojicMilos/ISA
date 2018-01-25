@@ -26,7 +26,7 @@ public class UserAd {
 	@OneToMany
 	private List<OfferForUsedProp> offers;
 	@ManyToOne
-	private Visitor owner;
+	private User owner;
 	
 	public UserAd() {
 		offers = new ArrayList<OfferForUsedProp>();
@@ -80,11 +80,11 @@ public class UserAd {
 		this.offers = offers;
 	}
 
-	public Visitor getOwner() {
+	public User getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Visitor owner) {
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 
