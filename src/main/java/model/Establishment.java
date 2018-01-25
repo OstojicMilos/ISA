@@ -1,13 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import enums.EstablishmentType;
@@ -15,25 +10,25 @@ import enums.EstablishmentType;
 @Entity
 public class Establishment {
 
-	@Id @GeneratedValue
+	@Id
 	private int id;
-	private String name;
+	private int name;
 	private String address;
 	private String city;
 	private EstablishmentType type;
-	@OneToOne
+	@ManyToOne
 	private User admin;
-
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
+	public int getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(int name) {
 		this.name = name;
 	}
 	public String getAddress() {
@@ -60,5 +55,5 @@ public class Establishment {
 	public void setAdmin(User admin) {
 		this.admin = admin;
 	}
-
+	
 }
