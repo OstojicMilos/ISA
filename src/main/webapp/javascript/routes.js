@@ -78,7 +78,7 @@ angular.module("isaProject")
 		controllerAs: "RegistrationCtrl"
 	})
 
-	.when("/aktivacija/:tokenId", {
+	.when("/aktivacija/:token", {
 		templateUrl: "pages/activateAccount.html",
 		controller: "ActivationController",
 		controllerAs: "ActivationCtrl"
