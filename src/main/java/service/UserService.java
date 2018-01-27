@@ -23,5 +23,15 @@ public class UserService {
 		public void saveUser(User user) {
 			userRepo.save(user);
 		}
+		
+		public User authenticateUser(String email, String password) {
+			User user = userRepo.findByEmail(email);
+			
+			if(user != null) {
+				if(user.getPassword().equals(password))
+					return user;
+			}
+			return null;
+		}
 				
 }

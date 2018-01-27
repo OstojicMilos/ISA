@@ -8,8 +8,11 @@ angular.module("isaProject")
 		
 
 		activateNewAccount : function(token){
-			console.log(token);
 			return $http.post("/activate/"+token).catch(angular.noop);
+		},
+		
+		logIn : function(credentials){
+			return $http.post("/login", credentials).catch(angular.noop);
 		}
 	
 		

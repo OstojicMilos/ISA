@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import enums.Role;
 import model.User;
+import model.UserWrapper;
 import service.UserService;
 
 @RestController
@@ -63,6 +64,12 @@ public class UserController {
 		}
 		
 		return false;
+	}
+	
+	@PostMapping("/login")
+	public User authenticateUser(@RequestBody UserWrapper credentials) {
+		
+		return userService.authenticateUser(credentials.getEmail(), credentials.getPassword());
 	}
 
 }
