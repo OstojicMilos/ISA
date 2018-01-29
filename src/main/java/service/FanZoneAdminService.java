@@ -13,6 +13,7 @@ import model.UserAd;
 import repository.EstablishmentRepository;
 import repository.OfficialPropRepository;
 import repository.UserAdRepository;
+import repository.UserRepository;
 
 @Service
 public class FanZoneAdminService {
@@ -23,9 +24,23 @@ public class FanZoneAdminService {
 	private OfficialPropRepository officialPropRepository;
 	@Autowired
 	private UserAdRepository userAdRepository;
+	@Autowired
+	private UserRepository userRepository;
+	
+	public void changePassword(int userId, String newPassword) {
+		User user = userRepository.findOne(userId);
+		user.setPassword(newPassword);
+		user.setActivated(true);
+		userRepository.save(user);
+	}
 	
 	public void updatePersonalData(User admin) {
-			
+		User user = userRepository.findOne(admin.getId());
+		user.setName(admin.getName());
+		user.setSurname(admin.getSurname());
+		user.setCity(admin.getCity());
+		user.setPhoneNumber(admin.getPhoneNumber());
+		userRepository.save(user);
 	}
 
 	public List<Establishment> getEstablishments() {

@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -49,7 +53,7 @@ public class User implements Serializable{
 	private Boolean activated;
 	
 	private String confirmationToken;
-	
+
 	@OneToMany
 	@Column(nullable = true)
 	private List<Friendship> friendships;
@@ -62,6 +66,17 @@ public class User implements Serializable{
 	public void setFriendships(List<Friendship> friendships) {
 		this.friendships = friendships;
 	}*/
+
+	@ManyToMany
+	private List<OfficialProp> reservedProps = new ArrayList<OfficialProp>();
+	
+	public List<OfficialProp> getReservedProps() {
+		return reservedProps;
+	}
+	public void setReservedProps(List<OfficialProp> reservedProps) {
+		this.reservedProps = reservedProps;
+	}
+
 	public int getId() {
 		return id;
 	}

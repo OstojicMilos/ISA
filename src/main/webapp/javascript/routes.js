@@ -115,8 +115,32 @@ angular.module("isaProject")
 	})
 	
 	.when("/account/fanZona/noviOglas", {
-		templateUrl: "pages/fanZone/newProp.html",
-		controller: "NewPropController",
-		controllerAs: "NewPropCtrl"
+		templateUrl: "pages/fanZone/newUserAd.html",
+		controller: "NewUserAdController",
+		controllerAs: "NewUserAdCtrl"
+	})
+
+	.when("/account/fanZona/mojOglas/:userAdId", {
+		templateUrl: "pages/fanZone/myUserAd.html",
+		controller: "MyUserAdController",
+		controllerAs: "MyUserAdCtrl"
+	})
+
+	.when("/account/fanZona/tudjiOglas/:userAdId", {
+		templateUrl: "pages/fanZone/othersUserAd.html",
+		controller: "OthersUserAdController",
+		controllerAs: "OthersUserAdCtrl"
+	})
+
+	.when("/account/fanZona/obavestenja", {
+		templateUrl: "pages/fanZone/notifications.html",
+		controller: "NotificationController",
+		controllerAs: "NotificationCtrl"
+	})
+	
+	.when("/adminFanZone/izmenaLozinke", {
+		templateUrl: "pages/fanZoneAdmin/changePassword.html",
+		controller: "FanZoneAdminChangePassController",
+		controllerAs: "FanZoneAdminChangePassCtrl"
 	})
 });

@@ -6,7 +6,7 @@ angular.module("isaProject")
 
 }])
 
-.controller("NewTheatreController", ["SysAdmin", function(SysAdmin){
+.controller("NewTheatreController", ["$location", "SysAdmin", function($location, SysAdmin){
 
     self = this;
 
@@ -18,11 +18,13 @@ angular.module("isaProject")
     self.register = function(theatre){
         var newTheatre = theatre;
         newTheatre.establishmentType = "THEATRE";
-        SysAdmin.newTheatre(newTheatre).then(function(){});
+        SysAdmin.newTheatre(newTheatre).then(function(){
+            $location.path("/adminSistema");
+        });
     }
 }])
 
-.controller("NewCinemaController", ["SysAdmin", function(SysAdmin){
+.controller("NewCinemaController", ["$location", "SysAdmin", function($location, SysAdmin){
 
     self = this;
 
@@ -34,11 +36,13 @@ angular.module("isaProject")
     self.register = function(cinema){
         var newCinema = cinema;
         newCinema.establishmentType = "CINEMA";
-        SysAdmin.newCinema(newCinema).then(function(){});
+        SysAdmin.newCinema(newCinema).then(function(){
+            $location.path("/adminSistema");
+        });
     }
 }])
 
-.controller("NewAdminController", ["SysAdmin", function(SysAdmin){
+.controller("NewAdminController", ["$location", "SysAdmin", function($location, SysAdmin){
 
     self = this;
 
@@ -50,7 +54,9 @@ angular.module("isaProject")
         }else{
             admin.role = "ESTABLISHMENT_ADMIN";
         }
-        SysAdmin.newAdmin(admin).then(function(){});
+        SysAdmin.newAdmin(admin).then(function(){
+            $location.path("/adminSistema");
+        });
     }
 
 }])

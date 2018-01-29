@@ -73,6 +73,15 @@ public class FanZoneAdminController {
 		}		
 	}
 	
+	@PutMapping("/changePassword/{userId}")
+	public void changePassword(@PathVariable int userId, @RequestBody String password) {
+		try {
+			fanZoneAdminService.changePassword(userId, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@GetMapping("/establishments")
 	public List<Establishment> getEstablishments(){
 		try {

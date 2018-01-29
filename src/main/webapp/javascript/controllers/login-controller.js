@@ -4,9 +4,9 @@ angular.module('isaProject')
 	
 	self = this;
 	self.logIn = function(){
-		User.logIn(self.credentials).then(function(response){
+		User.logIn(self.loginInfo).then(function(response){
 			if(response.data != ""){
-				
+				$rootScope.loggedIn = true;
 				$rootScope.user = {};
 				$rootScope.loggedIn = true;
 				$rootScope.user.email = response.data.email;
@@ -16,7 +16,12 @@ angular.module('isaProject')
 				$rootScope.user.city = response.data.city;
 				$rootScope.user.phoneNumber = response.data.phoneNumber;
 				$rootScope.user.role = response.data.role;
-				$location.path("/");
+				$rootScope.user.password = response.data.password;
+				$rootScope.user.activated = response.data.activated;
+				if(!$rootScope.user.activated && $rootScope.user.role == "FAN_ZONE_ADMIN")
+					$location.path("/adminFanZone/izmenaLozinke");
+				else
+					$location.path("/");				
 			}
 		})
 	}
