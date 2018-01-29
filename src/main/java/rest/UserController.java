@@ -1,9 +1,12 @@
 package rest;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +58,28 @@ public class UserController {
 			return null;
 		}
 	}
+	
+	@GetMapping("/search/{searchCriteria}")
+	public List<User> searchForUser(@PathVariable String searchCriteria) {
+		try {
+			String[] criteria = searchCriteria.split(" ");
+			return userService.searchForUser(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@PostMapping("account/updateData")
+	public void updateUserData(@RequestBody User user) {
+		try {
+			userService.updateUserdata(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/*
 	@PostMapping("/pending")
 	public List<Friendship> findAllPendingRequestsFor(@PathVariable User user) {
@@ -67,9 +92,9 @@ public class UserController {
 	}
 	*/
 	
-	//add
+	//TODO: TESTIRATI
 	@PostMapping("/newFriendship")
-	public Friendship newFriendship(@PathVariable FriendshipWrapper friendship) {
+	public Friendship newFriendship(@RequestBody FriendshipWrapper friendship) {
 		try {
 			Friendship f = new Friendship(friendship.getFirst(), friendship.getSecond());
 			return friendshipService.addFriendship(f);

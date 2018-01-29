@@ -19,7 +19,6 @@ angular.module("isaProject")
 	User.activateNewAccount($routeParams.token).then(function(response){
 		if(response.data){
 			self.activated = true;
-			console.log("ctrl usao");
 		}
 		else{
 			self.activated = false;

@@ -1,0 +1,10 @@
+<input type="text" ng-model="FriendshipCtrl.criteria">
+<button ng-click="FriendshipCtrl.search()">Pretrazi</button>
+
+<div ng-if="FriendshipCtrl.searchReslut != ' ' "> 
+	<ul>
+		<li ng-repeat="result in FriendshipCtrl.searchResult">
+		
+			{{result.name}} {{result.surname}}
+		</li>
+	</ul></div>

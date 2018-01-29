@@ -91,9 +91,21 @@ angular.module("isaProject")
 	})
 
 	.when("/account", {
-		templateUrl: "pages/user/index.html",
+		templateUrl: "pages/account/index.html",
 		controller: "AccountController",
 		controllerAs: "AccountCtrl"
+	})
+	
+	.when("/account/editInfo", {
+		templateUrl: "pages/account/updatePersonalData.html",
+		controller: "UserUpdateDataController",
+		controllerAs: "UserUpdateDataCtrl"
+	})
+	
+	.when("/prijatelji", {
+		templateUrl: "pages/account/friends.html",
+		controller: "FriendshipController",
+		controllerAs: "FriendshipCtrl"
 	})
 	
 	.when("/account/fanZona", {

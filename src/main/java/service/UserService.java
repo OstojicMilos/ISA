@@ -1,11 +1,13 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -19,16 +21,16 @@ import repository.UserRepository;
 public class UserService {
 
 		@Autowired
-		private UserRepository userRepo;
+		private UserRepository userRepository;
 		
 		public User processRegistrationForm(User user, HttpServletRequest request) {
 			
-			if(userRepo.findByEmail(user.getEmail()) == null) {
+			if(userRepository.findByEmail(user.getEmail()) == null) {
 				
 				user.setActivated(false);
 				user.setRole(Role.DEFAULT);
 				user.setConfirmationToken(UUID.randomUUID().toString());
-				userRepo.save(user);
+				userRepository.save(user);
 				
 				String appUrl = request.getScheme()+"://"+request.getServerName()+":8080";
 				SimpleMailMessage registrationEmail = new SimpleMailMessage();
@@ -47,10 +49,10 @@ public class UserService {
 		
 		public User activateNewUser(String token) {
 			
-			User u = userRepo.findByConfirmationToken(token);
+			User u = userRepository.findByConfirmationToken(token);
 			if(u != null) {
 				u.setActivated(true);
-				userRepo.save(u);
+				userRepository.save(u);
 				return u;
 				
 			}
@@ -58,17 +60,46 @@ public class UserService {
 		}
 		
 		public void saveUser(User user) {
-			userRepo.save(user);
+			userRepository.save(user);
 		}
 		
 		public User authenticateUser(String email, String password) {
-			User user = userRepo.findByEmail(email);
+			User user = userRepository.findByEmail(email);
 			
 			if(user != null) {
 				if(user.getPassword().equals(password) && (user.getActivated()))
 					return user;
 			}
 			return null;
+		}
+		
+		public List<User> searchForUser(String[] criteria) {
+			
+			List<User> result = new ArrayList<>();
+			if(criteria.length > 0) {
+				for(int i = 0; i < criteria.length; i++) {
+					result.addAll(userRepository.findByNameLike("%"+criteria[i]+"%"));
+					result.addAll(userRepository.findBySurnameLike("%"+criteria[i]+"%"));
+				}
+			}
+			
+			HashSet uniqueSearchResult = new HashSet(result);
+			result.clear();
+			result.addAll(uniqueSearchResult);
+			return result;
+		}
+
+		public void updateUserdata(User user) {
+			
+			User u = userRepository.findByEmail(user.getEmail());
+			if(u != null) {
+				u.setCity(user.getCity());
+				u.setName(user.getName());
+				u.setSurname(user.getSurname());
+				u.setPhoneNumber(user.getPhoneNumber());
+				userRepository.save(u);
+			}
+			
 		}
 				
 }

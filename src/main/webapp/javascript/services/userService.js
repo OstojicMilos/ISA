@@ -13,6 +13,14 @@ angular.module("isaProject")
 		
 		logIn : function(credentials){
 			return $http.post("/login", credentials).catch(angular.noop);
+		},
+		
+		update : function(user){
+			return $http.post("/account/updateData", user).catch(angular.noop);
+		},
+		
+		searchForUser : function(criteria){
+			return $http.get("/search/"+criteria);
 		}
 	
 		
