@@ -3,11 +3,12 @@ angular.module('isaProject')
 	function(User, $scope, $rootScope, $location){
 	
 	self = this;
-	
 	self.logIn = function(){
 		User.logIn(self.credentials).then(function(response){
 			if(response.data != ""){
+				
 				$rootScope.user = {};
+				$rootScope.loggedIn = true;
 				$rootScope.user.email = response.data.email;
 				$rootScope.user.id = response.data.id;
 				$rootScope.user.name = response.data.name;
@@ -19,5 +20,7 @@ angular.module('isaProject')
 			}
 		})
 	}
+	
+	
 	
 }])
