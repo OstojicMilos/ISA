@@ -15,12 +15,20 @@ angular.module("isaProject")
 
 		update: function(admin){
 			return $http({
-				method: 'POST',
-				url: 'http://localhost:8080/fanZoneAdmin/updateData',
+				method: 'PUT',
+				url: 'http://localhost:8080/fanZoneAdmin/update',
 				data: admin
 			})			
 		},
 
+		changePassword: function(userId, password){
+			return $http({
+				method: 'PUT',
+				url: 'http://localhost:8080/fanZoneAdmin/changePassword/'+userId,
+				data: password
+			})
+		},
+		
 		newProp: function(newProp){
 			return $http({
 				method: 'POST',

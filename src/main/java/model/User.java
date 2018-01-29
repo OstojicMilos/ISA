@@ -1,11 +1,14 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -47,6 +50,15 @@ public class User implements Serializable{
 	
 	private String confirmationToken;
 	
+	@ManyToMany
+	private List<OfficialProp> reservedProps = new ArrayList<OfficialProp>();
+	
+	public List<OfficialProp> getReservedProps() {
+		return reservedProps;
+	}
+	public void setReservedProps(List<OfficialProp> reservedProps) {
+		this.reservedProps = reservedProps;
+	}
 	public int getId() {
 		return id;
 	}

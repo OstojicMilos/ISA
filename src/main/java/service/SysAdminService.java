@@ -24,7 +24,9 @@ public class SysAdminService {
 	private PrivilegedUserCategoryRepository privilegedUserCategoryRepository;
 	
 	public void newAdmin(User admin) {
-		userRepository.save(admin);
+		User user = admin;
+		user.setActivated(false);
+		userRepository.save(user);
 	}
 	
 	public List<User> getUsersByRole(Role role){

@@ -1,0 +1,35 @@
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Opis</th>
+                <th>Cena</th>
+                <th>Aktivan do</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{MyUserAdCtrl.userAd.usedProp.name}}</td>
+                <td>{{MyUserAdCtrl.userAd.usedProp.description}}</td>
+                <td>{{MyUserAdCtrl.userAd.usedProp.price}}</td>
+                <td>{{MyUserAdCtrl.userAd.availableUntil}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ponudjena vrednost</th>
+                <th>Korisnik</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="offer in MyUserAdCtrl.userAd.offers">
+                <td>{{offer.offeredSum}}</td>
+                <td>{{offer.user.email}}</td>
+                <td><button ng-click="MyUserAdCtrl.acceptOffer(MyUserAdCtrl.userAd.id, offer.id)">Accept</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

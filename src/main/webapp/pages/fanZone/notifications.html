@@ -1,0 +1,7 @@
+<div>
+    <h3 align=center>Obavestenja</h3>
+    <div class="well" ng-repeat="notification in NotificationCtrl.notifications">
+        <text ng-show="notification.offer.offerStatus=='ACCEPTED'">Vasa ponuda za {{notification.userAd.usedProp.name}} je prihvacena!</text>
+        <text ng-show="notification.offer.offerStatus=='REJECTED'">Vasa ponuda za {{notification.userAd.usedProp.name}} je odbijena!</text>
+    </div>
+</div>
