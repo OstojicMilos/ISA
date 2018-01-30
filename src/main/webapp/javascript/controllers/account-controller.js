@@ -25,6 +25,41 @@ angular.module("isaProject")
     self = this;
     
     self.searchResult = {};
+    self.pendingRequests = {};
+    self.friends = {};
+    
+    
+    Friendship.findPendingRequestsFor($rootScope.user).then(function(response){
+    	if(response != undefined){
+    		self.pendingRequests = response.data;
+    	}
+    });
+    
+    Friendship.findFriendsFor($rootScope.user).then(function(response){
+    	if(response != undefined){
+    		self.friends = response.data;
+    	}
+    });
+    
+    self.confirmFriendship = function(friend){
+    	var friendship = {
+    			first : $rootScope.user,
+    			second : friend
+    	};
+    	Friendship.confirmFriendship(friendship).then(function(response){
+    		
+    	})
+    };
+    
+    self.deleteFriendship = function(friend){
+    	var friendship = {
+    			first : $rootScope.user,
+    			second : friend
+    	};
+    	Friendship.deleteFriendship(friendship).then(function(response){
+    		
+    	})
+    }
     
     self.search= function(){
     	if(self.criteria != ""){
@@ -40,7 +75,6 @@ angular.module("isaProject")
     }
     
     self.addFriendship = function(friend){
-    	console.log(friend);
     	var friendship = {
     			first : $rootScope.user,
     			second : friend

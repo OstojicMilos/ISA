@@ -8,4 +8,28 @@
 			{{result.name}} {{result.surname}} 
 			<button ng-click="FriendshipCtrl.addFriendship(result)">Dodaj za prijatelja</button>
 		</li>
-	</ul></div>
+	</ul>
+</div>
+
+<div ng-if="FriendshipCtrl.pendingRequests != ' ' "> 
+	<h3>Zahtevi za prijateljstvo</h3>
+	<ul>
+		<li ng-repeat="request in FriendshipCtrl.pendingRequests">
+		
+			{{request.name}} {{request.surname}} 
+			<button ng-click="FriendshipCtrl.confirmFriendship(request)">Prihvati prijateljstvo</button>
+		</li>
+	</ul>
+</div>
+
+<div ng-if="FriendshipCtrl.friends != ' ' "> 
+	<h3>Prijatelji</h3>
+	<ul>
+		<li ng-repeat="friend in FriendshipCtrl.friends">
+		
+			{{friend.name}} {{friend.surname}} 
+			<button ng-click="FriendshipCtrl.deleteFriendship(friend)">Obrisi prijateljstvo</button>
+		</li>
+	</ul>
+</div>
+

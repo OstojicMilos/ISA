@@ -29,7 +29,13 @@ public class Friendship implements Serializable{
 	private User secondUser;
 	
 	
+	public Friendship() {
+		super();
+	}
+
+
 	public Friendship(User first, User second) {
+		super();
 		if(first.getEmail().compareTo(second.getEmail()) < 0) {
 			this.firstUser = first;
 			this.secondUser = second;

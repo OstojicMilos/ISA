@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import enums.FriendshipStatus;
 import model.Friendship;
 import model.User;
 import repository.FriendshipRepository;
@@ -34,22 +35,51 @@ public class FriendshipService {
 		return false;
 	}
 	
-	/*public List<Friendship> findByRecipient(User recipient) {
-		
-		if(friendshipRepository.findByRecipient(recipient) != null) {
-			List<Friendship> result = new ArrayList<Friendship>();
-			for(Friendship f : friendshipRepository.findByRecipient(recipient)) {
-				
-				if(!f.isActivated()) {
-					result.add(f);
-				}
+	public List<User> findPendingRequestsFor(User user) {
+		List<User> result = new ArrayList<User>();
+		for(Friendship f : friendshipRepository.findByFirstUserOrSecondUser(user, user)) {
+			if((f.getFirstUser().getId() == user.getId()) && (f.getStatus() == FriendshipStatus.SENT_BY_SECOND_USER)) {
+				result.add(f.getSecondUser());
 			}
-			return result;
-			
+			else if((f.getSecondUser().getId() == user.getId()) && (f.getStatus() == FriendshipStatus.SENT_BY_FIRST_USER)) {
+				result.add(f.getFirstUser());
+			}
 		}
+		if (!result.isEmpty()) {
+			 return result;
+		}
+		
 		return null;
 	}
-	*/
+
+	public void confirmFriendship(Friendship friendship) {
+		Friendship f = getFriendshipFor(friendship.getFirstUser(), friendship.getSecondUser());
+		f.setStatus(FriendshipStatus.CONFIRMED);
+		friendshipRepository.save(f);
+	}
+	
+	public void deleteFriendship(Friendship friendship) {
+		Friendship f = getFriendshipFor(friendship.getFirstUser(), friendship.getSecondUser());
+		friendshipRepository.delete(f);
+	}
+
+	public List<User> findFriendsFor(User user) {
+		List<User> result = new ArrayList<User>();
+		for(Friendship f : friendshipRepository.findByFirstUserOrSecondUser(user, user)) {
+			if((f.getFirstUser().getId() == user.getId()) && (f.getStatus() == FriendshipStatus.CONFIRMED)) {
+				result.add(f.getSecondUser());
+			}
+			else if((f.getSecondUser().getId() == user.getId()) && (f.getStatus() == FriendshipStatus.CONFIRMED)) {
+				result.add(f.getFirstUser());
+			}
+		}
+		if (!result.isEmpty()) {
+			 return result;
+		}
+		
+		return null;
+	}
+	
 	
 	
 	
