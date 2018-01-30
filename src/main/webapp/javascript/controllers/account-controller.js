@@ -20,7 +20,7 @@ angular.module("isaProject")
     }
 }])
 
-.controller("FriendshipController", ['User','$rootScope', function(User, $rootScope){
+.controller("FriendshipController", ['User', 'Friendship','$rootScope', function(User, Friendship, $rootScope){
 
     self = this;
     
@@ -37,5 +37,16 @@ angular.module("isaProject")
     	else{
     		self.searchResult = {};
     	}
+    }
+    
+    self.addFriendship = function(friend){
+    	console.log(friend);
+    	var friendship = {
+    			first : $rootScope.user,
+    			second : friend
+    	};
+    	Friendship.addFriendship(friendship).then(function(response){
+    		
+    	})
     }
 }])

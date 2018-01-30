@@ -78,8 +78,10 @@ public class UserService {
 			List<User> result = new ArrayList<>();
 			if(criteria.length > 0) {
 				for(int i = 0; i < criteria.length; i++) {
-					result.addAll(userRepository.findByNameLike("%"+criteria[i]+"%"));
-					result.addAll(userRepository.findBySurnameLike("%"+criteria[i]+"%"));
+					if(criteria[i].length() > 1) {
+						result.addAll(userRepository.findByNameLike("%"+criteria[i]+"%"));
+						result.addAll(userRepository.findBySurnameLike("%"+criteria[i]+"%"));
+					}
 				}
 			}
 			

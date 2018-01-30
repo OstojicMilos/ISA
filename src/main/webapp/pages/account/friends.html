@@ -5,6 +5,7 @@
 	<ul>
 		<li ng-repeat="result in FriendshipCtrl.searchResult">
 		
-			{{result.name}} {{result.surname}}
+			{{result.name}} {{result.surname}} 
+			<button ng-click="FriendshipCtrl.addFriendship(result)">Dodaj za prijatelja</button>
 		</li>
 	</ul></div>

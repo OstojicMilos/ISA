@@ -80,28 +80,7 @@ public class UserController {
 	}
 	
 	
-	/*
-	@PostMapping("/pending")
-	public List<Friendship> findAllPendingRequestsFor(@PathVariable User user) {
-		try {
-			return friendshipService.findByRecipient(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	*/
 	
-	//TODO: TESTIRATI
-	@PostMapping("/newFriendship")
-	public Friendship newFriendship(@RequestBody FriendshipWrapper friendship) {
-		try {
-			Friendship f = new Friendship(friendship.getFirst(), friendship.getSecond());
-			return friendshipService.addFriendship(f);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 	
 }

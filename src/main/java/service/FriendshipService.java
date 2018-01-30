@@ -25,7 +25,14 @@ public class FriendshipService {
 		
 	}
 	
-
+	public boolean addFriendship(Friendship friendship) {
+		
+		if(this.getFriendshipFor(friendship.getFirstUser(), friendship.getSecondUser()) == null) {
+			friendshipRepository.save(friendship);
+			return true;
+		}
+		return false;
+	}
 	
 	/*public List<Friendship> findByRecipient(User recipient) {
 		
@@ -44,13 +51,7 @@ public class FriendshipService {
 	}
 	*/
 	
-	public Friendship addFriendship(Friendship friendship) {
-		if(this.getFriendshipFor(friendship.getFirstUser(), friendship.getSecondUser()) == null) {
-			friendshipRepository.save(friendship);
-			return friendship;
-		}
-		return null;
-	}
+	
 	
 	
 	

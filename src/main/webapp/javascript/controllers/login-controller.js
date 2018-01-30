@@ -4,7 +4,7 @@ angular.module('isaProject')
 	
 	self = this;
 	self.logIn = function(){
-		User.logIn(self.loginInfo).then(function(response){
+		User.logIn(self.credentials).then(function(response){
 			if(response.data != ""){
 				$rootScope.loggedIn = true;
 				$rootScope.user = {};

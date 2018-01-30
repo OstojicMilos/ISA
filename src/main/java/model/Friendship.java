@@ -19,8 +19,6 @@ public class Friendship implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;	
 	
-	private boolean activated;
-	
 	private FriendshipStatus status;
 	
 
@@ -35,12 +33,14 @@ public class Friendship implements Serializable{
 		if(first.getEmail().compareTo(second.getEmail()) < 0) {
 			this.firstUser = first;
 			this.secondUser = second;
+			this.status = FriendshipStatus.SENT_BY_FIRST_USER;
 		}
 		else {
 			this.firstUser = second;
 			this.secondUser = first;
+			this.status = FriendshipStatus.SENT_BY_SECOND_USER;
 		}
-		this.activated = false;
+		
 	}
 	
 
