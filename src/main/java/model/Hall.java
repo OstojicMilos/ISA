@@ -20,8 +20,8 @@ public class Hall {
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="fk_estabilishment")
-	private Establishment estabilishment;
+	@JoinColumn(name="fk_establishment")
+	private Establishment establishment;
 	
 	//sedista
 
@@ -41,11 +41,13 @@ public class Hall {
 		this.name = name;
 	}
 
-	public Establishment getEstabilishment() {
-		return estabilishment;
+	public Establishment getEstablishment() {
+		return establishment;
 	}
 
-	public void setEstabilishment(Establishment estabilishment) {
-		this.estabilishment = estabilishment;
+	public void setEstablishment(Establishment establishment) {
+		this.establishment = establishment;
 	}
+
+	
 }

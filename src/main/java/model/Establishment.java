@@ -30,7 +30,7 @@ public class Establishment {
 	@ManyToOne
 	private User admin;
 
-	@OneToMany(mappedBy = "estabilishment", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
 	private List<Hall> halls = new ArrayList<>();
 
 	public int getId() {
@@ -90,7 +90,7 @@ public class Establishment {
 	}
 	
 	public void addHall(Hall hall) {
-		hall.setEstabilishment(this);
+		hall.setEstablishment(this);
 		this.halls.add(hall);
 	}
 
