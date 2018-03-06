@@ -15,12 +15,7 @@ public class EstablishmentService {
 	@Autowired
 	EstablishmentRepository establishmentRepository;
 	
-	public List<Establishment> getAllCinemas() {
-		return establishmentRepository.findByType(EstablishmentType.CINEMA);
+	public List<Establishment> getAllEstablishmentsByType(EstablishmentType type) {
+		return establishmentRepository.findByType(type);
 	}
-
-	public List<Establishment> getAllTheatres() {
-		return establishmentRepository.findByType(EstablishmentType.THEATRE);
-	}
-
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import enums.EstablishmentType;
 import model.Establishment;
 import service.EstablishmentService;
 
@@ -18,11 +19,12 @@ public class EstablishmentController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/cinemas")
 	public List<Establishment> getAllCinemas() {
-		return establishmentService.getAllCinemas();
+		return establishmentService.getAllEstablishmentsByType(EstablishmentType.CINEMA);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/theatres")
 	public List<Establishment> getAllTheatres() {
-		return establishmentService.getAllTheatres();
+		return establishmentService.getAllEstablishmentsByType(EstablishmentType.THEATRE);
 	}
+	
 }
