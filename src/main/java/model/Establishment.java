@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import enums.EstablishmentType;
 
 @Entity
@@ -31,7 +33,23 @@ public class Establishment {
 	private User admin;
 
 	@OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
+	@JsonManagedReference("establishment_halls")
 	private List<Hall> halls = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
+	@JsonManagedReference("establishment_events")
+	private List<Event> events = new ArrayList<>();
+	
+	public Establishment() {
+	}
+	
+	public Establishment(String name, String address, String city, EstablishmentType type) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;
@@ -89,9 +107,12 @@ public class Establishment {
 		this.halls = halls;
 	}
 	
-	public void addHall(Hall hall) {
-		hall.setEstablishment(this);
-		this.halls.add(hall);
+	public List<Event> getEvents() {
+		return events;
 	}
 
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+	
 }
