@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -35,6 +36,10 @@ public class Hall {
 	@OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
 	@JsonManagedReference("hall_seats")
 	private List<Seat> seats = new ArrayList<>();
+	
+	@ManyToMany(mappedBy = "halls")
+	@JsonBackReference("projections_halls")
+	private List<EventDetails> projections = new ArrayList<>();
 	
 	public Hall() {
 	}
@@ -69,6 +74,14 @@ public class Hall {
 
 	public void setSeats(List<Seat> seats) {
 		this.seats = seats;
+	}
+
+	public List<EventDetails> getProjections() {
+		return projections;
+	}
+
+	public void setProjections(List<EventDetails> projections) {
+		this.projections = projections;
 	}
 
 	

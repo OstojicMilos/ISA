@@ -1,22 +1,26 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class EventDetails {
@@ -25,21 +29,27 @@ public class EventDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
 	@Future
 	private Date dateAndTime;
 	@NotNull
 	@DecimalMin("0.00")
 	private BigDecimal price;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_event")
 	@JsonBackReference("event_projections")
 	private Event event;
-	
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "event_hall", 
+		joinColumns = @JoinColumn(name = "fk_event"), 
+		inverseJoinColumns = @JoinColumn(name = "fk_hall"))
+	@JsonManagedReference("projections_halls")
+	private List<Hall> halls = new ArrayList<>();
+
 	// sedista
-	// List<Seat> seats;
-	
+	// private List<Seat> seats = new ArrayList<>();
+
 	public EventDetails() {
 	}
 
@@ -74,6 +84,23 @@ public class EventDetails {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
+
+	public List<Hall> getHalls() {
+		return halls;
+	}
+
+	public void setHalls(List<Hall> halls) {
+		this.halls = halls;
+	}
 	
+	public void addHall(Hall hall) {
+		halls.add(hall);
+		hall.getProjections().add(this);
+	}
 	
+	public void removeHall(Hall hall) {
+		halls.remove(hall);
+		hall.getProjections().remove(this);
+	}
+
 }
