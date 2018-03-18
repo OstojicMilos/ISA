@@ -19,6 +19,8 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -45,6 +47,7 @@ public class EventDetails {
 		joinColumns = @JoinColumn(name = "fk_event"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_hall"))
 	@JsonManagedReference("projections_halls")
+	@NotEmpty
 	private List<Hall> halls = new ArrayList<>();
 
 	// sedista

@@ -37,10 +37,19 @@ public class EventController {
 	public ResponseEntity<?> addEventDetails(@PathVariable Integer eventId, @RequestBody EventDetailsDto eventDetails) {
 		EventDetails addedDetails = eventService.addEventDetails(eventId, eventDetails);
 		if (addedDetails == null)
-			return null;
+			return ResponseEntity.badRequest().build();
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(addedDetails.getId()).toUri();
 		return ResponseEntity.created(location).body(addedDetails);
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/events/{eventId}/details/{detailsId}")
+	public ResponseEntity<?> removeEventDetails(@PathVariable Integer eventId, @PathVariable Integer detailsId) {
+		EventDetails removedDetails = eventService.removeEventDetails(eventId, detailsId);
+		if (removedDetails == null) 
+			return ResponseEntity.badRequest().build();
+		
+		return ResponseEntity.ok(removedDetails);
 	}
 }

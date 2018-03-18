@@ -1,6 +1,7 @@
 package dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class EventDetailsDto {
 	
 	private BigDecimal price;
 	private Date date;
-	private List<Integer> halls;
+	private List<Integer> halls = new ArrayList<>();
 	
 	public EventDetailsDto() {
 	}

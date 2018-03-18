@@ -70,6 +70,21 @@ public class EventService {
 		LOGGER.info("All halls are available at the requested time.");
 		return createProjection(event, eventDetailsDto);
 	}
+	
+	public EventDetails removeEventDetails(Integer eventId, Integer detailsId) {
+		Event event = eventRepository.findOne(eventId);
+		if (event == null) 
+			return null;
+		
+		EventDetails eventDetails = eventDetailsRepository.findOne(detailsId);
+		if (eventDetails == null)
+			return null;
+		
+		event.getSchedule().remove(eventDetails);
+		eventRepository.save(event);
+		return eventDetails;
+	}
+
 
 	private boolean checkHallAvailability(Date oldProjectionTime, Date newProjectionTime, Integer duration) {
 		LOGGER.info("Checking if hall is available at the specified time.");
@@ -96,4 +111,5 @@ public class EventService {
 		
 		return eventDetailsRepository.save(eventDetails);
 	}
+
 }
