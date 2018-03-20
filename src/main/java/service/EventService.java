@@ -1,6 +1,7 @@
 package service;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +22,7 @@ import repository.HallRepository;
 
 @Service
 public class EventService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);
 	@Autowired
 	private EstablishmentRepository establishmentRepository;
@@ -43,7 +44,6 @@ public class EventService {
 	}
 
 	public EventDetails addEventDetails(Integer eventId, EventDetailsDto eventDetailsDto) {
-
 		Event event = eventRepository.findOne(eventId);
 		if (event == null) {
 			LOGGER.error("Event with id " + eventId + " wasn't found.");
@@ -56,44 +56,119 @@ public class EventService {
 			return createProjection(event, eventDetailsDto);
 		}
 
-		for (Integer hallId : eventDetailsDto.getHalls()) {
-			LOGGER.info("Searching projections for event with id " + event.getId() + " in hall with id " + hallId);
-			List<EventDetails> projectionsInHall = eventDetailsRepository.getAllProjectionsForEventInHall(event, hallId);
-			for (EventDetails projection : projectionsInHall) {
-				boolean isAvailable = checkHallAvailability(projection.getDateAndTime(), eventDetailsDto.getDate(), event.getDuration());
-				if (!isAvailable) {
-					LOGGER.error("Hall with id " + hallId + " is not available at the requested time.");
-					return null;
-				}
-			}
-		}
+		boolean areHallsAvailable = checkHallAvailability(event, eventDetailsDto);
+		if (!areHallsAvailable)
+			return null;
+
 		LOGGER.info("All halls are available at the requested time.");
 		return createProjection(event, eventDetailsDto);
 	}
-	
+
+	public EventDetails updateEventDetails(Integer eventId, Integer detailsId, EventDetailsDto newDetails) {
+		Event event = eventRepository.findOne(eventId);
+		if (event == null) {
+			LOGGER.error("Event with id " + eventId + " wasn't found.");
+			return null;
+		}
+
+		EventDetails oldDetails = eventDetailsRepository.findOne(detailsId);
+		if (oldDetails == null) {
+			LOGGER.error("Event details with id " + detailsId + " wasn't found.");
+			return null;
+		}
+
+		if (newDetails.getPrice() != null)
+			oldDetails.setPrice(newDetails.getPrice());
+		
+		// updating only date and time of the projection
+		if (newDetails.getDate() != null && newDetails.getHalls().isEmpty()) {
+			for (Hall h : oldDetails.getHalls())
+				newDetails.getHalls().add(h.getId());
+			
+			boolean areHallsAvailable = checkHallAvailability(event, newDetails);
+			if (!areHallsAvailable)
+				return null;
+			
+			oldDetails.setDateAndTime(newDetails.getDate());
+		}
+		// updating only halls of the projection
+		else if (newDetails.getDate() == null && !newDetails.getHalls().isEmpty()) {
+			newDetails.setDate(oldDetails.getDateAndTime());
+			
+			List<Integer> hallsBackup = new ArrayList<>(newDetails.getHalls());
+			
+			// filtering halls that are newly added
+			List<Integer> hallsToCheck = new ArrayList<>(newDetails.getHalls());
+			for (Hall h : oldDetails.getHalls()) {
+				if (hallsToCheck.contains(h.getId())) {
+					hallsToCheck.remove(h.getId());
+				}
+			}
+			newDetails.setHalls(hallsToCheck);
+			boolean areHallsAvailable = checkHallAvailability(event, newDetails);
+			if (!areHallsAvailable)
+				return null;
+			
+			oldDetails.getHalls().clear();
+			newDetails.setHalls(hallsBackup);
+			for (Integer h : newDetails.getHalls()) {
+				Hall hall = hallRepository.findOne(h);
+				if (hall != null) {
+					oldDetails.addHall(hall);
+				}
+			}
+		}
+		// updating both date(time) and halls
+		else if (newDetails.getDate() != null && !newDetails.getHalls().isEmpty()) {
+			boolean areHallsAvailable = checkHallAvailability(event, newDetails);
+			if (!areHallsAvailable)
+				return null;
+			
+			oldDetails.setDateAndTime(newDetails.getDate());
+			oldDetails.getHalls().clear();
+			for (Integer h : newDetails.getHalls()) {
+				Hall hall = hallRepository.findOne(h);
+				if (hall != null) {
+					oldDetails.addHall(hall);
+				}
+			}
+		}
+		return eventDetailsRepository.save(oldDetails);
+	}
+
 	public EventDetails removeEventDetails(Integer eventId, Integer detailsId) {
 		Event event = eventRepository.findOne(eventId);
-		if (event == null) 
+		if (event == null) {
+			LOGGER.error("Event with id " + eventId + " wasn't found.");
 			return null;
-		
+		}
+
 		EventDetails eventDetails = eventDetailsRepository.findOne(detailsId);
-		if (eventDetails == null)
+		if (eventDetails == null) {
+			LOGGER.error("Event details with id " + detailsId + " wasn't found.");
 			return null;
-		
+		}
+
 		event.getSchedule().remove(eventDetails);
 		eventRepository.save(event);
 		return eventDetails;
 	}
 
+	private boolean checkHallAvailability(Event event, EventDetailsDto newProjection) {
+		for (Integer hallId : newProjection.getHalls()) {
+			List<EventDetails> projectionsInHall = eventDetailsRepository.getAllProjectionsForEventInHall(event,
+					hallId);
 
-	private boolean checkHallAvailability(Date oldProjectionTime, Date newProjectionTime, Integer duration) {
-		LOGGER.info("Checking if hall is available at the specified time.");
-		Long differenceBetween = Math.abs(oldProjectionTime.getTime() - newProjectionTime.getTime());
-		Long differenceBetweenInMinutes = TimeUnit.MILLISECONDS.toMinutes(differenceBetween);
-		if (differenceBetweenInMinutes > duration) {
-			return true;
+			for (EventDetails projection : projectionsInHall) {
+				Long differenceBetween = Math
+						.abs(projection.getDateAndTime().getTime() - newProjection.getDate().getTime());
+				if (TimeUnit.MILLISECONDS.toMinutes(differenceBetween) < event.getDuration()) {
+					LOGGER.error("Hall with id " + hallId + " is not available at the requested time.");
+					return false;
+				}
+			}
 		}
-		return false;
+		return true;
 	}
 
 	private EventDetails createProjection(Event event, EventDetailsDto eventDetailsDto) {
@@ -108,7 +183,7 @@ public class EventService {
 				eventDetails.addHall(hall);
 			}
 		}
-		
+
 		return eventDetailsRepository.save(eventDetails);
 	}
 

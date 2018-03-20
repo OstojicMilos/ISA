@@ -42,7 +42,7 @@ public class EventDetails {
 	@JsonBackReference("event_projections")
 	private Event event;
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.EAGER,cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "event_hall", 
 		joinColumns = @JoinColumn(name = "fk_event"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_hall"))

@@ -27,29 +27,40 @@ public class EventController {
 		Event createdEvent = eventService.createEvent(establishmentId, event);
 		if (createdEvent == null)
 			return ResponseEntity.notFound().build();
-		
+
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(createdEvent.getId()).toUri();
 		return ResponseEntity.created(location).body(createdEvent);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/events/{eventId}/details")
 	public ResponseEntity<?> addEventDetails(@PathVariable Integer eventId, @RequestBody EventDetailsDto eventDetails) {
 		EventDetails addedDetails = eventService.addEventDetails(eventId, eventDetails);
 		if (addedDetails == null)
 			return ResponseEntity.badRequest().build();
-		
+
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(addedDetails.getId()).toUri();
 		return ResponseEntity.created(location).body(addedDetails);
 	}
-	
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/events/{eventId}/details/{detailsId}")
+	public ResponseEntity<?> updateEventDetails(@PathVariable Integer eventId, @PathVariable Integer detailsId,
+			@RequestBody EventDetailsDto newDetails) {
+		
+		EventDetails updatedDetails = eventService.updateEventDetails(eventId, detailsId, newDetails);
+		if (updatedDetails == null)
+			return ResponseEntity.badRequest().build();
+		
+		return ResponseEntity.ok(updatedDetails);
+	}
+
 	@RequestMapping(method = RequestMethod.DELETE, value = "/events/{eventId}/details/{detailsId}")
 	public ResponseEntity<?> removeEventDetails(@PathVariable Integer eventId, @PathVariable Integer detailsId) {
 		EventDetails removedDetails = eventService.removeEventDetails(eventId, detailsId);
-		if (removedDetails == null) 
+		if (removedDetails == null)
 			return ResponseEntity.badRequest().build();
-		
+
 		return ResponseEntity.ok(removedDetails);
 	}
 }
