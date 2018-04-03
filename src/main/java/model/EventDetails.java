@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -50,8 +51,9 @@ public class EventDetails {
 	@NotEmpty
 	private List<Hall> halls = new ArrayList<>();
 
-	// sedista
-	// private List<Seat> seats = new ArrayList<>();
+	@OneToMany(mappedBy = "details", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference("projection_seats")
+	private List<DetailsSeat> seats = new ArrayList<>();
 
 	public EventDetails() {
 	}
@@ -105,5 +107,19 @@ public class EventDetails {
 		halls.remove(hall);
 		hall.getProjections().remove(this);
 	}
+
+	public List<DetailsSeat> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(List<DetailsSeat> seats) {
+		this.seats = seats;
+	}
+	
+	public void addSeat(Seat seat) {
+		DetailsSeat ds = new DetailsSeat(this, seat);
+		seats.add(ds);
+	}
+	
 
 }

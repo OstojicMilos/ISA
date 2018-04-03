@@ -15,6 +15,7 @@ import model.Establishment;
 import model.Event;
 import model.EventDetails;
 import model.Hall;
+import model.Seat;
 import repository.EstablishmentRepository;
 import repository.EventDetailsRepository;
 import repository.EventRepository;
@@ -181,9 +182,11 @@ public class EventService {
 			Hall hall = hallRepository.findOne(h);
 			if (hall != null) {
 				eventDetails.addHall(hall);
+				for (Seat seat : hall.getSeats()) {
+					eventDetails.addSeat(seat);
+				}
 			}
 		}
-
 		return eventDetailsRepository.save(eventDetails);
 	}
 

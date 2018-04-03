@@ -22,8 +22,6 @@ public class Seat {
 	@JsonBackReference("hall_seats")
 	private Hall hall;
 	
-	// projekcije
-	
 	public Seat() {
 	}
 
@@ -42,6 +40,5 @@ public class Seat {
 	public void setHall(Hall hall) {
 		this.hall = hall;
 	}
-	
-	
+		
 }
