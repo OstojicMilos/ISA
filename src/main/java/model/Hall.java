@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -38,7 +39,8 @@ public class Hall {
 	private List<Seat> seats = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "halls")
-	@JsonBackReference("projections_halls")
+	//@JsonBackReference("projections_halls")
+	@JsonIgnore
 	private List<EventDetails> projections = new ArrayList<>();
 	
 	public Hall() {

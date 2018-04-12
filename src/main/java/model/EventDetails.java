@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -47,7 +48,8 @@ public class EventDetails {
 	@JoinTable(name = "event_hall", 
 		joinColumns = @JoinColumn(name = "fk_event"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_hall"))
-	@JsonManagedReference("projections_halls")
+	//@JsonManagedReference("projections_halls")
+	//@JsonIgnore
 	@NotEmpty
 	private List<Hall> halls = new ArrayList<>();
 

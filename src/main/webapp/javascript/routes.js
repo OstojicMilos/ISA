@@ -143,4 +143,31 @@ angular.module("isaProject")
 		controller: "FanZoneAdminChangePassController",
 		controllerAs: "FanZoneAdminChangePassCtrl"
 	})
+
+	.when("/bioskopi", {
+		templateUrl: "pages/establishment/cinemas.html",
+		controller: "CinemasController",
+		controllerAs: "CinemasCtrl"
+	})
+
+	.when("/pozorista", {
+		templateUrl: "pages/establishment/theatres.html",
+		controller: "TheatresController",
+		controllerAs: "TheatresCtrl"
+	})
+
+	.when("/repertoar/:id", {
+		templateUrl: "pages/establishment/repertoire.html",
+		controller: "RepertoireController",
+		controllerAs: "RepertoireCtrl",
+		resolve : {
+			repertoirePromise: function($route, EstablishmentService) {
+				return EstablishmentService.getRepertoire($route.current.params.id)
+					.then(function(response) {
+						return response.data;
+					})
+			}
+		}
+	})
+	
 });

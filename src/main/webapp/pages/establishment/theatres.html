@@ -1,0 +1,23 @@
+<table id="establishment">
+    <caption>Pozorišta</caption>
+    <thead>
+        <tr>
+            <th scope="col">Ime</th>
+            <th scope="col">Adresa</th>
+            <th scope="col">Grad</th>
+            <th scope="col">Repertoar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="theatre in CinemasCtrl.theatres">
+            <td>{{theatre.name}}</th>
+            <td>{{theatre.address}}</td>
+            <td>{{theatre.city}}</td>
+            <td>
+                <button class="btn btn-default">
+                    <a ng-href="#!repertoar/{{theatre.id}}">Prikazi</a>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

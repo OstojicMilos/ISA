@@ -1,0 +1,23 @@
+<table id="establishment">
+    <caption>Bioskopi</caption>
+    <thead>
+        <tr>
+            <th scope="col">Ime</th>
+            <th scope="col">Adresa</th>
+            <th scope="col">Grad</th>
+            <th scope="col">Repertoar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="cinema in CinemasCtrl.cinemas">
+            <td>{{cinema.name}}</th>
+            <td>{{cinema.address}}</td>
+            <td>{{cinema.city}}</td>
+            <td>
+                <button class="btn btn-default">
+                    <a ng-href="#!repertoar/{{cinema.id}}">Prikazi</a>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
