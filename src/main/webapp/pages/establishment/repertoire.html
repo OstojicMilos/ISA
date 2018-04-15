@@ -83,6 +83,10 @@
                         <strong>Trajanje: </strong>{{proj.duration}} min</div>
                     <div>
                         <strong>Opis: </strong>{{proj.description}}</div>
+                    <div>
+                        <button class="btn btn-sm btn-warning">Ažuriraj</button>
+                        <button class="btn btn-sm btn-danger" ng-confirm-click="Da li ste sigurni?" confirmed-click="RepertoireCtrl.deleteEvent(proj.id)">Obriši</button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 text-center projection-block">

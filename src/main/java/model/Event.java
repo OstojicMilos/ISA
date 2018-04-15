@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -57,7 +58,7 @@ public class Event {
 
 	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference("event_projections")
-	private List<EventDetails> schedule;
+	private List<EventDetails> schedule = new ArrayList<>();
 
 	public Event() {
 	}

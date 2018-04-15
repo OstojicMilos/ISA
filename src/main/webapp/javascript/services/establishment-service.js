@@ -31,6 +31,13 @@ angular.module("isaProject")
                 url: 'http://localhost:8080/establishments/' + establishmentId + '/events',
                 data: data
             })
+        },
+
+        deleteEvent: function(establishmentId, eventId) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://localhost:8080/establishments/' + establishmentId + '/events/' + eventId
+            })
         }
     }
 });

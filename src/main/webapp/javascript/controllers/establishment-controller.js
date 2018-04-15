@@ -33,6 +33,20 @@ angular.module("isaProject")
                 self.projections.push(response.data);
                 self.newEvent = {};
             });
-    }
+    };
+
+    self.deleteEvent = function(eventId) {
+        EstablishmentService.deleteEvent($routeParams.id, eventId)
+            .then(function(response) {
+                
+                var index = self.projections.findIndex(function(element) {
+                    return element.id === eventId;
+                });
+
+                if (index > -1) {
+                    self.projections.slice(index, 1);
+                }
+            });
+    };
 
 }]);

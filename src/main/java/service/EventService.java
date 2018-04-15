@@ -53,7 +53,26 @@ public class EventService {
 		event.setRating(new BigDecimal(0));
 		return eventRepository.save(event);
 	}
-
+	
+	public Event updateEvent(Integer establishmentId, Event event) {
+		return null;
+	}
+	
+	public boolean deleteEvent(Integer establishmentId, Integer eventId) {
+		Establishment establishment = establishmentRepository.findOne(establishmentId);
+		if (establishment == null) {
+			return false;
+		}
+		
+		Event event = eventRepository.findOne(eventId);
+		if (event == null) {
+			return false;
+		}
+		
+		eventRepository.delete(eventId);
+		return true;
+	}
+	
 	public EventDetails addEventDetails(Integer eventId, EventDetailsDto eventDetailsDto) {
 		Event event = eventRepository.findOne(eventId);
 		if (event == null) {

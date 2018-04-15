@@ -32,7 +32,16 @@ public class EventController {
 				.buildAndExpand(createdEvent.getId()).toUri();
 		return ResponseEntity.created(location).body(createdEvent);
 	}
-
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/establishments/{establishmentId}/events/{eventId}")
+	public ResponseEntity<?> deleteEvent(@PathVariable Integer establishmentId, @PathVariable Integer eventId) {
+		boolean isDeleted = eventService.deleteEvent(establishmentId, eventId);
+		if (!isDeleted) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok().build();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/events/{eventId}/details")
 	public ResponseEntity<?> addEventDetails(@PathVariable Integer eventId, @RequestBody EventDetailsDto eventDetails) {
 		EventDetails addedDetails = eventService.addEventDetails(eventId, eventDetails);
