@@ -1,7 +1,7 @@
 package service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dto.EventDetailsDto;
+import enums.EstablishmentType;
+import enums.EventType;
 import model.Establishment;
 import model.Event;
 import model.EventDetails;
@@ -41,6 +43,14 @@ public class EventService {
 			return null;
 		}
 		event.setEstablishment(establishment);
+		
+		if (establishment.getType() == EstablishmentType.CINEMA) {
+			event.setType(EventType.MOVIE);
+		}
+		else {
+			event.setType(EventType.SHOW);
+		}
+		event.setRating(new BigDecimal(0));
 		return eventRepository.save(event);
 	}
 

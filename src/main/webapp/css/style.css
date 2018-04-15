@@ -34,9 +34,55 @@
 #establishment tbody td {
     text-align: center;
 }
+#repertoire-header {
+    color: #fff;
+}
+#repertoire-header div {
+    background: #aaa;
+    margin-bottom: 10px;
+}
+
+#repertoire-header h3 {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+#repertoire-header button {
+    margin-top: 10px;
+    float: right;
+    line-height: 1.1;
+}
+
+#repertoire-header button:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#repertoire-header span {
+    font-size: 12px;
+}
+
+#repertoire-create-form {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#repertoire-create-form h3 {
+    text-align: center;
+}
+
+#repertoire-create-form .btn-wrapper {
+    text-align: center;
+}
+
+#repertoire {
+    list-style: none;
+    padding-left: 0;
+}
 
 #repertoire li {
-    list-style: none;
     padding: 5px;
     border: 1px solid #eee;
 }

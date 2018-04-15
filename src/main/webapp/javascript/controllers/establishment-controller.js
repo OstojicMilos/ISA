@@ -8,7 +8,6 @@ angular.module("isaProject")
                 self.cinemas = response.data;
             })
     })();
-
     
 }])
 
@@ -22,9 +21,18 @@ angular.module("isaProject")
     })();
 }])
 
-.controller("RepertoireController", ["repertoirePromise", function(repertoirePromise) {
+.controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$routeParams", function(repertoirePromise, EstablishmentService, $routeParams) {
     
     var self = this;
     self.projections = repertoirePromise;
-    console.log(self.projections);
+
+    self.newEvent = {};
+    self.addEvent = function() {
+        EstablishmentService.createEvent($routeParams.id, self.newEvent)
+            .then(function(response) {
+                self.projections.push(response.data);
+                self.newEvent = {};
+            });
+    }
+
 }]);
