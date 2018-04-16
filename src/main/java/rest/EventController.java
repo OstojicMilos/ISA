@@ -21,7 +21,16 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
-
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/establishments/{establishmentId}/events/{eventId}")
+	public ResponseEntity<?> getEvent(@PathVariable Integer establishmentId, @PathVariable Integer eventId) {
+		Event foundEvent = eventService.getEvent(establishmentId, eventId);
+		if (foundEvent == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(foundEvent);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/establishments/{establishmentId}/events")
 	public ResponseEntity<?> createEvent(@PathVariable Integer establishmentId, @RequestBody Event event) {
 		Event createdEvent = eventService.createEvent(establishmentId, event);
@@ -33,6 +42,16 @@ public class EventController {
 		return ResponseEntity.created(location).body(createdEvent);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, value = "/establishments/{establishmentId}/events/{eventId}")
+	public ResponseEntity<?> updateEvent(@PathVariable Integer establishmentId, @PathVariable Integer eventId,
+			@RequestBody Event event) {
+		Event updatedEvent = eventService.updateEvent(establishmentId, eventId, event);
+		if (updatedEvent == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(updatedEvent);
+	}
+
 	@RequestMapping(method = RequestMethod.DELETE, value = "/establishments/{establishmentId}/events/{eventId}")
 	public ResponseEntity<?> deleteEvent(@PathVariable Integer establishmentId, @PathVariable Integer eventId) {
 		boolean isDeleted = eventService.deleteEvent(establishmentId, eventId);
@@ -41,7 +60,7 @@ public class EventController {
 		}
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/events/{eventId}/details")
 	public ResponseEntity<?> addEventDetails(@PathVariable Integer eventId, @RequestBody EventDetailsDto eventDetails) {
 		EventDetails addedDetails = eventService.addEventDetails(eventId, eventDetails);
@@ -56,11 +75,11 @@ public class EventController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/events/{eventId}/details/{detailsId}")
 	public ResponseEntity<?> updateEventDetails(@PathVariable Integer eventId, @PathVariable Integer detailsId,
 			@RequestBody EventDetailsDto newDetails) {
-		
+
 		EventDetails updatedDetails = eventService.updateEventDetails(eventId, detailsId, newDetails);
 		if (updatedDetails == null)
 			return ResponseEntity.badRequest().build();
-		
+
 		return ResponseEntity.ok(updatedDetails);
 	}
 

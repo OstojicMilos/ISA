@@ -35,7 +35,15 @@ public class EventService {
 	private EventDetailsRepository eventDetailsRepository;
 	@Autowired
 	private HallRepository hallRepository;
-
+	
+	public Event getEvent(Integer establishmentId, Integer eventId) {
+		Establishment establishment = establishmentRepository.findOne(establishmentId);
+		if (establishment == null) {
+			return null;
+		}
+		return eventRepository.findOne(eventId);
+	}
+	
 	public Event createEvent(Integer establishmentId, Event event) {
 
 		Establishment establishment = establishmentRepository.findOne(establishmentId);
@@ -54,8 +62,24 @@ public class EventService {
 		return eventRepository.save(event);
 	}
 	
-	public Event updateEvent(Integer establishmentId, Event event) {
-		return null;
+	public Event updateEvent(Integer establishmentId, Integer eventId, Event updatedEvent) {
+		Establishment establishment = establishmentRepository.findOne(establishmentId);
+		if (establishment == null) {
+			return null;
+		}
+		
+		Event event = eventRepository.findOne(eventId);
+		if (event == null) {
+			return null;
+		}
+		
+		event.setName(updatedEvent.getName());
+		event.setDirector(updatedEvent.getDirector());
+		event.setCast(updatedEvent.getCast());
+		event.setGenre(updatedEvent.getGenre());
+		event.setDescription(updatedEvent.getDescription());
+		event.setDuration(updatedEvent.getDuration());
+		return eventRepository.save(event);
 	}
 	
 	public boolean deleteEvent(Integer establishmentId, Integer eventId) {

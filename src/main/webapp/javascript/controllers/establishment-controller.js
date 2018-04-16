@@ -21,10 +21,11 @@ angular.module("isaProject")
     })();
 }])
 
-.controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$routeParams", function(repertoirePromise, EstablishmentService, $routeParams) {
+.controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$route", "$routeParams", function(repertoirePromise, EstablishmentService, $route, $routeParams) {
     
     var self = this;
     self.projections = repertoirePromise;
+    self.establishmentId = $routeParams.id;
 
     self.newEvent = {};
     self.addEvent = function() {
@@ -34,19 +35,34 @@ angular.module("isaProject")
                 self.newEvent = {};
             });
     };
-
+    
     self.deleteEvent = function(eventId) {
         EstablishmentService.deleteEvent($routeParams.id, eventId)
             .then(function(response) {
-                
-                var index = self.projections.findIndex(function(element) {
-                    return element.id === eventId;
-                });
-
-                if (index > -1) {
-                    self.projections.slice(index, 1);
-                }
+                $route.reload();
             });
     };
 
-}]);
+}])
+
+.controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", function($location, $routeParams, EstablishmentService) {
+    var self = this;
+    self.alertMessage = "";
+
+    (function() {
+        EstablishmentService.getEvent($routeParams.establishmentId, $routeParams.eventId)
+            .then(function(response) {
+                self.event = response.data;
+            })
+    })();
+
+    self.update = function() {
+        EstablishmentService.updateEvent($routeParams.establishmentId, $routeParams.eventId, self.event).then(function(response) {
+            self.alertMessage = "Ažuriranje uspešno";
+        })
+    }
+
+    self.cancel = function() {
+        $location.path('/repertoar/'+ $routeParams.establishmentId);
+    }
+}])

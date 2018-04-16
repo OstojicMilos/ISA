@@ -25,10 +25,25 @@ angular.module("isaProject")
             })
         },
 
+        getEvent: function(establishmentId, eventId) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + establishmentId + '/events/' + eventId
+            })
+        },
+
         createEvent: function(establishmentId, data) {
             return $http({
                 method: 'POST',
                 url: 'http://localhost:8080/establishments/' + establishmentId + '/events',
+                data: data
+            })
+        },
+
+        updateEvent: function(establishmentId, eventId, data) {
+            return $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/establishments/' + establishmentId + '/events/' + eventId,
                 data: data
             })
         },

@@ -169,5 +169,11 @@ angular.module("isaProject")
 			}
 		}
 	})
+
+	.when("/repertoar/:establishmentId/izmena/:eventId", {
+		templateUrl: "pages/establishment/editRepertoire.html",
+		controller: "EditRepertoireController",
+		controllerAs: "EditRepertoireCtrl"
+	})
 	
 });
