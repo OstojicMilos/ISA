@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import enums.EstablishmentType;
 import model.Establishment;
 import model.Event;
+import model.Hall;
 import repository.EstablishmentRepository;
 
 @Service
@@ -24,5 +25,11 @@ public class EstablishmentService {
 		Establishment e = establishmentRepository.findOne(establishmentId);
 		if (e == null) return null;
 		return e.getEvents();
+	}
+	
+	public List<Hall> getHalls(Integer establishmentId) {
+		Establishment e = establishmentRepository.findOne(establishmentId);
+		if (e == null) return null;
+		return e.getHalls();
 	}
 }

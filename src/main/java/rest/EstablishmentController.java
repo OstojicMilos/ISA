@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import enums.EstablishmentType;
 import model.Establishment;
 import model.Event;
+import model.Hall;
 import service.EstablishmentService;
 
 @RestController
@@ -37,6 +38,15 @@ public class EstablishmentController {
 			return ResponseEntity.badRequest().build();
 		}
 		return ResponseEntity.ok(events);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "establishments/{id}/halls")
+	public ResponseEntity<?> getHalls(@PathVariable Integer id) {
+		List<Hall> halls = establishmentService.getHalls(id);
+		if (halls == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(halls);
 	}
 	
 }

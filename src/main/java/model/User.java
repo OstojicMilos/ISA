@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,6 +58,9 @@ public class User implements Serializable{
 	@OneToMany
 	@Column(nullable = true)
 	private List<Friendship> friendships;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
 	/*
 	public List<Friendship> getFriendships() {
@@ -136,6 +140,12 @@ public class User implements Serializable{
 	}
 	public void setConfirmationToken(String confirmationToken) {
 		this.confirmationToken = confirmationToken;
+	}
+	public List<DiscountTicket> getDiscountedTickets() {
+		return discountedTickets;
+	}
+	public void setDiscountedTickets(List<DiscountTicket> discountedTickets) {
+		this.discountedTickets = discountedTickets;
 	}
 	
 	

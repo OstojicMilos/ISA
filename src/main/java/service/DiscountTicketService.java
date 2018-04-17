@@ -62,14 +62,7 @@ public class DiscountTicketService {
 	}
 	
 	public List<DiscountTicket> getDiscountedTicketsByEstablishmentId(Integer establishmentId) {
-		Establishment establishment = establishmentRepository.findOne(establishmentId);
-		if (establishment == null) return null;
-		
-		List<Event> events = establishment.getEvents();
-		for (Event event : events) {
-			//EventDetails 
-		}
-		return null;
+		return discountTicketRepository.getDiscountedTicketsForEstablishment(establishmentId);
 	}
 
 }

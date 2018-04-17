@@ -56,7 +56,11 @@ public class EventDetails {
 	@OneToMany(mappedBy = "details", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference("projection_seats")
 	private List<DetailsSeat> seats = new ArrayList<>();
-
+	
+	@OneToMany(mappedBy = "projection", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private List<DiscountTicket> discountedTickets = new ArrayList<>();
+	
 	public EventDetails() {
 	}
 
@@ -121,6 +125,14 @@ public class EventDetails {
 	public void addSeat(Seat seat) {
 		DetailsSeat ds = new DetailsSeat(this, seat);
 		seats.add(ds);
+	}
+
+	public List<DiscountTicket> getDiscountedTickets() {
+		return discountedTickets;
+	}
+
+	public void setDiscountedTickets(List<DiscountTicket> discountedTickets) {
+		this.discountedTickets = discountedTickets;
 	}
 	
 
