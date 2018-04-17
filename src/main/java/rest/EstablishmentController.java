@@ -1,5 +1,6 @@
 package rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,25 @@ public class EstablishmentController {
 		return establishmentService.getAllEstablishmentsByType(EstablishmentType.THEATRE);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "establishments/{id}/{day}/events")
+	public ResponseEntity<?> getCinemaEvents(@PathVariable Integer id, @PathVariable Integer day) {
+		List<Event> events = new ArrayList<>();
+		
+		if(day < 5 && day >=0) {
+			events = establishmentService.getCinemaEvents(id, day);
+		}
+		else {
+			events = establishmentService.getCinemaEvents(id, 0);
+		}
+		if (events == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(events);
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "establishments/{id}/events")
-	public ResponseEntity<?> getEvents(@PathVariable Integer id) {
-		List<Event> events = establishmentService.getEvents(id);
+	public ResponseEntity<?> getTheatreEvents(@PathVariable Integer id) {
+		List<Event> events = establishmentService.getTheatreEvents(id);
 		if (events == null) {
 			return ResponseEntity.badRequest().build();
 		}

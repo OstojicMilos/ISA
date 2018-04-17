@@ -156,13 +156,27 @@ angular.module("isaProject")
 		controllerAs: "TheatresCtrl"
 	})
 
-	.when("/repertoar/:id", {
-		templateUrl: "pages/establishment/repertoire.html",
+	.when("/repertoar/:id/:day", {
+		templateUrl: "pages/establishment/cinemaRepertoire.html",
 		controller: "RepertoireController",
 		controllerAs: "RepertoireCtrl",
 		resolve : {
 			repertoirePromise: function($route, EstablishmentService) {
-				return EstablishmentService.getRepertoire($route.current.params.id)
+				return EstablishmentService.getCinemaRepertoire($route.current.params.id, $route.current.params.day )
+					.then(function(response) {
+						return response.data;
+					})
+			}
+		}
+	})
+	
+	.when("/repertoar/:id", {
+		templateUrl: "pages/establishment/theatreRepertoire.html",
+		controller: "RepertoireController",
+		controllerAs: "RepertoireCtrl",
+		resolve : {
+			repertoirePromise: function($route, EstablishmentService) {
+				return EstablishmentService.getTheatreRepertoire($route.current.params.id, $route.current.params.day )
 					.then(function(response) {
 						return response.data;
 					})
