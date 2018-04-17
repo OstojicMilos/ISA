@@ -124,3 +124,7 @@
 .nav-tabs a:hover {
     cursor: pointer;
 }
+.days {
+    display: inline-block;
+    padding-left: 15px;
+}
