@@ -1,5 +1,6 @@
 <table id="establishment">
     <caption>Pozorišta</caption>
+    <input type="text" ng-model="search" placeholder="Pretraga..">
     <thead>
         <tr>
             <th scope="col">Ime</th>
@@ -9,14 +10,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="theatre in CinemasCtrl.theatres">
+        <tr ng-repeat="theatre in TheatresCtrl.theatres | filter : search" >
             <td>{{theatre.name}}</th>
             <td>{{theatre.address}}</td>
             <td>{{theatre.city}}</td>
             <td>
-                <button class="btn btn-default">
-                    <a ng-href="#!repertoar/{{theatre.id}}">Prikazi</a>
-                </button>
+               <a ng-href="#!repertoar/{{theatre.id}}">
+                    <button class="btn btn-default">Prikazi</button>
+               </a>
             </td>
         </tr>
     </tbody>
