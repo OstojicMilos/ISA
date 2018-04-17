@@ -48,6 +48,32 @@ angular.module("isaProject")
 .controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", function($location, $routeParams, EstablishmentService) {
     var self = this;
     self.alertMessage = "";
+    self.success = "";
+    self.error = "";
+
+    self.flags = {
+        "edit": false,
+        "preview": false,
+        "add": false
+    };
+
+    self.toggleEditView = function() {
+        self.flags.edit = true;
+        self.flags.preview = false;
+        self.flags.add = false;
+    };
+
+    self.togglePreviewView = function() {
+        self.flags.edit = false;
+        self.flags.preview = true;
+        self.flags.add = false;
+    };
+
+    self.toggleAddView = function() {
+        self.flags.edit = false;
+        self.flags.preview = false;
+        self.flags.add = true;
+    };
 
     (function() {
         EstablishmentService.getEvent($routeParams.establishmentId, $routeParams.eventId)
@@ -55,14 +81,50 @@ angular.module("isaProject")
                 self.event = response.data;
             })
     })();
+    (function() {
+        EstablishmentService.getHalls($routeParams.establishmentId)
+            .then(function(response) {
+                self.halls = response.data;
+                console.log(self.halls);
+            });
+    })()
 
-    self.update = function() {
+    self.updateEvent = function() {
         EstablishmentService.updateEvent($routeParams.establishmentId, $routeParams.eventId, self.event).then(function(response) {
             self.alertMessage = "Ažuriranje uspešno";
         })
+    };
+
+    self.projection = {};
+    self.addProjection = function() {
+        var projectionDTO = {};
+        projectionDTO.price = self.projection.price;
+        projectionDTO.halls = [parseInt(self.projection.selectedHall)];
+
+        var day = self.projection.date.getDate();
+        var month = self.projection.date.getMonth() + 1;
+        var year = self.projection.date.getFullYear();
+        var date = year + '-' + month + '-' + day;
+
+        var hours = self.projection.time.getHours();
+        var minutes = self.projection.time.getMinutes();
+        var time = hours + ':' + minutes + ':00';
+        
+        var dateAndTime = date + 'T' + time;
+        projectionDTO.date = dateAndTime;
+        
+        EstablishmentService.addEventDetails($routeParams.eventId, projectionDTO)
+            .then(function(response) {
+                self.success = "Uspešno dodata projekcija";
+                self.error = "";
+            }, 
+            function(error) {
+                self.success = "";
+                self.error = "Sala je zauzeta u traženom terimnu";
+            })
     }
 
     self.cancel = function() {
         $location.path('/repertoar/'+ $routeParams.establishmentId);
-    }
+    };
 }])

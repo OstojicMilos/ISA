@@ -53,6 +53,21 @@ angular.module("isaProject")
                 method: 'DELETE',
                 url: 'http://localhost:8080/establishments/' + establishmentId + '/events/' + eventId
             })
+        },
+
+        getHalls: function(establishmentId) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + establishmentId +'/halls'
+            })
+        },
+
+        addEventDetails: function(eventId, data) {
+            return $http({
+                method: 'POST',
+                url: 'http://localhost:8080/events/' + eventId + '/details',
+                data: data
+            })
         }
     }
 });
