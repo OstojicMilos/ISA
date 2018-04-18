@@ -128,3 +128,12 @@
     display: inline-block;
     padding-left: 15px;
 }
+
+.panel ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.panel button {
+    margin-top: 5px;
+}

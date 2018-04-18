@@ -21,7 +21,7 @@ angular.module("isaProject")
     })();
 }])
 
-.controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$route", "$routeParams", function(repertoirePromise, EstablishmentService, $route, $routeParams) {
+.controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$route", "$routeParams", "$rootScope", function(repertoirePromise, EstablishmentService, $route, $routeParams, $rootScope) {
 
     var self = this;
     var today = new Date();
@@ -30,6 +30,8 @@ angular.module("isaProject")
     var today_plus3 = new Date(); today_plus3.setDate(today.getDate() + 3);
     var today_plus4 = new Date(); today_plus4.setDate(today.getDate() + 4);
     
+    console.log($rootScope);
+
     self.days = [today,
     			today_plus1,
     			today_plus2,
@@ -57,6 +59,22 @@ angular.module("isaProject")
             });
     };
 
+    (function() {
+        EstablishmentService.getDiscountedTickets(self.establishmentId)
+            .then(function(response) {
+                self.discountedTickets = response.data;
+            })
+    })();
+
+    self.fastReserve = function(ticketId, eventName) {
+        var reservationDto = {};
+        //reservationDto.userId = $rootScope.user.id;
+        reservationDto.userId = 1;
+        EstablishmentService.reserveDiscountedTicket(ticketId, reservationDto)
+            .then(function(response) {
+                
+            });
+    }
 }])
 
 .controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", function($location, $routeParams, EstablishmentService) {

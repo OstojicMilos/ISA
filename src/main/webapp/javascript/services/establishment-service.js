@@ -75,6 +75,21 @@ angular.module("isaProject")
                 url: 'http://localhost:8080/events/' + eventId + '/details',
                 data: data
             })
+        },
+
+        getDiscountedTickets: function(establishmentId) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + establishmentId + '/discountedtickets'
+            })
+        },
+
+        reserveDiscountedTicket: function(ticketId, data) {
+            return $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/discountedtickets/' + ticketId,
+                data: data
+            })
         }
     }
 });

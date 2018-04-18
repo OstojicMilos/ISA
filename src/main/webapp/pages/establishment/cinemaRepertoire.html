@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <h3>Na Repertoaru</h3>
                 <button class="btn btn-default" ng-click="$parent.show = !$parent.show">
-                    <span class="glyphicon glyphicon-plus"></span> Film/Predstava</button>
+                    <span class="glyphicon glyphicon-plus"></span> Film</button>
             </div>
         </header>
         <div class="row">
@@ -119,5 +119,26 @@
                 <h3>Karte na popustu</h3>
             </div>
         </header>
+        <div class="col-md-12">
+            <div ng-repeat="(key, value) in RepertoireCtrl.discountedTickets">
+                <div class="panel panel-default" ng-repeat="p in value">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{key}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li><strong>Datum: </strong>{{p.projection.dateAndTime | date: 'dd-MMM-yyyy'}}</li>
+                            <li><strong>Vreme: </strong>{{p.projection.dateAndTime | date: 'HH:mm'}}</li>
+                            <li><strong>Sala: </strong>{{p.projection.halls[0].name}}</li>
+                            <li><strong>Sedište: </strong>{{p.seat.id}}</li>
+                            <li><strong>Cena: </strong>{{p.projection.price}}</li>
+                            <li><strong>Popust: </strong>{{p.discount}}%</li>
+                            <li>
+                                <button class="btn btn-sm btn-primary" ng-click="RepertoireCtrl.fastReserve(p.id, key)">Rezerviši</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
