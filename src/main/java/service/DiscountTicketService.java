@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dto.DiscountTicketDto;
+import dto.ReservationDto;
 import model.DetailsSeat;
 import model.DiscountTicket;
-import model.Establishment;
-import model.Event;
 import model.EventDetails;
 import model.Seat;
 import model.User;
@@ -63,6 +62,23 @@ public class DiscountTicketService {
 	
 	public List<DiscountTicket> getDiscountedTicketsByEstablishmentId(Integer establishmentId) {
 		return discountTicketRepository.getDiscountedTicketsForEstablishment(establishmentId);
+	}
+	
+	public boolean reserveTicket(Integer ticketId, ReservationDto reservationDto) {
+		DiscountTicket ticket = discountTicketRepository.findOne(ticketId);
+		if (ticket == null) { 
+			return false;
+		}
+		
+		User user = userRepository.findOne(reservationDto.getUserId());
+		if (user == null) {
+			return false;
+		}
+		
+		ticket.setUser(user);
+		ticket.setIsReserved(true);
+		discountTicketRepository.save(ticket);
+		return true;
 	}
 
 }
