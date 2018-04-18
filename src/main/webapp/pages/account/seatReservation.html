@@ -1,0 +1,34 @@
+<h1>reservation</h1>
+<div class="row">
+
+	<table class="col-md-4">
+	
+	<tr ng-repeat="row in SeatReservationCtrl.rows" ng-init="rowIndex = $index">
+		
+		<td><b>{{rowIndex + 1}}</b></td>
+		
+			
+			<td ng-repeat="seat in row" ng-init="seatIndex = $index" ng-click="SeatReservationCtrl.seatClicked(rowIndex, seatIndex)"
+					ng-switch on="SeatReservationCtrl.getSeatStatus(rowIndex, seatIndex)">
+			 	<img ng-switch-when="selected" src="images/seat_selected.png">
+	            <img ng-switch-when="reserved" src="images/seat_reserved.png">
+				<img ng-switch-default src="images/seat_available.png">
+			</td>
+	</tr>
+	</table>
+	<div class="col-md-2"></div>
+	<div class="col-md-6">
+		<input type="text" ng-model="SeatReservationCtrl.criteria">
+		<button ng-click="SeatReservationCtrl.search()">Pretrazi</button>
+
+		<div ng-if="SeatReservationCtrl.searchResult != ' ' "> 
+			<ul>
+				<li ng-repeat="result in SeatReservationCtrl.searchResult">
+				
+					{{result.name}} {{result.surname}} 
+					<button ng-disabled="(SeatReservationCtrl.selectedSeats.length - SeatReservationCtrl.invitedFriends.length)  >= 1" ng-click="SeatReservationCtrl.sendInvite(result)">Pozovi</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

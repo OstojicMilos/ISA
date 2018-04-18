@@ -88,15 +88,15 @@
                         </div>
                     </div>
                     <div class="col-md-4 text-center projection-block">
-                        <h4>Izaberi vreme projekcije i rezerviši</h4>
-                        <a href="" class="btn btn-default" ng-repeat="projInfo in proj.schedule">
-                            <h4 class="time">{{projInfo.dateAndTime | date:'dd-MMM-yyyy HH:mm'}}</h4>
-                            {{projInfo.price}} rsd
-                            <span>
-                                <hr>
-                                <strong>Sala: </strong>{{projInfo.halls[0].name}}
-                            </span>
-                        </a>
+                            <h4>Izaberi vreme projekcije i rezerviši</h4>
+                            <a href="#!/rezervacija/{{RepertoireCtrl.establishmentId}}/{{RepertoireCtrl.cinemaId}}/{{RepertoireCtrl.scheduleId}}" class="btn btn-default" ng-repeat="projInfo in proj.schedule">
+                                <h4 class="time">{{projInfo.dateAndTime | date:'short'}}</h4>
+                                {{projInfo.price}} rsd
+                                <span>
+                                    <hr>
+                                    <strong>Sala: </strong>{{projInfo.halls[0].name}}
+                                </span>
+                            </a>
                     </div>
                 </div>
             </li>
@@ -134,6 +134,7 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
