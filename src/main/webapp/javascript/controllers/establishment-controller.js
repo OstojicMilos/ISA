@@ -40,6 +40,7 @@ angular.module("isaProject")
    
     self.projections = repertoirePromise;
     self.establishmentId = $routeParams.id;
+    console.log(self.projections);
 
     self.newEvent = {};
     self.addEvent = function() {
@@ -141,5 +142,69 @@ angular.module("isaProject")
     self.cancel = function() {
         $location.path('/repertoar/'+ $routeParams.establishmentId);
     };
+}])
+
+.controller('SeatReservationController', ["$scope", "EstablishmentService","$routeParams", "User", function($scope, EstablishmentService, $routeParams, User){
+	
+	var self = this;
+	self.rows = [];
+	self.eventDetails = {};
+	self.selectedSeats = [];
+	self.searchResult = {};
+	
+	EstablishmentService.getSeatReservations($routeParams.establishmentId, $routeParams.eventId, $routeParams.scheduleId).then(function(response){
+		self.eventDetails = response.data;
+		var sqrt =  Math.sqrt(self.eventDetails.seats.length);
+		for(var i=0; i < sqrt; i++){
+			var row = [];
+			for(var j=0; j<sqrt; j++){
+				row[j] = self.eventDetails.seats[i*5 + j]; 
+			}
+			self.rows[i] = row;
+		}
+	});
+	
+	self.seatClicked = function(row, col){
+		var seatCode = row.toString() + col.toString();
+		var seatIndex = self.selectedSeats.indexOf(seatCode);
+		
+		if(seatIndex > -1)
+			self.selectedSeats.splice(seatIndex, 1);
+		else{
+			if(self.selectedSeats.length <= 3)
+				self.selectedSeats.push(seatCode);
+			else{
+				alert("Možete rezervisati najviše četiri(4) sedišta");
+			}
+		}
+	}
+	
+	self.getSeatStatus = function(row, col){
+		var seatCode = row.toString() + col.toString();
+		if(!self.rows[row][col].isAvailable)
+			return 'reserved';
+		else if(self.selectedSeats.indexOf(seatCode) > -1)
+			return 'selected';
+	}
+	
+	self.search = function(){
+    	if(self.criteria != ""){
+    		
+    		User.searchForUser(self.criteria).then(function(response){
+        		self.searchResult = response.data;
+        	});
+    		self.criteria= "";
+    	}
+    	else{
+    		self.searchResult = {};
+    	}
+    }
+	
+	self.sendInvite = function(){
+		
+	}
+	
+	
+	console.log(self.rows);
 }])
 

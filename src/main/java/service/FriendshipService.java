@@ -45,11 +45,8 @@ public class FriendshipService {
 				result.add(f.getFirstUser());
 			}
 		}
-		if (!result.isEmpty()) {
-			 return result;
-		}
+		return result;
 		
-		return null;
 	}
 
 	public void confirmFriendship(Friendship friendship) {
@@ -73,11 +70,9 @@ public class FriendshipService {
 				result.add(f.getFirstUser());
 			}
 		}
-		if (!result.isEmpty()) {
-			 return result;
-		}
 		
-		return null;
+		return result;
+		
 	}
 	
 	

@@ -190,4 +190,10 @@ angular.module("isaProject")
 		controllerAs: "EditRepertoireCtrl"
 	})
 	
+	.when("/rezervacija/:establishmentId/:eventId/:scheduleId",{
+		templateUrl: "pages/account/seatReservation.html",
+		controller: "SeatReservationController",
+		controllerAs: "SeatReservationCtrl"
+	})
+	
 });
