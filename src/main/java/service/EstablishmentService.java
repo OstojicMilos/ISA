@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dto.EstablishmentDto;
 import enums.EstablishmentType;
 import model.Establishment;
 import model.Event;
@@ -68,5 +69,26 @@ public class EstablishmentService {
 		Establishment e = establishmentRepository.findOne(establishmentId);
 		if (e == null) return null;
 		return e.getHalls();
+	}
+
+	public Establishment updateEstablishment(Integer id, EstablishmentDto establishmentDto) {
+		Establishment est = establishmentRepository.findOne(id);
+		if (est == null)
+			return null;
+		
+		if (establishmentDto.getName() != null)
+			est.setName(establishmentDto.getName());
+		
+		if (establishmentDto.getAddress() != null)
+			est.setAddress(establishmentDto.getAddress());
+		
+		if (establishmentDto.getCity() != null)
+			est.setCity(establishmentDto.getCity());
+		
+		return establishmentRepository.save(est);
+	}
+	
+	public Establishment getEstablishmentById(Integer id) {
+		return establishmentRepository.findOne(id);
 	}
 }

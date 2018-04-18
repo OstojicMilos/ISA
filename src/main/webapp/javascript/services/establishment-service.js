@@ -18,6 +18,21 @@ angular.module("isaProject")
             })
         },
 
+        getEstablishmentById: function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + id
+            })
+        },
+
+        updateEstablishment: function(id, data) {
+            return $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/establishments/' + id,
+                data: data
+            })
+        },
+
         getCinemaRepertoire: function(establishmentId, dayOffset) {
             return $http({
                 method: 'GET',

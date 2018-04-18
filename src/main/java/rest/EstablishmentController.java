@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import dto.EstablishmentDto;
 import enums.EstablishmentType;
 import model.Establishment;
 import model.Event;
@@ -30,6 +32,24 @@ public class EstablishmentController {
 	@RequestMapping(method = RequestMethod.GET, value = "/theatres")
 	public List<Establishment> getAllTheatres() {
 		return establishmentService.getAllEstablishmentsByType(EstablishmentType.THEATRE);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/establishments/{id}")
+	public ResponseEntity<?> getEstablishment(@PathVariable Integer id) {
+		Establishment e = establishmentService.getEstablishmentById(id);
+		if (e == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(e);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/establishments/{id}")
+	public ResponseEntity<?> updateEstablishmentInfo(@PathVariable Integer id, @RequestBody EstablishmentDto establishmentDto) {
+		Establishment updatedEstablishment = establishmentService.updateEstablishment(id, establishmentDto);
+		if (updatedEstablishment == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(updatedEstablishment);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "establishments/{id}/{day}/events")

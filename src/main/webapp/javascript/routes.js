@@ -156,6 +156,12 @@ angular.module("isaProject")
 		controllerAs: "TheatresCtrl"
 	})
 
+	.when("/ustanova/:id/izmena", {
+		templateUrl: "pages/establishment/editEstablishment.html",
+		controller: "EditEstablishmentController",
+		controllerAs: "EditEstablishmentCtrl"
+	})
+	
 	.when("/repertoar/:id/:day", {
 		templateUrl: "pages/establishment/cinemaRepertoire.html",
 		controller: "RepertoireController",

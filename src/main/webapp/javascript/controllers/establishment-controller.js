@@ -21,6 +21,33 @@ angular.module("isaProject")
     })();
 }])
 
+.controller("EditEstablishmentController", ["EstablishmentService", "$routeParams", "$location", function(EstablishmentService, $routeParams, $location) {
+    var self = this;
+    (function() {
+        EstablishmentService.getEstablishmentById($routeParams.id)
+            .then(function(response) {
+                self.establishment = response.data;
+            })
+    })();
+
+    self.update = function() {
+        var updated = {};
+        updated.name = self.establishment.name;
+        updated.address = self.establishment.address;
+        updated.city = self.establishment.city;
+
+        EstablishmentService.updateEstablishment($routeParams.id, updated)
+            .then(function(response) {
+                if (self.establishment.type === "CINEMA") {
+                    $location.path("/bioskopi");
+                }
+                else {
+                    $location.path("/pozorista");
+                }
+            })
+    }
+}])
+
 .controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$route", "$routeParams", "$rootScope", function(repertoirePromise, EstablishmentService, $route, $routeParams, $rootScope) {
 
     var self = this;
@@ -118,7 +145,6 @@ angular.module("isaProject")
         EstablishmentService.getHalls($routeParams.establishmentId)
             .then(function(response) {
                 self.halls = response.data;
-                console.log(self.halls);
             });
     })()
 
