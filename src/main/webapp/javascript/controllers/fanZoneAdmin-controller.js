@@ -49,7 +49,7 @@ angular.module("isaProject")
     }
 }])
 
-.controller("FanZoneAdminUpdatePropController", ["$location", "FanZoneAdmin", function($location, FanZoneAdmin){
+.controller("FanZoneAdminUpdatePropController", ["$location", "FanZoneAdmin", "FanZone", function($location, FanZoneAdmin, FanZone){
 
     var self = this;
 
@@ -57,9 +57,14 @@ angular.module("isaProject")
     console.log(self.prop);   
     
     self.updateProp = function(prop){
-        FanZoneAdmin.updateOfficialProp(prop).then(function(){
-            $location.path("/zvanicniRekviziti");
-        })
+    	var formData = new FormData();
+		formData.append("file", document.getElementById('file').files[0]);
+	    FanZone.uploadImage(formData).then(function(data){
+	    	prop.imagePath = data.data;	    	
+	    	FanZoneAdmin.updateOfficialProp(prop).then(function(){
+	    		$location.path("/zvanicniRekviziti");
+	    	});
+        });
     }
 }])
 

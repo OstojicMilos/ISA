@@ -14,7 +14,7 @@
                 <td>{{userAd.usedProp.name}}</td>
                 <td>{{userAd.usedProp.description}}</td>
                 <td>{{userAd.usedProp.price}}</td>
-                <td><img ng-src="{{userAd.usedProp.imagePath}}" /></td>
+                <td><img ng-src="{{userAd.usedProp.imagePath}}" height="50" width="50" /></td>
                 <td>{{userAd.owner.name}}</td>
                 <td><button type="button" ng-click="FanZoneAdminUsedPropsCtrl.updateUserAdStatus(userAd, 'ACCEPTED')">Odobri</button></td>
                 <td><button type="button" ng-click="FanZoneAdminUsedPropsCtrl.updateUserAdStatus(userAd, 'REJECTED')">Odbij</button></td>

@@ -93,6 +93,18 @@ angular.module("isaProject")
 					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
 				},
 			})
+		},
+		
+		uploadImage: function(file){
+			return $http({
+				method: 'POST',
+				url: 'http://localhost:8080/imageUpload',
+				data: file,
+				transformRequest: angular.identity,
+				headers: {
+					'Content-Type': undefined
+				}
+			});
 		}
 	}
 });
