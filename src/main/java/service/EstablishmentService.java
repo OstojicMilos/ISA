@@ -58,6 +58,12 @@ public class EstablishmentService {
 		return result;
 	}
 	
+	public List<Event> getAllCinemaEvents(Integer establishmentId) {
+		Establishment e = establishmentRepository.findOne(establishmentId);
+		if (e == null) return null;
+		return e.getEvents();
+	}
+	
 	public List<Event> getTheatreEvents(Integer establishmentId) {
 		Establishment e = establishmentRepository.findOne(establishmentId);
 		if (e == null  || e.getType() != EstablishmentType.THEATRE)  return null;

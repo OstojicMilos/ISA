@@ -81,4 +81,11 @@ public class DiscountTicketService {
 		return true;
 	}
 
+	public boolean deleteTicket(Integer ticketId) {
+		DiscountTicket dt = discountTicketRepository.findOne(ticketId);
+		if (dt == null) return false;
+		discountTicketRepository.delete(ticketId);
+		return true;
+	}
+
 }

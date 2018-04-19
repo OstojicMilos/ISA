@@ -33,6 +33,13 @@ angular.module("isaProject")
             })
         },
 
+        getAllCinemasEvents: function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/cinemas/' + id + '/events'
+            })
+        },
+
         getCinemaRepertoire: function(establishmentId, dayOffset) {
             return $http({
                 method: 'GET',
@@ -96,6 +103,21 @@ angular.module("isaProject")
             return $http({
                 method: 'GET',
                 url: 'http://localhost:8080/establishments/' + establishmentId + '/discountedtickets'
+            })
+        },
+
+        createDiscountedTicket: function(data) {
+            return $http({
+                method: 'POST',
+                url: 'http://localhost:8080/discountedtickets',
+                data: data
+            })
+        },
+
+        deleteDiscountedTicket: function(id) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://localhost:8080/discountedtickets/' + id,
             })
         },
 

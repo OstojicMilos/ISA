@@ -120,6 +120,9 @@
             </div>
         </header>
         <div class="col-md-12">
+            <a ng-href="#!/brzarezervacija/{{RepertoireCtrl.establishmentId}}/izmena"><button class="btn btn-primary btn-block">Dodaj karte</button></a>
+        </div>
+        <div class="col-md-12">
             <div ng-repeat="(key, value) in RepertoireCtrl.discountedTickets">
                 <div class="panel panel-default" ng-repeat="p in value">
                     <div class="panel-heading">
@@ -134,7 +137,9 @@
                             <li><strong>Cena: </strong>{{p.projection.price}}</li>
                             <li><strong>Popust: </strong>{{p.discount}}%</li>
                             <li>
-                                <button class="btn btn-sm btn-primary" ng-click="RepertoireCtrl.fastReserve(p.id, key)">Rezerviši</button></li>
+                                <button class="btn btn-sm btn-primary" ng-click="RepertoireCtrl.fastReserve(p.id, key)">Rezerviši</button>
+                                <button class="btn btn-sm btn-danger" ng-click="RepertoireCtrl.deleteDiscountedTicket(p.id)">Obriši</button>
+                            </li>
                         </ul>
                     </div>
                 </div>

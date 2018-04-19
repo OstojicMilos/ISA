@@ -52,6 +52,15 @@ public class EstablishmentController {
 		return ResponseEntity.ok(updatedEstablishment);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/cinemas/{id}/events")
+	public ResponseEntity<?> getAllCinemaEvents(@PathVariable Integer id) {
+		List<Event> events = establishmentService.getAllCinemaEvents(id);
+		if (events == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(events);
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "establishments/{id}/{day}/events")
 	public ResponseEntity<?> getCinemaEvents(@PathVariable Integer id, @PathVariable Integer day) {
 		List<Event> events = new ArrayList<>();

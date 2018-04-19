@@ -62,4 +62,13 @@ public class DiscoutTicketController {
 		}
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/discountedtickets/{ticketId}")
+	public ResponseEntity<?> deleteDiscountedTicket(@PathVariable Integer ticketId) {
+		boolean isDeleted = discountTicketService.deleteTicket(ticketId);
+		if (!isDeleted) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.noContent().build();
+	}
 }

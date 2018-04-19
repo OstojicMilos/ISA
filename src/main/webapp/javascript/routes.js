@@ -202,4 +202,17 @@ angular.module("isaProject")
 		controllerAs: "SeatReservationCtrl"
 	})
 	
+	.when("/brzarezervacija/:id/izmena", {
+		templateUrl: "pages/establishment/editFastTickets.html",
+		controller: "FastTicketsController",
+		controllerAs: "FastTicketsCtrl",
+		resolve: {
+			allCinemasEvents: function($route, EstablishmentService) {
+				return EstablishmentService.getAllCinemasEvents($route.current.params.id)
+					.then(function(response) {
+						return response.data;
+					})
+			}
+		}
+	})
 });

@@ -56,8 +56,6 @@ angular.module("isaProject")
     var today_plus2 = new Date(); today_plus2.setDate(today.getDate() + 2);
     var today_plus3 = new Date(); today_plus3.setDate(today.getDate() + 3);
     var today_plus4 = new Date(); today_plus4.setDate(today.getDate() + 4);
-    
-    console.log($rootScope);
 
     self.days = [today,
     			today_plus1,
@@ -69,7 +67,6 @@ angular.module("isaProject")
    
     self.projections = repertoirePromise;
     self.establishmentId = $routeParams.id;
-    console.log(self.projections);
 
     self.newEvent = {};
     self.addEvent = function() {
@@ -100,8 +97,15 @@ angular.module("isaProject")
         reservationDto.userId = 1;
         EstablishmentService.reserveDiscountedTicket(ticketId, reservationDto)
             .then(function(response) {
-                
+                $route.reload();
             });
+    }
+
+    self.deleteDiscountedTicket = function(ticketId) {
+        EstablishmentService.deleteDiscountedTicket(ticketId)
+            .then(function(response) {
+                $route.reload();
+            })
     }
 }])
 
@@ -250,5 +254,26 @@ angular.module("isaProject")
 	
 	
 	console.log(self.rows);
+}])
+
+.controller("FastTicketsController", ["allCinemasEvents", "EstablishmentService", "$location", "$routeParams", function(allCinemasEvents, EstablishmentService, $location, $routeParams) {
+    var self = this;
+    self.events = allCinemasEvents;
+    console.log(self.events);
+    
+    self.newTicket = {};
+
+    self.create = function() {
+        var fastTicket = {};
+        fastTicket.discount = self.newTicket.discount;
+        fastTicket.seatId = Number(self.newTicket.seat);
+        fastTicket.projectionId = self.events[self.newTicket.selectedMovie].schedule[self.newTicket.projectionIndex].id;
+
+        EstablishmentService.createDiscountedTicket(fastTicket)
+            .then(function(response) {
+                $location.path("/repertoar/" + $routeParams.id + "/0");
+            })
+    }
+    
 }])
 
