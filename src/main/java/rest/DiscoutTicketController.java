@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.DiscountTicketDto;
+import dto.RatingDto;
 import dto.ReservationDto;
 import model.DiscountTicket;
 import service.DiscountTicketService;
@@ -70,5 +71,14 @@ public class DiscoutTicketController {
 			return ResponseEntity.badRequest().build();
 		}
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/discountedtickets/{ticketId}/rating")
+	public ResponseEntity<?> updateRating(@PathVariable Integer ticketId, @RequestBody RatingDto dto) {
+		boolean isUpdated = discountTicketService.updateRating(ticketId, dto);
+		if (!isUpdated) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok().build();
 	}
 }

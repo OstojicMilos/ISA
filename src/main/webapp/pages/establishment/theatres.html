@@ -6,6 +6,7 @@
             <th scope="col">Ime</th>
             <th scope="col">Adresa</th>
             <th scope="col">Grad</th>
+            <th scope="col">Ocena</th>
             <th scope="col">Repertoar</th>
         </tr>
     </thead>
@@ -14,6 +15,7 @@
             <td>{{theatre.name}}</th>
             <td>{{theatre.address}}</td>
             <td>{{theatre.city}}</td>
+            <td>{{theatre.rating}}</td>
             <td>
                <a ng-href="#!repertoar/{{theatre.id}}">
                     <button class="btn btn-default">Prikazi</button>

@@ -95,4 +95,13 @@ public class EstablishmentController {
 		return ResponseEntity.ok(halls);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "establishments/{id}/rating")
+	public ResponseEntity<?> getEstablishmentRating(@PathVariable Integer id) {
+		Double rating = establishmentService.calculateEstablishmentRating(id);
+		if (rating == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(rating);
+	}
+	
 }

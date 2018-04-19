@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dto.DiscountTicketDto;
+import dto.RatingDto;
 import dto.ReservationDto;
 import model.DetailsSeat;
 import model.DiscountTicket;
@@ -31,6 +32,8 @@ public class DiscountTicketService {
 	EstablishmentRepository establishmentRepository;
 	@Autowired
 	DiscountTicketRepository discountTicketRepository;
+	@Autowired
+	EstablishmentService establishmentService;
 	
 	public DiscountTicket createTicket(DiscountTicketDto ticketDto) {
 		EventDetails projection = eventDetailsRepository.findOne(ticketDto.getProjectionId());
@@ -86,6 +89,23 @@ public class DiscountTicketService {
 		if (dt == null) return false;
 		discountTicketRepository.delete(ticketId);
 		return true;
+	}
+
+	public boolean updateRating(Integer ticketId, RatingDto ratingDto) {
+		DiscountTicket ticket = discountTicketRepository.findOne(ticketId);
+		
+		if (ticket == null) return false;
+		
+		if (ratingDto.getAmbient() != null) {
+			ticket.setAmbintRating(ratingDto.getAmbient());
+		}
+		if (ratingDto.getEvent() != null) {
+			ticket.setEventRating(ratingDto.getEvent());
+		}
+		discountTicketRepository.save(ticket);
+		//establishmentService.calculateEstablishmentRating(ticket.getProjection().getEvent().getEstablishment().getId());
+		return true;
+		
 	}
 
 }

@@ -24,6 +24,13 @@ angular.module("isaProject")
                 url: 'http://localhost:8080/establishments/' + id
             })
         },
+        
+        getEstablishmentRating: function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + id + '/rating'
+            })
+        },
 
         updateEstablishment: function(id, data) {
             return $http({

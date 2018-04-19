@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 
 import dto.EstablishmentDto;
 import enums.EstablishmentType;
+import model.DiscountTicket;
 import model.Establishment;
 import model.Event;
 import model.Hall;
 import model.EventDetails;
-
+import repository.DiscountTicketRepository;
 import repository.EstablishmentRepository;
 
 @Service
@@ -21,6 +22,8 @@ public class EstablishmentService {
 	
 	@Autowired
 	EstablishmentRepository establishmentRepository;
+	@Autowired
+	DiscountTicketRepository discountedTicketRepository;
 	
 	public List<Establishment> getAllEstablishmentsByType(EstablishmentType type) {
 		List<Establishment> temp =establishmentRepository.findByType(type);
@@ -96,5 +99,24 @@ public class EstablishmentService {
 	
 	public Establishment getEstablishmentById(Integer id) {
 		return establishmentRepository.findOne(id);
+	}
+
+	public Double calculateEstablishmentRating(Integer establishmentId) {
+		Establishment establishment = establishmentRepository.findOne(establishmentId);
+		if (establishment == null) return null;
+		
+		Double rating = 0.00;
+		int numOfRatings = 0;
+		List<DiscountTicket> discountedTickets = discountedTicketRepository.getDiscountedTicketsForEstablishment(establishmentId);
+		for (DiscountTicket discountTicket : discountedTickets) {
+			if (discountTicket.getAmbintRating() > 0) {
+				rating += discountTicket.getAmbintRating();
+				++numOfRatings;
+			}
+		}
+		if (Double.isNaN(rating/numOfRatings)) {
+			return 0.00;
+		}
+		return rating/numOfRatings;
 	}
 }

@@ -2,10 +2,17 @@ angular.module("isaProject")
 .controller("CinemasController", ["EstablishmentService", function(EstablishmentService) {
     
     var self = this;
+    self.ratings = [];
     (function () {
         EstablishmentService.getAllCinemas()
             .then(function(response) {
                 self.cinemas = response.data;
+                self.cinemas.forEach(element => {
+                    EstablishmentService.getEstablishmentRating(element.id)
+                        .then(function(response) {
+                            element.rating = response.data;
+                        })
+                });
             })
     })();
     
@@ -17,6 +24,12 @@ angular.module("isaProject")
         EstablishmentService.getAllTheatres()
             .then(function(response) {
                 self.theatres = response.data;
+                self.theatres.forEach(element => {
+                    EstablishmentService.getEstablishmentRating(element.id)
+                        .then(function(response) {
+                            element.rating = response.data;
+                        })
+                });
             })
     })();
 }])
