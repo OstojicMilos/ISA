@@ -99,6 +99,21 @@ angular.module("isaProject")
             })
         },
 
+        updateEventDetails: function(eventId, detailsId, data) {
+            return $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/events/' + eventId + '/details/' + detailsId,
+                data: data
+            })
+        },
+
+        deleteEventDetails: function(eventId, detailsId) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://localhost:8080/events/' + eventId + '/details/' + detailsId
+            })
+        },
+
         getDiscountedTickets: function(establishmentId) {
             return $http({
                 method: 'GET',

@@ -109,7 +109,7 @@ angular.module("isaProject")
     }
 }])
 
-.controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", function($location, $routeParams, EstablishmentService) {
+.controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", "$route", function($location, $routeParams, EstablishmentService, $route) {
     var self = this;
     self.alertMessage = "";
     self.success = "";
@@ -143,8 +143,10 @@ angular.module("isaProject")
         EstablishmentService.getEvent($routeParams.establishmentId, $routeParams.eventId)
             .then(function(response) {
                 self.event = response.data;
+                console.log(self.event);
             })
     })();
+    
     (function() {
         EstablishmentService.getHalls($routeParams.establishmentId)
             .then(function(response) {
@@ -184,6 +186,47 @@ angular.module("isaProject")
             function(error) {
                 self.success = "";
                 self.error = "Sala je zauzeta u traženom terimnu";
+            })
+    }
+
+    self.selectProjection = function(p) {
+        var proj = {};
+        proj.id = p.id;
+        proj.date = new Date(p.dateAndTime);
+        proj.price = p.price;
+        proj.halls = [];
+        proj.halls.push(p.halls[0]);
+        self.selectedProjection = proj;  
+    }
+
+    self.updateProjection = function() {
+        var dto = {};
+        dto.price = self.selectedProjection.price;
+        dto.halls = [];
+        dto.halls.push(Number(self.selectedProjection.halls[0]));
+        
+        var day = self.selectedProjection.date.getDate();
+        var month = self.selectedProjection.date.getMonth() + 1;
+        var year = self.selectedProjection.date.getFullYear();
+        var date = year + '-' + month + '-' + day;
+        var hours = self.selectedProjection.date.getHours();
+        var minutes = self.selectedProjection.date.getMinutes();
+        var time = hours + ':' + minutes + ':00';
+        var dateAndTime = date + 'T' + time;
+        dto.date = dateAndTime;
+        
+        EstablishmentService.updateEventDetails ($routeParams.eventId, self.selectedProjection.id, dto).then(function(response) {
+            $route.reload();
+            self.unsuccessfulUpdate = "";
+        }, function(error) {
+            self.unsuccessfulUpdate = "Sala je zauzeta u traženom terminu.";
+        })
+    }
+
+    self.deleteProjection = function(projId) {
+        EstablishmentService.deleteEventDetails($routeParams.eventId, projId)
+            .then(function(response) {
+                $route.reload();
             })
     }
 
@@ -259,7 +302,6 @@ angular.module("isaProject")
 .controller("FastTicketsController", ["allCinemasEvents", "EstablishmentService", "$location", "$routeParams", function(allCinemasEvents, EstablishmentService, $location, $routeParams) {
     var self = this;
     self.events = allCinemasEvents;
-    console.log(self.events);
     
     self.newTicket = {};
 

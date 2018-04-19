@@ -137,3 +137,7 @@
 .panel button {
     margin-top: 5px;
 }
+
+.panel-hover:hover {
+    cursor: pointer;
+}
