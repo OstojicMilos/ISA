@@ -20,6 +20,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import enums.Role;
 
 @Entity
@@ -60,6 +62,7 @@ public class User implements Serializable{
 	private List<Friendship> friendships;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
 	/*

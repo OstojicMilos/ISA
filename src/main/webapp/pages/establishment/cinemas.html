@@ -18,7 +18,7 @@
                     <button class="btn btn-default">Prikazi</button>
                </a>
             </td>
-            <td>
+            <td ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">
                 <a ng-href="#!ustanova/{{cinema.id}}/izmena">
                     <button class="btn btn-warning">Ažuriraj</button>
                 </a>

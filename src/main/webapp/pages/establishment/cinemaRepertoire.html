@@ -3,7 +3,7 @@
         <header id="repertoire-header">
             <div class="col-md-12">
                 <h3>Na Repertoaru</h3>
-                <button class="btn btn-default" ng-click="$parent.show = !$parent.show">
+                <button class="btn btn-default" ng-click="$parent.show = !$parent.show" ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">
                     <span class="glyphicon glyphicon-plus"></span> Film</button>
             </div>
         </header>
@@ -93,8 +93,8 @@
                             <div>
                                 <strong>Opis: </strong>{{proj.description}}</div>
                             <div>
-                                <a class="btn btn-sm btn-warning" ng-href="#!repertoar/{{RepertoireCtrl.establishmentId}}/izmena/{{proj.id}}">Ažuriraj</a>
-                                <button class="btn btn-sm btn-danger" ng-confirm-click="Da li ste sigurni?" confirmed-click="RepertoireCtrl.deleteEvent(proj.id)">Obriši</button>
+                                <a class="btn btn-sm btn-warning" ng-href="#!repertoar/{{RepertoireCtrl.establishmentId}}/izmena/{{proj.id}}" ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">Ažuriraj</a>
+                                <button class="btn btn-sm btn-danger" ng-confirm-click="Da li ste sigurni?" confirmed-click="RepertoireCtrl.deleteEvent(proj.id)" ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">Obriši</button>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
             </div>
         </header>
         <div class="col-md-12">
-            <a ng-href="#!/brzarezervacija/{{RepertoireCtrl.establishmentId}}/izmena"><button class="btn btn-primary btn-block">Dodaj karte</button></a>
+            <a ng-href="#!/brzarezervacija/{{RepertoireCtrl.establishmentId}}/izmena" ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'"><button class="btn btn-primary btn-block">Dodaj karte</button></a>
         </div>
         <div class="col-md-12">
             <div ng-repeat="(key, value) in RepertoireCtrl.discountedTickets">
@@ -137,8 +137,8 @@
                             <li><strong>Cena: </strong>{{p.projection.price}}</li>
                             <li><strong>Popust: </strong>{{p.discount}}%</li>
                             <li>
-                                <button class="btn btn-sm btn-primary" ng-click="RepertoireCtrl.fastReserve(p.id, key)">Rezerviši</button>
-                                <button class="btn btn-sm btn-danger" ng-click="RepertoireCtrl.deleteDiscountedTicket(p.id)">Obriši</button>
+                                <button class="btn btn-sm btn-primary" ng-click="RepertoireCtrl.fastReserve(p.id, key)" ng-if="$root.user != null && $root.user.role === 'DEFAULT'">Rezerviši</button>
+                                <button class="btn btn-sm btn-danger" ng-click="RepertoireCtrl.deleteDiscountedTicket(p.id)" ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">Obriši</button>
                             </li>
                         </ul>
                     </div>
