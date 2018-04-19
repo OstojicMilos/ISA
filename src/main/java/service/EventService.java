@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 import dto.EventDetailsDto;
 import enums.EstablishmentType;
 import enums.EventType;
+import model.DiscountTicket;
 import model.Establishment;
 import model.Event;
 import model.EventDetails;
 import model.Hall;
 import model.Seat;
+import repository.DiscountTicketRepository;
 import repository.EstablishmentRepository;
 import repository.EventDetailsRepository;
 import repository.EventRepository;
@@ -35,6 +37,8 @@ public class EventService {
 	private EventDetailsRepository eventDetailsRepository;
 	@Autowired
 	private HallRepository hallRepository;
+	@Autowired
+	DiscountTicketRepository discountTicketRepository;
 	
 	public Event getEvent(Integer establishmentId, Integer eventId) {
 		Establishment establishment = establishmentRepository.findOne(establishmentId);
@@ -241,6 +245,31 @@ public class EventService {
 			}
 		}
 		return eventDetailsRepository.save(eventDetails);
+	}
+	
+	public Double calculateEventRating(Integer eventId) {
+		Event event = eventRepository.findOne(eventId);
+		if (event == null) return null;
+		
+		List<DiscountTicket> discountedTickets = discountTicketRepository
+				.getDiscountedTicketsForEstablishment(event.getEstablishment().getId());
+		
+		Double eventRating = 0.00;
+		int numOfRatings = 0;
+		
+		for (DiscountTicket ticket : discountedTickets) {
+			if (ticket.getEventRating() > 0) {
+				if (ticket.getProjection().getEvent().getId() == eventId) {
+					eventRating += ticket.getEventRating();
+					++numOfRatings;
+				}
+			}
+		}
+		
+		if (Double.isNaN(eventRating/numOfRatings)) {
+			return 0.00;
+		}
+		return eventRating/numOfRatings;
 	}
 
 }

@@ -91,4 +91,13 @@ public class EventController {
 
 		return ResponseEntity.ok(removedDetails);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/events/{eventId}/rating")
+	public ResponseEntity<?> getEventRating(@PathVariable Integer eventId) {
+		Double rating = eventService.calculateEventRating(eventId);
+		if (rating == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(rating);
+	}
 }
