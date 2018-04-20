@@ -1,6 +1,6 @@
 angular.module("isaProject")
 
-.factory("EstablishmentService", function($http){
+.factory("EstablishmentService", ["$http", "$rootScope", function($http, $rootScope){
     
     return{
         
@@ -157,6 +157,16 @@ angular.module("isaProject")
         		url : 'http://localhost:8080/seatReservation/' + establishmentId + '/' + eventId + '/'+ scheduleId
         	})
 
+        },
+        
+        confirmReservation: function(scheduleId, reservation) {
+        	return $http({
+        		method : 'POST',
+        		url : 'http://localhost:8080/confirmReservation/'+ scheduleId , 
+        		data : reservation 
+        	})
+
         }
+        
     }
-});
+}]);

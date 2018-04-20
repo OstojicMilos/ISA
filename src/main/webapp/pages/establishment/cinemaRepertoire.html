@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-md-4 text-center projection-block">
                         <h4>Izaberi vreme projekcije i rezerviši</h4>
-                        <a ng-repeat="projInfo in proj.schedule" href="#!/rezervacija/{{RepertoireCtrl.establishmentId}}/{{RepertoireCtrl.cinemaId}}/{{projInfo.id}}" class="btn btn-default" >
+                        <a ng-repeat="projInfo in proj.schedule" href="#!/rezervacija/{{RepertoireCtrl.establishmentId}}/{{proj.id}}/{{projInfo.id}}" class="btn btn-default" >
                             <h4 class="time">{{projInfo.dateAndTime | date:'HH:mm'}}</h4>
                             {{projInfo.price}} rsd
                             <span>

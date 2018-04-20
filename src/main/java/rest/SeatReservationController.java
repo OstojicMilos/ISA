@@ -41,12 +41,10 @@ public class SeatReservationController {
 	}
 	
 	
-	@PostMapping("/confirmReservation/{establishmentId}/{eventId}/{scheduleId}")
-	public Reservation confirmReservation(@PathVariable Integer establishmentId,
-			@PathVariable Integer eventId, @PathVariable Integer scheduleId, 
-			@RequestBody ReservationDto reservation) {
+	@PostMapping("/confirmReservation/{scheduleId}")
+	public Reservation confirmReservation(@PathVariable Integer scheduleId, @RequestBody ReservationDto reservation) {
 		
-		 return seatReservationService.confirmReservation(establishmentId, eventId, scheduleId, reservation);
+		 return seatReservationService.confirmReservation(scheduleId, reservation);
 	}
 	
 	@GetMapping("/reservations")

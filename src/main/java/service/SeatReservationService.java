@@ -32,8 +32,7 @@ public class SeatReservationService {
 	@Autowired
 	SeatRepository seatRepository;
 
-	public Reservation confirmReservation(Integer establishmentId, Integer eventId, Integer scheduleId,
-			ReservationDto reservationDto) {
+	public Reservation confirmReservation(Integer scheduleId,ReservationDto reservationDto) {
 		
 		EventDetails projection = eventDetailsRepository.findOne(scheduleId);
 		if (projection == null) return null;
@@ -41,18 +40,22 @@ public class SeatReservationService {
 		User owner = userRepository.findOne(reservationDto.getUserId());
 		
 		List<User> friends = new ArrayList<>();
-		for (Integer guestId: reservationDto.getGuests()) {
-			User found = userRepository.findOne(guestId);
-			if (found != null) {
-				friends.add(found);
+		if(reservationDto.getGuests() != null) {
+			for (Integer guestId: reservationDto.getGuests()) {
+				User found = userRepository.findOne(guestId);
+				if (found != null) {
+					friends.add(found);
+				}
 			}
 		}
 		
 		List<Seat> seats = new ArrayList<>();
-		for (Integer seatId: reservationDto.getSeats()) {
-			Seat found = seatRepository.findOne(seatId);
-			if (found != null) {
-				seats.add(found);
+		if(reservationDto.getSeats() != null) {
+			for (Integer seatId: reservationDto.getSeats()) {
+				Seat found = seatRepository.findOne(seatId);
+				if (found != null) {
+					seats.add(found);
+				}
 			}
 		}
 		
