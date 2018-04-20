@@ -1,5 +1,8 @@
 <table id="establishment">
     <caption>Bioskopi</caption>
+    <div class="col-xs-2">
+    <input type="text" class="form-control" ng-model="search" placeholder="Pretraga..">
+    </div>
     <thead>
         <tr>
             <th scope="col">Ime</th>
@@ -10,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="cinema in CinemasCtrl.cinemas">
+        <tr ng-repeat="cinema in CinemasCtrl.cinemas | filter : search">
             <td>{{cinema.name}}</th>
             <td>{{cinema.address}}</td>
             <td>{{cinema.city}}</td>

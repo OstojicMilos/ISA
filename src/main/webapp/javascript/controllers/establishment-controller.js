@@ -249,7 +249,7 @@ angular.module("isaProject")
     };
 }])
 
-.controller('SeatReservationController', ["$scope", "EstablishmentService","$routeParams", "User", "$rootScope", function($scope, EstablishmentService, $routeParams, User, $rootScope){
+.controller('SeatReservationController', ["$scope", "EstablishmentService","$routeParams", "User", "$rootScope", "$location", function($scope, EstablishmentService, $routeParams, User, $rootScope, $location){
 	
 	var self = this;
 	self.rows = [];
@@ -275,10 +275,14 @@ angular.module("isaProject")
 		
 		
 		var reservation = {	userId : $rootScope.user.id,
-							seats : self.selectedSeats,
-							guests : self.guests};
+							seats : self.selectedSeats};
+		reservation.guests = [];
+		for (var i=0; i < self.guests.length; i++) {
+			reservation.guests.push(self.guests[i].id);
+		}
 		console.log(reservation);
 		EstablishmentService.confirmReservation($routeParams.scheduleId, reservation);
+		$location.path("/rezervacije");
 	}
 	
 	self.inviteFriend = function(friend){
@@ -288,7 +292,7 @@ angular.module("isaProject")
 			if ((self.guests.length == 0) && (friend.id != $rootScope.user.id)) {
 				self.guests.push(friend);
 			}
-			for (var i = 0; self.guests.length; i++) {
+			for (var i = 0; i < self.guests.length; i++) {
 				
 				if ((friend.id == self.guests[i].id) || (friend.id == $rootScope.user.id)){
 					break;

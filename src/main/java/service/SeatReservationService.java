@@ -57,7 +57,7 @@ public class SeatReservationService {
 				SimpleMailMessage reservationEmail = new SimpleMailMessage();
 				reservationEmail.setTo(friend.getEmail());
 				reservationEmail.setSubject("Pozivnica za projekciju");
-				reservationEmail.setText("");
+				reservationEmail.setText("Pozivnica");
 				reservationEmail.setFrom("noreply@isaproject.com");
 				JavaMailSender sender = new JavaMailSenderImpl();
 				sender.send(reservationEmail);
