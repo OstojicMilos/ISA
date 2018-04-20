@@ -13,8 +13,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import dto.ReservationViewDto;
 import enums.Role;
+import model.Reservation;
 import model.User;
+import repository.EventRepository;
 import repository.UserRepository;
 
 @Service
@@ -22,6 +25,9 @@ public class UserService {
 
 		@Autowired
 		private UserRepository userRepository;
+		
+		@Autowired
+		private EventRepository eventRepository;
 		
 		public User processRegistrationForm(User user, HttpServletRequest request) {
 			
@@ -102,6 +108,38 @@ public class UserService {
 				userRepository.save(u);
 			}
 			
+		}
+
+		public List<ReservationViewDto> getReservationsAsOwner(int userId) {
+			User user = userRepository.findOne(userId);
+			List<ReservationViewDto> result = new ArrayList<>();
+			
+			if(user != null) {
+				List<Reservation> reservations =  user.getReservations();
+				for(Reservation r : reservations) {
+					ReservationViewDto dto = new ReservationViewDto();
+					dto.setEvent(r.getProjection().getEvent());
+					dto.setReservation(r);
+					result.add(dto);
+				}
+			}
+			return result;
+		}
+		
+		public List<ReservationViewDto> getReservationsAsGuest(int userId) {
+			User user = userRepository.findOne(userId);
+			List<ReservationViewDto> result = new ArrayList<>();
+			
+			if(user != null) {
+				List<Reservation> reservations =  user.getReservationsAsGuest();
+				for(Reservation r : reservations) {
+					ReservationViewDto dto = new ReservationViewDto();
+					dto.setEvent(r.getProjection().getEvent());
+					dto.setReservation(r);
+					result.add(dto);
+				}
+			}
+			return result;
 		}
 				
 }

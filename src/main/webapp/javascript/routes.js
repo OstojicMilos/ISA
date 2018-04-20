@@ -202,6 +202,12 @@ angular.module("isaProject")
 		controllerAs: "SeatReservationCtrl"
 	})
 	
+	.when("/rezervacije",{
+		templateUrl: "pages/account/reservations.html",
+		controller: "ReservationViewController",
+		controllerAs: "ReservationViewCtrl"
+	})
+	
 	.when("/brzarezervacija/:id/izmena", {
 		templateUrl: "pages/establishment/editFastTickets.html",
 		controller: "FastTicketsController",
