@@ -1,11 +1,14 @@
 <table id="establishment">
     <caption>Pozorišta</caption>
-    <input type="text" ng-model="search" placeholder="Pretraga..">
+    <div class="col-xs-2">
+    <input type="text" class="form-control" ng-model="search" placeholder="Pretraga..">
+    </div>
     <thead>
         <tr>
             <th scope="col">Ime</th>
             <th scope="col">Adresa</th>
             <th scope="col">Grad</th>
+            <th scope="col">Ocena</th>
             <th scope="col">Repertoar</th>
         </tr>
     </thead>
@@ -14,10 +17,16 @@
             <td>{{theatre.name}}</th>
             <td>{{theatre.address}}</td>
             <td>{{theatre.city}}</td>
+            <td>{{theatre.rating}}</td>
             <td>
                <a ng-href="#!repertoar/{{theatre.id}}">
                     <button class="btn btn-default">Prikazi</button>
                </a>
+            </td>
+            <td ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">
+                <a ng-href="#!ustanova/{{theatre.id}}/izmena">
+                    <button class="btn btn-warning">Ažuriraj</button>
+                </a>
             </td>
         </tr>
     </tbody>

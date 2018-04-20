@@ -1,29 +1,89 @@
-
-<div>
-	<table>
-		<tbody>
-			<tr>
-				<td>Ime:</td>
-				<td>{{user.name}}</td>
-			</tr>
-			<tr>
-				<td>Prezime:</td>
-				<td>{{user.surname}}</td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td>{{user.email}}</td>
-			</tr>
-			<tr>
-				<td>Telefon:</td>
-				<td>{{user.phoneNumber}}</td>
-			</tr>
-			<tr>
-				<td>Grad:</td>
-				<td>{{user.city}}</td>
-			</tr>
-			
-		</tbody>
-	</table>
- 	<a ng-href="#!account/editInfo" class="btn btn-default btn-md active" role="button">Ažuriraj</a>
+<div class="col-md-12">
+	<div class="panel panel-default">
+		<div class="panel-body">
+		<table>
+			<tbody>
+				<tr>
+					<td>Ime:</td>
+					<td>{{user.name}}</td>
+				</tr>
+				<tr>
+					<td>Prezime:</td>
+					<td>{{user.surname}}</td>
+				</tr>
+				<tr>
+					<td>Email:</td>
+					<td>{{user.email}}</td>
+				</tr>
+				<tr>
+					<td>Telefon:</td>
+					<td>{{user.phoneNumber}}</td>
+				</tr>
+				<tr>
+					<td>Grad:</td>
+					<td>{{user.city}}</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		<a ng-href="#!account/editInfo" class="btn btn-default btn-md active" role="button">Ažuriraj</a>
+		</div>
+	 </div>
+</div>
+<hr/>
+<div class="col-md-12" ng-if="$root.user != null && $root.user.role === 'ESTABLISHMENT_ADMIN'">
+	<div class="col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">Izveštaj o prihodima</div>
+			<div class="panel-body" id="repertoire-create-form">
+				<form class="form-horizontal" ng-submit="getIncome()">
+					<div class="form-group">
+						<label for="type" class="col-sm-3 control-label">Tip ustanove:</label>
+						<div class="col-sm-9">
+							<select id="type" class="form-control" ng-model="selected.type">
+								<option ng-repeat="t in types" value="{{t}}">{{t}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="selected.type == 'Bioskop'">
+						<label for="c" class="col-sm-3 control-label">Bioskopi:</label>
+						<div class="col-sm-9">
+							<select id="c" class="form-control" ng-model="selected.id">
+								<option ng-repeat="cinema in cinemas" value="{{cinema.id}}">{{cinema.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="selected.type == 'Pozoriste'">
+						<label for="t" class="col-sm-3 control-label">Pozorišta:</label>
+						<div class="col-sm-9">
+							<select id="t" class="form-control" ng-model="selected.id">
+								<option ng-repeat="theatre in theatres" value="{{theatre.id}}">{{theatre.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="from" class="col-sm-3 control-label">Od:</label>
+						<div class="col-sm-9">
+							<input type="date" class="form-control" id="from" ng-model="selected.from" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="to" class="col-sm-3 control-label">Do:</label>
+						<div class="col-sm-9">
+							<input type="date" class="form-control" id="from" ng-model="selected.to" required>
+						</div>
+					</div>
+					<div class="form-group btn-wrapper">
+						<button type="submit" class="btn btn-primary text-center" ng-disabled="!selected.id">Izračunaj</button>
+					</div>
+					<div class="form-group">
+						<label for="income" class="col-sm-3 control-label">Prihod:</label>
+						<div class="col-sm-9">
+							<input type="number" class="form-control" id="income" ng-model="selected.income" disabled>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

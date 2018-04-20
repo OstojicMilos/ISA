@@ -1,6 +1,6 @@
 angular.module("isaProject")
 
-.factory("EstablishmentService", function($http){
+.factory("EstablishmentService", ["$http", "$rootScope", function($http, $rootScope){
     
     return{
         
@@ -15,6 +15,43 @@ angular.module("isaProject")
             return $http({
                 method: 'GET',
                 url: 'http://localhost:8080/theatres'
+            })
+        },
+
+        getEstablishmentById: function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + id
+            })
+        },
+        
+        getEstablishmentRating: function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/establishments/' + id + '/rating'
+            })
+        },
+
+        getEstablishmentIncome: function(id,data) {
+            return $http({
+                method: 'POST',
+                url: 'http://localhost:8080/establishments/' + id + '/income',
+                data: data
+            })
+        },
+
+        updateEstablishment: function(id, data) {
+            return $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/establishments/' + id,
+                data: data
+            })
+        },
+
+        getAllCinemasEvents: function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:8080/cinemas/' + id + '/events'
             })
         },
 
@@ -77,10 +114,40 @@ angular.module("isaProject")
             })
         },
 
+        updateEventDetails: function(eventId, detailsId, data) {
+            return $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/events/' + eventId + '/details/' + detailsId,
+                data: data
+            })
+        },
+
+        deleteEventDetails: function(eventId, detailsId) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://localhost:8080/events/' + eventId + '/details/' + detailsId
+            })
+        },
+
         getDiscountedTickets: function(establishmentId) {
             return $http({
                 method: 'GET',
                 url: 'http://localhost:8080/establishments/' + establishmentId + '/discountedtickets'
+            })
+        },
+
+        createDiscountedTicket: function(data) {
+            return $http({
+                method: 'POST',
+                url: 'http://localhost:8080/discountedtickets',
+                data: data
+            })
+        },
+
+        deleteDiscountedTicket: function(id) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://localhost:8080/discountedtickets/' + id,
             })
         },
 
@@ -98,6 +165,16 @@ angular.module("isaProject")
         		url : 'http://localhost:8080/seatReservation/' + establishmentId + '/' + eventId + '/'+ scheduleId
         	})
 
+        },
+        
+        confirmReservation: function(scheduleId, reservation) {
+        	return $http({
+        		method : 'POST',
+        		url : 'http://localhost:8080/confirmReservation/'+ scheduleId , 
+        		data : reservation 
+        	})
+
         }
+        
     }
-});
+}]);

@@ -1,13 +1,36 @@
 angular.module("isaProject")
-.controller('AccountController', ['User', '$scope', '$rootScope', function(User, $scope, $rootScope){
+.controller('AccountController', ['User', '$scope', '$rootScope', 'EstablishmentService', function(User, $scope, $rootScope, EstablishmentService){
 	
+	/*
 	$scope.logOut = function() {
 		$rootScope.loggedIn = false;
 		$rootScope.user = {};
 		$location.path("/");
+	}*/
+	
+	(function() {
+		EstablishmentService.getAllCinemas()
+			.then(function(response) {
+				$scope.cinemas = response.data;
+			})
+		
+		EstablishmentService.getAllTheatres()
+			.then(function(response) {
+				$scope.theatres = response.data;
+			})
+	})();
+	$scope.types = ["Pozoriste", "Bioskop"];
+	$scope.selected = {};
+
+	$scope.getIncome = function() {
+		var dto = {};
+		dto.from = $scope.selected.from;
+		dto.to = $scope.selected.to;
+		EstablishmentService.getEstablishmentIncome($scope.selected.id, dto)
+			.then(function(response) {
+				$scope.selected.income = response.data;
+			})
 	}
-	
-	
 }])
 
 .controller("UserUpdateDataController", ['User','$rootScope', function(User, $rootScope){
@@ -83,4 +106,41 @@ angular.module("isaProject")
     		
     	})
     }
+}])
+
+.controller('ReservationViewController', ["$rootScope", "User", "$route", function($rootScope, User,$route){
+	
+	var self = this;
+	
+	self.reservationsAsOwner = {};
+	self.reservationsAsGuest = {};
+	
+	if($rootScope.loggedIn){
+		User.getReservationsAsOwner($rootScope.user.id).then(function(response){
+			self.reservationsAsOwner = response.data;
+			console.log(self.reservationsAsOwner);
+		});
+		
+		User.getReservationsAsGuest($rootScope.user.id).then(function(response){
+			self.reservationsAsGuest = response.data;
+			console.log(self.reservationsAsGuest);
+		});
+	}
+	
+	self.newRating = {};
+
+	self.updateRating = function(id) {
+		var dto = {};
+		if (self.newRating.a) {
+			dto.ambient = self.newRating.a;
+		}
+		if (self.newRating.p) {
+			dto.event = self.newRating.p
+		}
+		User.updateRating(id, dto)
+			.then(function(response) {
+				$route.reload();
+			})
+	}
+	
 }])

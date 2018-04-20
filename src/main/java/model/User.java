@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
-
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import enums.Role;
 
@@ -59,9 +59,17 @@ public class User implements Serializable{
 	@Column(nullable = true)
 	private List<Friendship> friendships;
 	
+	@OneToMany(mappedBy = "owner")
+	@JsonIgnore
+	private List<Reservation> reservations = new ArrayList<>();
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
+	@ManyToMany(mappedBy = "guests")
+	@JsonIgnore
+	List<Reservation> reservationsAsGuest = new ArrayList<>();
 	/*
 	public List<Friendship> getFriendships() {
 		return friendships;
@@ -81,6 +89,12 @@ public class User implements Serializable{
 		this.reservedProps = reservedProps;
 	}
 
+//	public List<Reservation> getReservations() {
+	//	return reservations;
+	//}
+	//public void setReservations(List<Reservation> reservations) {
+	//	this.reservations = reservations;
+	//}
 	public int getId() {
 		return id;
 	}
@@ -146,6 +160,18 @@ public class User implements Serializable{
 	}
 	public void setDiscountedTickets(List<DiscountTicket> discountedTickets) {
 		this.discountedTickets = discountedTickets;
+	}
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+	public List<Reservation> getReservationsAsGuest() {
+		return reservationsAsGuest;
+	}
+	public void setReservationsAsGuest(List<Reservation> reservationsAsGuest) {
+		this.reservationsAsGuest = reservationsAsGuest;
 	}
 	
 	

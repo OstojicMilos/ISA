@@ -1,0 +1,28 @@
+<div id="repertoire-create-form" class="col-md-6 col-md-offset-3">
+    <form class="form-horizontal" ng-submit="EditEstablishmentCtrl.update()" role="form">
+        <h3>Ažuriranje</h3>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Naziv</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" ng-model="EditEstablishmentCtrl.establishment.name" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">Adresa</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="address" ng-model="EditEstablishmentCtrl.establishment.address" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="city" class="col-sm-2 control-label">Grad</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="city" ng-model="EditEstablishmentCtrl.establishment.city" required>
+            </div>
+        </div>
+        <div class="form-group btn-wrapper">
+            <button type="submit" class="btn btn-primary">
+                Ažuriraj
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+<div id="repertoire-create-form" class="col-md-6 col-md-offset-3">
+    <form class="form-horizontal" ng-submit="FastTicketsCtrl.create()">
+        <h3>Nova karta za brzu rezervaciju</h3>
+        <div class="form-group">
+            <label for="movie" class="col-sm-2 control-label">Film</label>
+            <div class="col-sm-10">
+                <select id="movie" class="form-control" ng-model="FastTicketsCtrl.newTicket.selectedMovie" required>
+                    <option ng-repeat="option in FastTicketsCtrl.events" value="{{$index}}">{{option.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="FastTicketsCtrl.newTicket.selectedMovie">
+            <label for="projection" class="col-sm-2 control-label">Projekcija</label>
+            <div class="col-sm-10">
+                <select id="projection" class="form-control" ng-model="FastTicketsCtrl.newTicket.projectionIndex" required>
+                    <option ng-repeat="option in FastTicketsCtrl.events[FastTicketsCtrl.newTicket.selectedMovie].schedule" value="{{$index}}">{{option.dateAndTime | date: 'dd-MMM-yyyy HH:mm'}}, {{option.halls[0].name}}, {{option.price}} rsd</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="FastTicketsCtrl.newTicket.projectionIndex">
+            <label for="seat" class="col-sm-2 control-label">Sedište</label>
+            <div class="col-sm-10">
+                <select id="seat" class="form-control" ng-model="FastTicketsCtrl.newTicket.seat" required>
+                        <option ng-repeat="option in FastTicketsCtrl.events[FastTicketsCtrl.newTicket.selectedMovie].schedule[FastTicketsCtrl.newTicket.projectionIndex].seats" ng-if="option.isAvailable
+                        " value="{{option.seat.id}}">{{option.seat.id}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng-if="FastTicketsCtrl.newTicket.seat">
+            <label for="discount" class="col-sm-2 control-label">Popust</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="discount" ng-model="FastTicketsCtrl.newTicket.discount" placeholder="u procentima">
+            </div>
+        </div>
+        <div class="form-group btn-wrapper">
+            <button type="submit" class="btn btn-primary text-center">Kreiraj</button>
+        </div>
+    </form>
+</div>
