@@ -22,7 +22,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-				<li><a href="#!account">Početna</a></li>
+				<li ng-if="loggedIn"><a href="#!account">Početna</a></li>
 				<li><a href="#!pozorista">Pozorišta</a></li>
 				<li><a href="#!bioskopi">Bioskopi</a></li>
 				<li ng-if="loggedIn"><a href="#!prijatelji">Prijatelji</a></li>

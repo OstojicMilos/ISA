@@ -221,4 +221,22 @@ angular.module("isaProject")
 			}
 		}
 	})
+})
+
+.run(function($rootScope, $location){
+	$rootScope.$on("$routeChangeStart", function(event, next, current){
+		if($rootScope.loggedIn == null) {
+			if( next.templateUrl === 'pages/register.html' ||
+				next.templateUrl === 'pages/login.html'	 ||
+				next.templateUrl === 'pages/establishment/cinemas.html' ||
+				next.templateUrl === 'pages/establishment/theatres.html' ||
+				next.templateUrl === 'pages/establishment/cinemaRepertoire.html' ||
+				next.templateUrl === 'pages/establishment/theatreRepertoire.html') {
+				
+			}
+			else {
+				$location.path("/logovanje")
+			}
+		}
+	})
 });

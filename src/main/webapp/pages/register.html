@@ -1,5 +1,4 @@
 <div>
-	<h1>Registration page</h1>
 	<div>
 	<form ng-submit="RegistrationCtrl.registerNewUser()" name="register" novalidate >
 		<div class="form-group row">
@@ -11,32 +10,32 @@
 						ng-model="RegistrationCtrl.user.email">
 				</div>
 				<div class="form-group">
-					<label  class="control-label">Password:</label>
+					<label  class="control-label">Lozinka:</label>
 					<input type="password" required name="password" id= "password" class="form-control" 
 						ng-model="RegistrationCtrl.user.password" >
 				</div>
 				<div class="form-group">
-					<label  class="control-label">Confirm password:</label>
+					<label  class="control-label">Potvrdi lozinku:</label>
 					<input type="password" required name="confirmPassword" class="form-control" 
 						ng-model="RegistrationCtrl.confirmPassword">
 				</div>
 				<div class="form-group">
-					<label class="control-label">Name:</label>
+					<label class="control-label">Ime:</label>
 					<input type="text" required name="Name" class="form-control" 
 					ng-model="RegistrationCtrl.user.name">
 				</div>
 				<div class="form-group">
-					<label class="control-label">Surname:</label> 
+					<label class="control-label">Prezime:</label> 
 					<input type="text" required name="surname" class="form-control" 
 					ng-model="RegistrationCtrl.user.surname">
 				</div>
 				<div class="form-group">
-					<label class="control-label">Phone number:</label> 
+					<label class="control-label">Broj telefona:</label> 
 					<input type="text" required name="phone" class="form-control" 
 					ng-model="RegistrationCtrl.user.phoneNumber">
 				</div>
 				<div class="form-group">
-					<label class="control-label">City:</label> 
+					<label class="control-label">Grad:</label> 
 					<input type="text" required name="city" class="form-control" 
 					ng-model="RegistrationCtrl.user.city">
 				</div>
@@ -45,7 +44,7 @@
 				 Passwords do not match. </span>
 				<div>
 					<button type="submit" ng-disabled="!(register.$valid && (RegistrationCtrl.confirmPassword === RegistrationCtrl.user.password))"
-					 class="btn btn-primary btn-block btn-lg" name="signup">Sign Up</button>
+					 class="btn btn-primary btn-block btn-lg" name="signup">Registruj se</button>
 				</div>
 			</div>
 			<div class="col-md-4"></div>
