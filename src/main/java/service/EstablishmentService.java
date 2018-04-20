@@ -146,7 +146,6 @@ public class EstablishmentService {
 			Date projectionDate = reservation.getProjection().getDateAndTime();
 			if (dto.getFrom().before(projectionDate) && dto.getTo().after(projectionDate)) {
 				income += reservation.getProjection().getPrice().doubleValue();
-				System.out.println(income);
 			}
 		}
 		

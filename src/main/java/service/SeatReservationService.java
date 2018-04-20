@@ -9,8 +9,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import dto.RatingDto;
 import dto.ReservationDto;
 import model.DetailsSeat;
+import model.DiscountTicket;
 import model.EventDetails;
 import model.Reservation;
 import model.Seat;
@@ -104,6 +106,23 @@ public class SeatReservationService {
 		List<Reservation> reservations = new ArrayList<>();
 		reservationRepository.findAll().forEach(reservations::add);
 		return reservations;
+	}
+
+	public boolean updateRating(Integer resId, RatingDto ratingDto) {
+		Reservation ticket = reservationRepository.findOne(resId);
+
+		if (ticket == null)
+			return false;
+
+		if (ratingDto.getAmbient() != null) {
+			ticket.setAmbientRating(ratingDto.getAmbient());
+		}
+		if (ratingDto.getEvent() != null) {
+			ticket.setEventRating(ratingDto.getEvent());
+		}
+		reservationRepository.save(ticket);
+		// establishmentService.calculateEstablishmentRating(ticket.getProjection().getEvent().getEstablishment().getId());
+		return true;
 	}
 
 }

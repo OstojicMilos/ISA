@@ -108,7 +108,7 @@ angular.module("isaProject")
     }
 }])
 
-.controller('ReservationViewController', ["$rootScope", "User", function($rootScope, User){
+.controller('ReservationViewController', ["$rootScope", "User", "$route", function($rootScope, User,$route){
 	
 	var self = this;
 	
@@ -127,5 +127,20 @@ angular.module("isaProject")
 		});
 	}
 	
+	self.newRating = {};
+
+	self.updateRating = function(id) {
+		var dto = {};
+		if (self.newRating.a) {
+			dto.ambient = self.newRating.a;
+		}
+		if (self.newRating.p) {
+			dto.event = self.newRating.p
+		}
+		User.updateRating(id, dto)
+			.then(function(response) {
+				$route.reload();
+			})
+	}
 	
 }])

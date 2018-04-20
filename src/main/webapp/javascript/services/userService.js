@@ -29,6 +29,10 @@ angular.module("isaProject")
 		
 		getReservationsAsGuest : function(userId){
 			return $http.get("/owner/reservations/" + userId);
+		},
+
+		updateRating : function(resId, ratings) {
+			return $http.put("/reservations/" + resId + "/rating", ratings);
 		}
 	
 		
