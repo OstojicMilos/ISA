@@ -61,6 +61,7 @@ public class EventDetails {
 	@JsonIgnore
 	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
+	
 	public EventDetails() {
 	}
 
