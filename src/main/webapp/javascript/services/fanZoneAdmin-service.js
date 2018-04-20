@@ -1,6 +1,6 @@
 angular.module("isaProject")
 
-.factory("FanZoneAdmin", function($http){
+.factory("FanZoneAdmin", function($http, $rootScope){
 
 	var propForUpdate = {};
 
@@ -17,6 +17,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'PUT',
 				url: 'http://localhost:8080/fanZoneAdmin/update',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: admin
 			})			
 		},
@@ -25,6 +28,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'PUT',
 				url: 'http://localhost:8080/fanZoneAdmin/changePassword/'+userId,
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: password
 			})
 		},
@@ -33,6 +39,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'POST',
 				url: 'http://localhost:8080/fanZoneAdmin/officialProps',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: newProp
 			})
 		},
@@ -40,21 +49,30 @@ angular.module("isaProject")
 		getEstablishments: function(){
 			return $http({
 				method: 'GET',
-				url: 'http://localhost:8080/fanZoneAdmin/establishments'
+				url: 'http://localhost:8080/fanZoneAdmin/establishments',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 			})
 		},
 		
 		getOfficialProps: function(){
 			return $http({
 				method: 'GET',
-				url: 'http://localhost:8080/fanZoneAdmin/officialProps'
+				url: 'http://localhost:8080/fanZoneAdmin/officialProps',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 			})
 		},
 
 		deleteOfficialProp: function(propId){
 			return $http({
 				method: 'DELETE',
-				url: 'http://localhost:8080/fanZoneAdmin/officialProps/'+propId
+				url: 'http://localhost:8080/fanZoneAdmin/officialProps/'+propId,
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 			})
 		},
 
@@ -62,6 +80,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'PUT',
 				url: 'http://localhost:8080/fanZoneAdmin/officialProps/'+prop.id,
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: prop
 			})
 		},
@@ -69,7 +90,10 @@ angular.module("isaProject")
 		getPendingUserAds: function(){
 			return $http({
 				method: 'GET',
-				url: 'http://localhost:8080/fanZoneAdmin/userAds'
+				url: 'http://localhost:8080/fanZoneAdmin/userAds',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 			})
 		},
 
@@ -77,6 +101,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'PUT',
 				url: 'http://localhost:8080/fanZoneAdmin/userAds/' + userAd.id,
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: userAd
 			})
 		}

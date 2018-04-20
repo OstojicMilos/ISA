@@ -36,7 +36,7 @@
 						<td>{{prop.price}}</td>
 						<td>{{prop.establishment.name}}</td>
 						<td>
-							<img ng-src="{{prop.imagePath}}" />
+							<img ng-src="{{prop.imagePath}}" width="50" height="50" />
 						</td>
 						<td>
 							<button type="button" ng-click="FanZoneCtrl.reserveProp(prop)">Rezerviši</button>
@@ -64,7 +64,7 @@
 						<td>{{userAd.usedProp.price}}</td>
 						<td>{{userAd.availableUntil}}</td>
 						<td>
-							<img ng-src="{{userAd.usedProp.imagePath}}" />
+							<img ng-src="{{userAd.usedProp.imagePath}}" width="50" height="50" />
 						</td>
 						<td>{{userAd.owner.email}}</td>
 						<td>

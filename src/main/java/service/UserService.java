@@ -110,7 +110,13 @@ public class UserService {
 			}
 			
 		}
-
+		
+		public Role getUserRole(String userCredentials) {
+			String[] credentials = userCredentials.split(":");
+			User user = userRepository.findByEmail(credentials[0]);
+			if(user.getPassword().equals(credentials[1])) return user.getRole();
+			else return null;
+		}
 		public List<ReservationViewDto> getReservationsAsOwner(int userId) {
 			User user = userRepository.findOne(userId);
 			List<ReservationViewDto> result = new ArrayList<>();
@@ -141,6 +147,7 @@ public class UserService {
 				}
 			}
 			return result;
+
 		}
 
 		public List<DiscountTicket> getFastTickets(Integer userId) {

@@ -1,11 +1,14 @@
 angular.module("isaProject")
 
-.factory("SysAdmin", function($http){
+.factory("SysAdmin", function($http, $rootScope){
 	return{
 		newAdmin: function(admin){
 			return $http({
 				method: 'POST',
 				url: 'http://localhost:8080/sysAdmin/newAdmin',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: admin
 			})
 		},
@@ -14,6 +17,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'POST',
 				url: 'http://localhost:8080/sysAdmin/newCinema',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: cinema
 			})
 			
@@ -23,6 +29,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'POST',
 				url: 'http://localhost:8080/sysAdmin/newTheatre',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: theatre
 			})
 		},
@@ -30,7 +39,10 @@ angular.module("isaProject")
 		getEstablishmentAdmins: function(){
 			return $http({
 				method: 'GET',
-				url: 'http://localhost:8080/sysAdmin/users/establishmentAdmins'
+				url: 'http://localhost:8080/sysAdmin/users/establishmentAdmins',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 			})
 		},
 
@@ -38,6 +50,9 @@ angular.module("isaProject")
 			return $http({
 				method: 'POST',
 				url: 'http://localhost:8080/sysAdmin/privilegedUserCategories',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 				data: newCategory
 			})
 		},
@@ -45,7 +60,10 @@ angular.module("isaProject")
 		getCategories: function(){
 			return $http({
 				method: 'GET',
-				url: 'http://localhost:8080/sysAdmin/privilegedUserCategories'
+				url: 'http://localhost:8080/sysAdmin/privilegedUserCategories',
+				headers: {
+					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
+				},
 			})
 		}
 	}

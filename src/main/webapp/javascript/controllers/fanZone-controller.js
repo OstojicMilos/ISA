@@ -110,8 +110,15 @@ angular.module("isaProject")
 		userAd.adStatus = "PENDING";
 		userAd.owner = {};
 		userAd.owner.id = $rootScope.user.id;
-		FanZone.createNewUserAd(userAd).then(function(){
-			$location.path("/account/fanZona");
-		});
+		
+		var formData = new FormData();
+		formData.append("file", document.getElementById('file').files[0]);
+	    FanZone.uploadImage(formData).then(function(data){
+	    	console.log(data);
+	    	userAd.usedProp.imagePath = data.data;
+	    	FanZone.createNewUserAd(userAd).then(function(){
+	    		$location.path("/account/fanZona");
+	  		});
+	    });		
 	}
 }]);
