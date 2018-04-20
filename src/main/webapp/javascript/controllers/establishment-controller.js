@@ -42,7 +42,6 @@ angular.module("isaProject")
    
     self.projections = repertoirePromise;
     self.establishmentId = $routeParams.id;
-    console.log(self.projections);
 
     self.newEvent = {};
     self.addEvent = function() {
@@ -50,6 +49,7 @@ angular.module("isaProject")
             .then(function(response) {
                 self.projections.push(response.data);
                 self.newEvent = {};
+                console.log(self.projections);
             });
     };
     
@@ -162,13 +162,14 @@ angular.module("isaProject")
     };
 }])
 
-.controller('SeatReservationController', ["$scope", "EstablishmentService","$routeParams", "User", function($scope, EstablishmentService, $routeParams, User){
+.controller('SeatReservationController', ["$scope", "EstablishmentService","$routeParams", "User", "$rootScope", function($scope, EstablishmentService, $routeParams, User, $rootScope){
 	
 	var self = this;
 	self.rows = [];
 	self.eventDetails = {};
 	self.selectedSeats = [];
-	self.searchResult = {};
+	self.searchResult = [];
+	self.guests = [];
 	
 	EstablishmentService.getSeatReservations($routeParams.establishmentId, $routeParams.eventId, $routeParams.scheduleId).then(function(response){
 		self.eventDetails = response.data;
@@ -182,15 +183,61 @@ angular.module("isaProject")
 		}
 	});
 	
-	self.seatClicked = function(row, col){
-		var seatCode = row.toString() + col.toString();
-		var seatIndex = self.selectedSeats.indexOf(seatCode);
+	self.confirmReservation = function(){
 		
-		if(seatIndex > -1)
-			self.selectedSeats.splice(seatIndex, 1);
+		
+		
+		var reservation = {	userId : $rootScope.user.id,
+							seats : self.selectedSeats,
+							guests : self.guests};
+		console.log(reservation);
+		EstablishmentService.confirmReservation($routeParams.scheduleId, reservation);
+	}
+	
+	self.inviteFriend = function(friend){
+		
+		if(self.guests.length < 4){
+			self.searchResult.splice(self.searchResult.indexOf(friend),1);
+			if ((self.guests.length == 0) && (friend.id != $rootScope.user.id)) {
+				self.guests.push(friend);
+			}
+			for (var i = 0; self.guests.length; i++) {
+				
+				if ((friend.id == self.guests[i].id) || (friend.id == $rootScope.user.id)){
+					break;
+				}
+				if ( i == self.guests.length-1) {
+					self.guests.push(friend);
+				}
+			}
+		}
+		console.log(self.guests);
+	}
+	
+	self.removeInvitedFriend = function(friend){
+		
+		if(self.guests.includes(friend)){
+			self.guests.splice(self.guests.indexOf(friend),1);
+		}
+		
+	}
+	
+	self.seatClicked = function(row, col){
+		var seatId = self.rows[row][col].id.seatId;
+		var seatIndex = self.selectedSeats.indexOf(seatId);
+		
+		if (seatIndex > -1) {
+			if((self.guests.length > 0) && (self.selectedSeats.length > self.guests.length + 1)) {
+				self.selectedSeats.splice(seatIndex, 1);
+			}
+			else if (self.guests.length == 0){
+				self.selectedSeats.splice(seatIndex, 1);
+		
+			}
+		}
 		else{
 			if(self.selectedSeats.length <= 3)
-				self.selectedSeats.push(seatCode);
+				self.selectedSeats.push(seatId);
 			else{
 				alert("Možete rezervisati najviše četiri(4) sedišta");
 			}
@@ -198,7 +245,7 @@ angular.module("isaProject")
 	}
 	
 	self.getSeatStatus = function(row, col){
-		var seatCode = row.toString() + col.toString();
+		var seatCode = self.rows[row][col].id.seatId;
 		if(!self.rows[row][col].isAvailable)
 			return 'reserved';
 		else if(self.selectedSeats.indexOf(seatCode) > -1)
@@ -209,20 +256,18 @@ angular.module("isaProject")
     	if(self.criteria != ""){
     		
     		User.searchForUser(self.criteria).then(function(response){
-        		self.searchResult = response.data;
+    			
+    				self.searchResult = response.data;
         	});
     		self.criteria= "";
     	}
     	else{
-    		self.searchResult = {};
+    		self.searchResult = [];
     	}
     }
 	
-	self.sendInvite = function(){
-		
-	}
 	
 	
-	console.log(self.rows);
+	
 }])
 

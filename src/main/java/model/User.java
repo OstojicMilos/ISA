@@ -64,6 +64,7 @@ public class User implements Serializable{
 	private List<Reservation> reservations = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "guests")

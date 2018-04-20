@@ -39,7 +39,7 @@
 				
 					{{result.name}} {{result.surname}} 
 					<button ng-click="SeatReservationCtrl.inviteFriend(result)" 
-					ng-disabled="(SeatReservationCtrl.selectedSeats.length - SeatReservationCtrl.guests.length)  <  1" >Pozovi</button>
+					ng-disabled="SeatReservationCtrl.selectedSeats.length < (2 + SeatReservationCtrl.guests.length)" >Pozovi</button>
 				</li>
 			</ul>
 		</div>
