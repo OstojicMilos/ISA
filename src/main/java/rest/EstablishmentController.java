@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.EstablishmentDto;
+import dto.IncomeReportDto;
 import enums.EstablishmentType;
 import model.Establishment;
 import model.Event;
@@ -102,6 +103,15 @@ public class EstablishmentController {
 			return ResponseEntity.badRequest().build();
 		}
 		return ResponseEntity.ok(rating);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "establishments/{id}/income")
+	public ResponseEntity<?> getEstablishmentIncome(@PathVariable Integer id, @RequestBody IncomeReportDto dto) {
+		Double income = establishmentService.getEstablishmentIncome(id, dto);
+		if (income == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(income);
 	}
 	
 }

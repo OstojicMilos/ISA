@@ -32,6 +32,14 @@ angular.module("isaProject")
             })
         },
 
+        getEstablishmentIncome: function(id,data) {
+            return $http({
+                method: 'POST',
+                url: 'http://localhost:8080/establishments/' + id + '/income',
+                data: data
+            })
+        },
+
         updateEstablishment: function(id, data) {
             return $http({
                 method: 'PUT',

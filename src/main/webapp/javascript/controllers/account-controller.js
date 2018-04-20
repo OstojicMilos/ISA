@@ -1,13 +1,36 @@
 angular.module("isaProject")
-.controller('AccountController', ['User', '$scope', '$rootScope', function(User, $scope, $rootScope){
+.controller('AccountController', ['User', '$scope', '$rootScope', 'EstablishmentService', function(User, $scope, $rootScope, EstablishmentService){
 	
+	/*
 	$scope.logOut = function() {
 		$rootScope.loggedIn = false;
 		$rootScope.user = {};
 		$location.path("/");
+	}*/
+	
+	(function() {
+		EstablishmentService.getAllCinemas()
+			.then(function(response) {
+				$scope.cinemas = response.data;
+			})
+		
+		EstablishmentService.getAllTheatres()
+			.then(function(response) {
+				$scope.theatres = response.data;
+			})
+	})();
+	$scope.types = ["Pozoriste", "Bioskop"];
+	$scope.selected = {};
+
+	$scope.getIncome = function() {
+		var dto = {};
+		dto.from = $scope.selected.from;
+		dto.to = $scope.selected.to;
+		EstablishmentService.getEstablishmentIncome($scope.selected.id, dto)
+			.then(function(response) {
+				$scope.selected.income = response.data;
+			})
 	}
-	
-	
 }])
 
 .controller("UserUpdateDataController", ['User','$rootScope', function(User, $rootScope){
