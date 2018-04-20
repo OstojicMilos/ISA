@@ -18,7 +18,7 @@ public class FileUploadController {
 	private static final String UPLOAD_ABSOLUTE_PATH = "F://Fakultet/isa/workspace/isaproject/src/main/webapp/images/";
 	private static final String UPLOAD_RELATIVE_PATH = "/images/";
 	
-	@PostMapping("/imageUpload")
+	@PostMapping(path = "/imageUpload", produces = "text/plain")
 	public String imageUpload(@RequestParam("file") MultipartFile file) {
 		try {
 			byte[] bytes = file.getBytes();

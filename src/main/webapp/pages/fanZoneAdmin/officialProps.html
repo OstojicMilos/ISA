@@ -1,5 +1,5 @@
 <div>
-    <h3 align="center">Zvanični rekviziti</h3>
+    <h3 align="center">Zvanicni rekviziti</h3>
     <table class="table">
         <thead>
             <tr>
@@ -16,7 +16,7 @@
                 <td>{{prop.description}}</td>
                 <td>{{prop.price}}</td>
                 <td>{{prop.establishment.name}}</td>
-                <td><img ng-src="{{prop.imagePath}}"/></td>
+                <td><img ng-src="{{prop.imagePath}}" height="50" width="50"/></td>
                 <td><button type="button" ng-click="FanZoneAdminOfficialPropsCtrl.deleteProp(prop)">Ukloni</button></td>
                 <td><button type="button" ng-click="FanZoneAdminOfficialPropsCtrl.updateProp(prop)">Izmeni</button></td>
             </tr>

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import model.Establishment;
 import model.PrivilegedUserCategory;
 import model.User;
 import service.SysAdminService;
+import service.UserService;
 
 @RestController
 @RequestMapping("/sysAdmin")
@@ -25,38 +27,41 @@ public class SysAdminController {
 
 	@Autowired
 	private SysAdminService sysAdminService;
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping("/newAdmin")
-	public void newAdmin(@RequestBody User admin) {
+	public void newAdmin(@RequestHeader("Authorization") String userCredentials, @RequestBody User admin) {
 		try {
-			sysAdminService.newAdmin(admin);
+			if(userService.getUserRole(userCredentials) == Role.SYS_ADMIN) sysAdminService.newAdmin(admin);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@PostMapping("/newCinema")
-	public void newCinema(@RequestBody Establishment cinema) {
+	public void newCinema(@RequestHeader("Authorization") String userCredentials, @RequestBody Establishment cinema) {
 		try {
-			sysAdminService.newCinema(cinema);
+			if(userService.getUserRole(userCredentials) == Role.SYS_ADMIN) sysAdminService.newCinema(cinema);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@PostMapping("/newTheatre")
-	public void newTheatre(@RequestBody Establishment theatre) {
+	public void newTheatre(@RequestHeader("Authorization") String userCredentials, @RequestBody Establishment theatre) {
 		try {
-			sysAdminService.newTheatre(theatre);
+			if(userService.getUserRole(userCredentials) == Role.SYS_ADMIN) sysAdminService.newTheatre(theatre);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@GetMapping("/users/establishmentAdmins")
-	public List<User> getEstablishmentAdmins(){
+	public List<User> getEstablishmentAdmins(@RequestHeader("Authorization") String userCredentials){
 		try {
-			return sysAdminService.getUsersByRole(Role.ESTABLISHMENT_ADMIN);
+			if(userService.getUserRole(userCredentials) == Role.SYS_ADMIN) return sysAdminService.getUsersByRole(Role.ESTABLISHMENT_ADMIN);
+			else return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -64,9 +69,10 @@ public class SysAdminController {
 	}
 	
 	@GetMapping("/privilegedUserCategories")
-	public List<PrivilegedUserCategory> getPrivilegedUserCategories(){
+	public List<PrivilegedUserCategory> getPrivilegedUserCategories(@RequestHeader("Authorization") String userCredentials){
 		try {
-			return sysAdminService.getPrivilegedUserCategories();
+			if(userService.getUserRole(userCredentials) == Role.SYS_ADMIN) return sysAdminService.getPrivilegedUserCategories();
+			else return null;
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -74,9 +80,9 @@ public class SysAdminController {
 	}
 	
 	@PostMapping("/privilegedUserCategories")
-	public void addNewUserCategory(@RequestBody PrivilegedUserCategory privilegedUserCategory) {
+	public void addNewUserCategory(@RequestHeader("Authorization") String userCredentials, @RequestBody PrivilegedUserCategory privilegedUserCategory) {
 		try {
-			sysAdminService.addNewPrivilegedUserCategory(privilegedUserCategory);
+			if(userService.getUserRole(userCredentials) == Role.SYS_ADMIN) sysAdminService.addNewPrivilegedUserCategory(privilegedUserCategory);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

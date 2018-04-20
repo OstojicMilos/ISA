@@ -103,5 +103,12 @@ public class UserService {
 			}
 			
 		}
+		
+		public Role getUserRole(String userCredentials) {
+			String[] credentials = userCredentials.split(":");
+			User user = userRepository.findByEmail(credentials[0]);
+			if(user.getPassword().equals(credentials[1])) return user.getRole();
+			else return null;		
+		}
 				
 }
