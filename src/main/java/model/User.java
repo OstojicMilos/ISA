@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
-
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -61,10 +59,16 @@ public class User implements Serializable{
 	@Column(nullable = true)
 	private List<Friendship> friendships;
 	
+	@OneToMany(mappedBy = "owner")
+	@JsonIgnore
+	private List<Reservation> reservations = new ArrayList<>();
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
+	@ManyToMany(mappedBy = "guests")
+	List<Reservation> reservationsAsGuest = new ArrayList<>();
 	/*
 	public List<Friendship> getFriendships() {
 		return friendships;
@@ -84,6 +88,12 @@ public class User implements Serializable{
 		this.reservedProps = reservedProps;
 	}
 
+//	public List<Reservation> getReservations() {
+	//	return reservations;
+	//}
+	//public void setReservations(List<Reservation> reservations) {
+	//	this.reservations = reservations;
+	//}
 	public int getId() {
 		return id;
 	}
