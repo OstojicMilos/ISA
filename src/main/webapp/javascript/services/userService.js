@@ -32,11 +32,15 @@ angular.module("isaProject")
 		},
 
 		getFastReservations: function(userId) {
-
+			return $http.get("fasttickets/" + userId);
 		},
 
 		updateRating : function(resId, ratings) {
 			return $http.put("/reservations/" + resId + "/rating", ratings);
+		},
+
+		updateFastRating: function(ticketId, ratings) {
+			return $http.put("/discountedtickets/" +ticketId + "/rating", ratings)
 		}
 	
 		

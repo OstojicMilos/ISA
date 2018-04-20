@@ -72,3 +72,56 @@
         </div>
     </li>
 </ul>
+<h2>Rezervacije putem karata na popustu</h2>
+<ul>
+    <li ng-repeat="ticket in ReservationViewCtrl.fastTickets">
+        <div class="col-md-6">
+            <div class="info_block">
+                <div>
+                    <strong>Datum: </strong>{{ticket.projection.date | date: 'medium'}}</div>
+                <div>
+                    <strong>Sala: </strong>{{ticket.projection.halls[0].name}}</div>
+                <div>
+                    <strong>Sedište: </strong>{{ticket.seat.id}}</div>
+                <div>
+                    <strong>Ocena ambijenta: </strong>{{ticket.ambintRating}}</div>
+                <div>
+                    <strong>Ocena projekcije: </strong>{{ticket.eventRating}}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Izmena ocena</div>
+                <div class="panel-body">
+                    <form>
+                        <div>
+                            <strong>Nova ocena ambijenta: </strong>
+                            <select ng-model="ReservationViewCtrl.newFastRating.a">
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                            </select>
+                        </div>
+                        <div>
+                            <strong>Nova ocena projekcije: </strong>
+                            <select ng-model="ReservationViewCtrl.newFastRating.p">
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-warning" ng-click="ReservationViewCtrl.updateFastTicket(ticket.id)">Izmeni</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    
+    </li>
+</ul>

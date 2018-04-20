@@ -114,17 +114,21 @@ angular.module("isaProject")
 	
 	self.reservationsAsOwner = {};
 	self.reservationsAsGuest = {};
-	
+	self.fastTickets = {};
+
 	if($rootScope.loggedIn){
 		User.getReservationsAsOwner($rootScope.user.id).then(function(response){
 			self.reservationsAsOwner = response.data;
-			console.log(self.reservationsAsOwner);
 		});
 		
 		User.getReservationsAsGuest($rootScope.user.id).then(function(response){
 			self.reservationsAsGuest = response.data;
-			console.log(self.reservationsAsGuest);
 		});
+
+		User.getFastReservations($rootScope.user.id).then(function(response) {
+			self.fastTickets = response.data;
+			console.log(self.fastTickets)
+		})
 	}
 	
 	self.newRating = {};
@@ -138,6 +142,22 @@ angular.module("isaProject")
 			dto.event = self.newRating.p
 		}
 		User.updateRating(id, dto)
+			.then(function(response) {
+				$route.reload();
+			})
+	}
+
+	self.newFastRating = {};
+
+	self.updateFastTicket = function(id) {
+		var dto = {};
+		if (self.newFastRating.a) {
+			dto.ambient = self.newFastRating.a;
+		}
+		if (self.newFastRating.p) {
+			dto.event = self.newFastRating.p;
+		}
+		User.updateFastRating(id, dto)
 			.then(function(response) {
 				$route.reload();
 			})
