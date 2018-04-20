@@ -84,3 +84,25 @@ angular.module("isaProject")
     	})
     }
 }])
+
+.controller('ReservationViewController', ["$rootScope", "User", function($rootScope, User){
+	
+	var self = this;
+	
+	self.reservationsAsOwner = {};
+	self.reservationsAsGuest = {};
+	
+	if($rootScope.loggedIn){
+		User.getReservationsAsOwner($rootScope.user.id).then(function(response){
+			self.reservationsAsOwner = response.data;
+			console.log(self.reservationsAsOwner);
+		});
+		
+		User.getReservationsAsGuest($rootScope.user.id).then(function(response){
+			self.reservationsAsGuest = response.data;
+			console.log(self.reservationsAsGuest);
+		});
+	}
+	
+	
+}])

@@ -68,6 +68,7 @@ public class User implements Serializable{
 	private List<DiscountTicket> discountedTickets = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "guests")
+	@JsonIgnore
 	List<Reservation> reservationsAsGuest = new ArrayList<>();
 	/*
 	public List<Friendship> getFriendships() {
@@ -159,6 +160,18 @@ public class User implements Serializable{
 	}
 	public void setDiscountedTickets(List<DiscountTicket> discountedTickets) {
 		this.discountedTickets = discountedTickets;
+	}
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+	public List<Reservation> getReservationsAsGuest() {
+		return reservationsAsGuest;
+	}
+	public void setReservationsAsGuest(List<Reservation> reservationsAsGuest) {
+		this.reservationsAsGuest = reservationsAsGuest;
 	}
 	
 	

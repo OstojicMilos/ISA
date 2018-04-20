@@ -21,6 +21,14 @@ angular.module("isaProject")
 		
 		searchForUser : function(criteria){
 			return $http.get("/search/"+criteria);
+		},
+		
+		getReservationsAsOwner : function(userId){
+			return $http.get("/owner/reservations/" + userId);
+		},
+		
+		getReservationsAsGuest : function(userId){
+			return $http.get("/owner/reservations/" + userId);
 		}
 	
 		

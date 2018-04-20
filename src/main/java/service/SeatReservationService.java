@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import dto.ReservationDto;
@@ -46,6 +49,18 @@ public class SeatReservationService {
 				if (found != null) {
 					friends.add(found);
 				}
+			}
+		}
+		
+		if(!friends.isEmpty()) {
+			for(User friend : friends) {
+				SimpleMailMessage reservationEmail = new SimpleMailMessage();
+				reservationEmail.setTo(friend.getEmail());
+				reservationEmail.setSubject("Pozivnica za projekciju");
+				reservationEmail.setText("");
+				reservationEmail.setFrom("noreply@isaproject.com");
+				JavaMailSender sender = new JavaMailSenderImpl();
+				sender.send(reservationEmail);
 			}
 		}
 		

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Friendship;
-import model.FriendshipWrapper;
+import dto.ReservationViewDto;
 import model.User;
 import model.UserWrapper;
 import service.FriendshipService;
@@ -76,6 +75,26 @@ public class UserController {
 			userService.updateUserdata(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@GetMapping("owner/reservations/{userId}")
+	public List<ReservationViewDto> getReservationsAsOwner(@PathVariable Integer userId){
+		try {
+			return userService.getReservationsAsOwner(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@GetMapping("guest/reservations/{userId}")
+	public List<ReservationViewDto> getReservationsAsGuest(@PathVariable Integer userId){
+		try {
+			return userService.getReservationsAsGuest(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
