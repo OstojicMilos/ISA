@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import dto.ReservationViewDto;
 import enums.Role;
+import model.DiscountTicket;
 import model.Reservation;
 import model.User;
 import repository.EventRepository;
@@ -140,6 +141,11 @@ public class UserService {
 				}
 			}
 			return result;
+		}
+
+		public List<DiscountTicket> getFastTickets(Integer userId) {
+			User user = userRepository.findOne(userId);
+			return user.getDiscountedTickets();
 		}
 				
 }

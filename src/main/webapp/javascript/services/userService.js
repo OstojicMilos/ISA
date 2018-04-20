@@ -31,6 +31,10 @@ angular.module("isaProject")
 			return $http.get("/owner/reservations/" + userId);
 		},
 
+		getFastReservations: function(userId) {
+
+		},
+
 		updateRating : function(resId, ratings) {
 			return $http.put("/reservations/" + resId + "/rating", ratings);
 		}

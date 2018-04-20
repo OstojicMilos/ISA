@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.ReservationViewDto;
+import model.DiscountTicket;
 import model.User;
 import model.UserWrapper;
 import service.FriendshipService;
@@ -96,6 +97,11 @@ public class UserController {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@GetMapping("fasttickets/{userId}")
+	public List<DiscountTicket> getFastTickets(@PathVariable Integer userId) {
+		return userService.getFastTickets(userId);
 	}
 	
 	
