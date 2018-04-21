@@ -231,7 +231,8 @@ angular.module("isaProject")
 				next.templateUrl === 'pages/establishment/cinemas.html' ||
 				next.templateUrl === 'pages/establishment/theatres.html' ||
 				next.templateUrl === 'pages/establishment/cinemaRepertoire.html' ||
-				next.templateUrl === 'pages/establishment/theatreRepertoire.html') {
+				next.templateUrl === 'pages/establishment/theatreRepertoire.html' ||
+				next.templateUrl === 'pages/activateAccount.html') {
 				
 			}
 			else {

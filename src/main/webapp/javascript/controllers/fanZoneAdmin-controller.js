@@ -6,7 +6,7 @@ angular.module("isaProject")
 
 }])
 
-.controller("FanZoneAdminNewPropController", ["$location", "FanZoneAdmin", function($location, FanZoneAdmin){
+.controller("FanZoneAdminNewPropController", ["$location", "FanZoneAdmin", "FanZone", function($location, FanZoneAdmin, FanZone){
 
     var self = this;
 
@@ -17,10 +17,15 @@ angular.module("isaProject")
     })
 
     self.createNewProp = function(newProp){
-        var prop = newProp;
-        prop.available = true;
-        FanZoneAdmin.newProp(prop).then(function(){
-            $location.path("/zvanicniRekviziti");
+    	var formData = new FormData();
+    	formData.append("file", document.getElementById('file').files[0]);
+        FanZone.uploadImage(formData).then(function(response) {  	
+	        var prop = newProp;
+	        prop.imagePath = response.data;
+	        prop.available = true;
+	        FanZoneAdmin.newProp(prop).then(function(){
+	            $location.path("/zvanicniRekviziti");
+	        });
         });
     }
 }])

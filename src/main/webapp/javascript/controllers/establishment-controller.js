@@ -34,7 +34,7 @@ angular.module("isaProject")
     })();
 }])
 
-.controller("EditEstablishmentController", ["EstablishmentService", "$routeParams", "$location", function(EstablishmentService, $routeParams, $location) {
+.controller("EditEstablishmentController", ["EstablishmentService", "$routeParams", "$location", "FanZone", function(EstablishmentService, $routeParams, $location, FanZone) {
     var self = this;
     (function() {
         EstablishmentService.getEstablishmentById($routeParams.id)
@@ -42,23 +42,36 @@ angular.module("isaProject")
                 self.establishment = response.data;
             })
     })();
-
+    
+    var formData = new FormData();
+	formData.append("file", document.getElementById('file').files[0]);
+    FanZone.uploadImage(formData).then(function(response){
+    	
+    	userAd.usedProp.imagePath = data.data;
+    	FanZone.createNewUserAd(userAd).then(function(){
+    		$location.path("/account/fanZona");
+  		});
+    });		
+    
     self.update = function() {
-        var updated = {};
-        updated.name = self.establishment.name;
-        updated.address = self.establishment.address;
-        updated.city = self.establishment.city;
+    	
+    	var updated = {};
+    	updated.name = self.establishment.name;
+    	updated.address = self.establishment.address;
+    	updated.city = self.establishment.city;
 
-        EstablishmentService.updateEstablishment($routeParams.id, updated)
-            .then(function(response) {
-                if (self.establishment.type === "CINEMA") {
-                    $location.path("/bioskopi");
-                }
-                else {
-                    $location.path("/pozorista");
-                }
-            })
+
+    	EstablishmentService.updateEstablishment($routeParams.id, updated)
+    	.then(function(response) {
+    		if (self.establishment.type === "CINEMA") {
+    			$location.path("/bioskopi");
+    		}
+    		else {
+    			$location.path("/pozorista");
+    		}
+    	})
     }
+    
 }])
 
 .controller("RepertoireController", ["repertoirePromise", "EstablishmentService", "$route", "$routeParams", "$rootScope", function(repertoirePromise, EstablishmentService, $route, $routeParams, $rootScope) {
@@ -107,7 +120,7 @@ angular.module("isaProject")
 
     self.fastReserve = function(ticketId, eventName) {
         var reservationDto = {};
-        //reservationDto.userId = $rootScope.user.id;
+        // reservationDto.userId = $rootScope.user.id;
         reservationDto.userId = 1;
         EstablishmentService.reserveDiscountedTicket(ticketId, reservationDto)
             .then(function(response) {
@@ -123,7 +136,7 @@ angular.module("isaProject")
     }
 }])
 
-.controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", "$route", function($location, $routeParams, EstablishmentService, $route) {
+.controller("EditRepertoireController", ["$location", "$routeParams", "EstablishmentService", "$route", "FanZone", function($location, $routeParams, EstablishmentService, $route, FanZone) {
     var self = this;
     self.alertMessage = "";
     self.success = "";
@@ -169,8 +182,16 @@ angular.module("isaProject")
     })()
 
     self.updateEvent = function() {
-        EstablishmentService.updateEvent($routeParams.establishmentId, $routeParams.eventId, self.event).then(function(response) {
-            self.alertMessage = "Ažuriranje uspešno";
+    	var formData = new FormData();
+    	formData.append("file", document.getElementById('file').files[0]);
+        FanZone.uploadImage(formData)
+        	.then(function(response) {
+        		self.event.picture = response.data;
+        		console.log(self.event);
+        		EstablishmentService.updateEvent($routeParams.establishmentId, $routeParams.eventId, self.event)
+        			.then(function(response) {
+        				self.alertMessage = "Ažuriranje uspešno";
+        			})
         })
     };
 

@@ -5,7 +5,7 @@ angular.module("isaProject")
 		getOfficialProps: function(){
 			return $http({
 				method: 'GET',
-				url: 'http://localhost:8080/fanZoneAdmin/officialProps',
+				url: 'http://localhost:8080/fanZone/newProps',
 				headers: {
 					'Authorization': $rootScope.user.email+":"+$rootScope.user.password
 				},

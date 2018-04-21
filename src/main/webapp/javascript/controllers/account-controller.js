@@ -1,13 +1,13 @@
 angular.module("isaProject")
-.controller('AccountController', ['User', '$scope', '$rootScope', 'EstablishmentService', function(User, $scope, $rootScope, EstablishmentService){
+.controller('AccountController', ['User', '$scope', '$rootScope', 'EstablishmentService', '$location', function(User, $scope, $rootScope, EstablishmentService, $location){
 	
 	/*
 	$scope.logOut = function() {
 		$rootScope.loggedIn = false;
 		$rootScope.user = {};
 		$location.path("/");
-	}*/
-	
+	}
+	*/
 	(function() {
 		EstablishmentService.getAllCinemas()
 			.then(function(response) {

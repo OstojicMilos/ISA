@@ -36,7 +36,7 @@
 			  	<li ng-if="!loggedIn"><a href="#!registracija">Registracija</a></li>
 				<li ng-if="!loggedIn"><a href="#!logovanje">Logovanje</a></li>
 			</ul>
-			<form ng-controller="LoginController" class="navbar-form navbar-right" ng-if="loggedIn">
+			<form ng-controller="AccountController" class="navbar-form navbar-right" ng-if="loggedIn">
 				<label style="color:darkgrey; padding-right: 10px">Prijavljen kao: <b>{{ user.email }}</b></label>
 				<button class ="btn" ng-click="logOut()">Izloguj se</button>
 			</form>

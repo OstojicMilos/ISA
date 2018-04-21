@@ -83,6 +83,7 @@ public class EventService {
 		event.setGenre(updatedEvent.getGenre());
 		event.setDescription(updatedEvent.getDescription());
 		event.setDuration(updatedEvent.getDuration());
+		event.setPicture(updatedEvent.getPicture());
 		return eventRepository.save(event);
 	}
 	
